@@ -1,2 +1,2 @@
-# Javascript100-
+# Jeju_Javascript_100
 제코배 javascript 100제
