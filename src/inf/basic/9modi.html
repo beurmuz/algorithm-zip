@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>출력결과</title>
+    </head>
+    <body>
+        <p>
+            #으로 변형할 문자를 입력받는 함수의 형태로 변형
+        </p>
+        <script>
+            function solution(char,s){
+                let answer=s;
+                for(let i in answer) {
+                    if(answer[i] ===char)
+                    answer = answer.replace(char, "#");
+                }
+                return answer;
+            }
+            let str="BANANA";
+            console.log(solution("N",str));
+        </script>
+    </body>
+</html>
+

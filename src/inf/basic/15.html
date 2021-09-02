@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(s){  
+                let answer = '';
+                let pickNum=[];
+                if(s.length%2===0) {
+                    pickNum.push(Math.floor(s.length/2)-1);
+                    pickNum.push(Math.floor(s.length/2));
+                    answer += (s[pickNum[0]] + s[pickNum[1]]);
+                } else {
+                    pickNum.push(Math.floor(s.length/2));
+                    answer += (s[pickNum[0]]);
+                }
+                return answer;
+            }
+            console.log(solution("stsdffeudy"));
+        </script>
+    </body>
+</html>
