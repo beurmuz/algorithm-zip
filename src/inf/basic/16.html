@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(s){  
+                let answer="";
+                const set = new Set(s);
+                const temp = [...set];
+                for(let i in temp) {
+                    answer += temp[i];
+                }
+                return answer;
+            }
+            console.log(solution("qldkwswdwww"));
+        </script>
+    </body>
+</html>
