@@ -151,7 +151,7 @@ console.log(answer); // 75
 ```js
 let str = "Study";
 str = str.substring(2, 5);
-console.log(str); // 2,3,4 가 출력됨
+console.log(str); // (인덱스 2,3,4의 값) u, d, y가 출력됨
 ```
 
 ### `substr(start, length)`
@@ -161,7 +161,7 @@ console.log(str); // 2,3,4 가 출력됨
 ```js
 let str = "Study";
 str = str.substr(2, 2);
-console.log(str); // 2,3이 출력됨
+console.log(str); // (인덱스 2,3의 값) u,d가 출력됨
 ```
 
 ---
