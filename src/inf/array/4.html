@@ -9,11 +9,13 @@
                 let answer = 0;    
                 let cnt = 0;
                 for(let i = 0; i < arr.length; i++) {
-                    if(arr[i]===1) {
-                        cnt += 1;
+                    if(arr[i] === 1) {
+                        cnt++;
                         answer += cnt;
-                    }else {
+                        // console.log("정답_cnt: "+ cnt + ", answer: " + answer);
+                    } else {
                         cnt = 0;
+                        // console.log("오답: "+ cnt + ", answer: " + answer);
                     }
                 }
                 return answer;
