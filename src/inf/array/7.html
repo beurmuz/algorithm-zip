@@ -8,6 +8,25 @@
             function solution(arr){  
                 let answer=0;
                 let n=arr.length;
+                let i,j = 0;
+
+                // 지도 정보 i,j
+                for(i = 0; i < n; i++) { 
+                     for(j = 0; j < n; j++) {
+                        console.log(i,j, arr[i][j]);
+                     }
+                }
+
+                let x,y = 0;
+                let newTool = [];
+                // 격자판
+                for(x = 0; x < n+2; x++) {
+                    for(y = 0; y <n+2; y++) {
+                        newTool += newTool[x][y].push(0);
+                        console.log(x, y, newTool[x][y]);
+                    }
+                }
+
                 return answer;
             }
 
