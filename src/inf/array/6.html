@@ -32,16 +32,23 @@
                 console.log("행 최댓값: ", rowMax);
                 console.log("열 최댓값: ", columnMax);
 
-                for(let i = 0; i < arr.length; i++) {
-                    for(let j = 4; j >= 0; j--) {
-                        if(i===j) { // 오른쪽 아래방향 대각선
-                            diagonalSum1 += arr[i][j];
-                        }
-                        if(i+j === 4) { // 왼쪽 아래방향 대각선
-                            diagonalSum2 += arr[i][j];
-                            // console.log("i는 "+ i + " j는 " + j);
-                        }
-                    }
+                // 대각선 구하기 - 내가 구현한 방법
+                // for(let i = 0; i < arr.length; i++) {
+                //     for(let j = 4; j >= 0; j--) {
+                //         if(i===j) { // 오른쪽 아래방향 대각선
+                //             diagonalSum1 += arr[i][j];
+                //         }
+                //         if(i+j === 4) { // 왼쪽 아래방향 대각선
+                //             diagonalSum2 += arr[i][j];
+                //             // console.log("i는 "+ i + " j는 " + j);
+                //         }
+                //     }
+                // }
+                
+                // 왼쪽 아래방향 대각선을 구하는 또 다른 방법
+                for(let i = 0; i<arr.length; i++) {
+                    diagonalSum1 += arr[i][i];
+                    diagonalSum2 += arr[i][arr.length-i-1];
                 }
                 console.log("왼쪽 대각선 합: ",diagonalSum1);
                 console.log("오른쪽 대각선 합: ", diagonalSum2);

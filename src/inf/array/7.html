@@ -8,25 +8,25 @@
             function solution(arr){  
                 let answer=0;
                 let n=arr.length;
-                let i,j = 0;
-
+                let dx = [-1, 0, 1, 0]; // 시계방향
+                let dy = [0, 1, 0, -1];
                 // 지도 정보 i,j
-                for(i = 0; i < n; i++) { 
-                     for(j = 0; j < n; j++) {
-                        console.log(i,j, arr[i][j]);
+                for(let i = 0; i < n; i++) { 
+                     for(let j = 0; j < n; j++) {
+                        let flag = 1;
+                         for(let k = 0; k < 4; k++) {
+                             let nx = i+dx[k]; // 가려는 방향의 행 좌표
+                             let ny = j+dy[k]; // 가려는 방향의 열 좌표 
+                             if(nx>=0 && nx<n && ny>=0 && ny<n && arr[nx][ny] >= arr[i][j]) { // arr[i][j]가 봉우리인지 확인
+                                flag = 0; // 봉우리가 아니면 반복문을 빠져나감
+                                break;
+                             } 
+                         }
+                         if(flag) { // flag가 참이다(1이다)
+                            answer++; // 참인게 하나도 없었다는 얘기이니 해당 지점은 봉우리임
+                         }
                      }
                 }
-
-                let x,y = 0;
-                let newTool = [];
-                // 격자판
-                for(x = 0; x < n+2; x++) {
-                    for(y = 0; y <n+2; y++) {
-                        newTool += newTool[x][y].push(0);
-                        console.log(x, y, newTool[x][y]);
-                    }
-                }
-
                 return answer;
             }
 
