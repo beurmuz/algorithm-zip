@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n, arr){
+                let answer, max=Number.MIN_SAFE_INTEGER;
+                let partition = ""; // 각 수를 더할 합
+                let sum = 0;
+                let sumArray = []; // 각 더한 값을 푸시할 배열
+                let listArr = [];
+                for(let i = 0; i < arr.length; i++) {
+                    partition += String(arr[i]);
+                    // console.log(partition);
+                    for(let j of partition) {
+                        sum += parseInt(j);
+                        if(max < sum) max = sum;
+                    }
+                    sumArray.push(sum);
+                    partition = "";
+                    sum = 0;
+                }
+                // console.log(sumArray);
+                // console.log(max);
+                for(let i = 0; i <sumArray.length; i++) {
+                    if(max===sumArray[i]) {
+                        listArr.push(arr[i]);
+                    }
+                }
+                answer = Math.max(...listArr);
+                return answer;
+            }
+            
+            let arr=[128, 460, 603, 40, 521, 137, 123];
+            console.log(solution(7, arr));
+        </script>
+    </body>
