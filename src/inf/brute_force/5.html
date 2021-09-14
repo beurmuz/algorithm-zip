@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n, k, card){
+                let answer;
+                let selectCard = [];
+                for(let i = 0; i < card.length; i++) {
+                    let random = Math.floor(0<Math.random()*10<card.length);
+                    let value = card[random];
+                    card.splice(random,1);
+                    selectCard.push(value);
+                    // card.spli
+                }
+                console.log(...selectCard);
+                return answer;
+            }
+            
+            let arr=[13, 15, 34, 23, 45, 65, 33, 11, 26, 42];
+            console.log(solution(10, 3, arr));
+        </script>
+    </body>
+</html>

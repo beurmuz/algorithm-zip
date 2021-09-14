@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(m, product){
+                let answer=0;
+                let n=product.length;
+                let maxPrice = 0;
+                let maxPriceIdx = 0;
+                // 최대비용 찾기 
+                for(let i = 0; i < n; i++) {
+                    if(product[i][0]>maxPrice) {
+                        maxPrice = product[i][0];
+                        maxPriceIdx = i;
+                        
+                    }
+                }
+                // 큰 비용에 *0.5하기 (할인 적용)
+                console.log(product[4]);
+                product[maxPriceIdx][0] = (maxPrice*0.5);
+                console.log(product[4]);
+
+                // 값 찾기 
+                // return answer;
+            }
+            
+            let arr=[[6, 6], [2, 2], [4, 3], [4, 5], [10, 3]];
+            console.log(solution(28, arr));
+        </script>
+    </body>
+</html>
