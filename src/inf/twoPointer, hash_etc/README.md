@@ -1,8 +1,8 @@
 # List
 (정답 여부, 풀이영상 시청 여부)
-1. 두 배열 합치기_Two pointers (,)
-2. 공통원소 구하기_Two pointers (,)
-3. 연속 부분 수열1_Two pointers (,)
+1. 두 배열 합치기_Two pointers (O,)
+2. 공통원소 구하기_Two pointers (O,)
+3. 연속 부분 수열1_Two pointers (X,)
 4. 연속 부분 수열2_Two pointers (,)
 5. 최대 매출_Sliding Window (,)
 6. 학급 회장_Hash Map (,)
