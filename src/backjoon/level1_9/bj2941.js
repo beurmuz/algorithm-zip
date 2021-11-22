@@ -2,50 +2,22 @@
 
 let input = require('fs').readFileSync('./2941.txt').toString();
 
-// console.log(input);
-let count = 0;
-let changeArr = ['c=', 'c-', 'dz=', 'd-', 'lj', 'nj', 's=','z='];
-for(let i = 0; i < changeArr.length; i++) {
-    if(input.indexOf(changeArr[i])) {
-        input = input.replace(changeArr[i],'');
-        count++;
-        
-        console.log('값이 있는게 확인되었어요.');
-    }
-    console.log(`한바퀴 돈 후 count: ${count}, input: ${input}`);
-}
-// if(input.indexOf('c=')) {
-//     input = input.replace('c=', '');
-//     count++;
-// }
-// if(input.indexOf('c-')) {
-//     input = input.replace('c-', '');
-//     count++;
-// }
-// if(input.indexOf('dz=')) {
-//     input = input.replace('dz=', '');
-//     count++;
-// }
-// if(input.indexOf('d-')) {
-//     input = input.replace('d-', '');
-//     count++;
-// }
-// if(input.indexOf('lj')) {
-//     input = input.replace('lj', '');
-//     count++;
-// }
-// if(input.indexOf('nj')) {
-//     input = input.replace('nj', '');
-//     count++;
-// }
-// if(input.indexOf('s=')) {
-//     input = input.replace('s=', '');
-//     count++;
-// }
-// if(input.indexOf('z=')) {
-//     input = input.replace('z=', '');
-//     count++;
-// }
+// 방법 1
+// var regex = /c\=|c\-|dz\=|d\-|lj|nj|s\=|z\=/g;
+// let result = input.replace(regex, ' ');
+// console.log(result.length);
 
-// console.log(count);
-// console.log(input);
+// 방법 2
+function solution(input) {
+    const croatian = ['c=', 'c-', 'dz=', 'd-', 'lj', 'nj', 's=', 'z='];
+    let answer = 0;
+    for(let i = 0; i < croatian.length; i++) {
+        while(input !== input.replace(croatian[i], '')) {
+            answer += 1;
+            input = input.replace(croatian[i], ' ');
+        }
+    }
+    console.log(answer+input.split(' ').join('').length);
+}
+
+solution(input);
