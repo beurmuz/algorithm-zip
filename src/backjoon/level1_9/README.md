@@ -29,3 +29,5 @@
 25. `1316`, 그룹 단어 체커 / 문자열 / X / O / (https://velog.io/@exploit017/%EB%B0%B1%EC%A4%80Node.js-1316%EB%B2%88-%EA%B7%B8%EB%A3%B9-%EB%8B%A8%EC%96%B4-%EC%B2%B4%EC%BB%A4)
 26. `1712`, 손익분기점 / 문자열 / O / O / (https://gurtn.tistory.com/47)
 27. `2292`, 벌집 / 문자열 / X / O / (https://gurtn.tistory.com/61)
+28. `2869`, 달팽이는 올라가고 싶다 / 문자열 / X / O
+29. 
