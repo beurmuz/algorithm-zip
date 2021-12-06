@@ -50,7 +50,8 @@
 
 ### 1. `...`전개 연산자 이용하기
 
-    ```js
+```js
+    
     // Math.min()에 배열 객체를 넘기는 경우
     let arr = [5,1,2,6,7,3];
     console.log(Math.min(arr)); // NaN 출력
@@ -59,7 +60,8 @@
     // ...arr는 (arr[0], arr[1], arr[2], ..., arr[5]) 이런 식
      console.log(Math.min(...arr)); // 1 출력
      console.log(Math.max(...arr)); // 7 출력
-    ```
+     
+```
 
 ### 2. `Math.min.apply(null, arr)` 이용하기
 - 첫번째 인자는 객체를 넘겨야 함 (null)
