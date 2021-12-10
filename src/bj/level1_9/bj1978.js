@@ -1,8 +1,6 @@
 let input = require('fs').readFileSync('./1978.txt').toString().split('\r\n');
-
 const N = Number(input.shift());
 
-// 소수 판별 함수
 function isPrime(n) {
   if (n === 2 || n === 3) {
     return true;
