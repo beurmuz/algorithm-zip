@@ -1,11 +1,6 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>출력결과</title>
-    </head>
-    <body>
-        <script>
-            // 방법 1
+'use strict';
+
+// 방법 1
             // function solution(str){
             //     let answer="";
             //     for(let x of str) {
@@ -30,6 +25,3 @@
             
             let str="g0en2T0s8eSoft";
             console.log(solution(str));
-        </script>
-    </body>
-</html>
