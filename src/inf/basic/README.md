@@ -1,4 +1,4 @@
-# List
+# basic
 > [JavaScript Basic](../../../theory/basic.md)
 
 |번호|정답여부|풀이|개념|재응시|
