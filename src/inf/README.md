@@ -1,14 +1,15 @@
-# List
-|단원|내용|
-|:---|:---|
-|1|기본문제|
-|2|배열|
-|3|문자열|
-|4|완전탐색(brute-force)|
-|5|two-pointer, hash etc|
-|6|stack, queue|
-|7|sort, greedy, 이분검색|
-|8|재귀함수, DFS|
-|9|DFS, BFS|
-|10|동적계획법|
+# 리스트
+|단원|내용|링크|이론|
+|:---|:---|:---|:---|
+|0|몸풀기|[문제](./running/)|
+|1|기본문제|[문제](./basic/)|[링크](../../theory/)
+|2|배열|[문제](./array/)|[링크](../../theory/)
+|3|문자열|[문제](./string/)|[링크](../../theory/)
+|4|완전탐색(brute-force)|[문제](./brute_force/)|[링크](../../theory/)
+|5|two-pointer, hash etc|[문제](./twoPointer%2C%20hash_etc/)|[링크](../../theory/)
+|6|stack, queue|[문제](./stack%2Cqueue/)|[링크](../../theory/)
+|7|sort, greedy, 이분검색|[문제](./sort%2Cgreedy/)|[링크](../../theory/)
+|8|재귀함수, DFS|[문제](./recursive%2Cdfs/)|[링크](../../theory/)
+|9|DFS, BFS|[문제](./dfs%2Cbfs/)|[링크](../../theory/)
+|10|동적계획법|[문제](./dynamic_programing/)|[링크](../../theory/)
 |
