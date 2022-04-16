@@ -1,11 +1,6 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>출력결과</title>
-    </head>
-    <body>
-        <script>
-            console.time("소요시간");
+'use strict';
+
+console.time("소요시간");
             function solution(test){
                 let answer=0, tmp = [];
                 m=test.length;
@@ -34,6 +29,3 @@
             let arr=[[3, 4, 1, 2], [4, 3, 2, 1], [3, 1, 4, 2]];
             console.log(solution(arr));
             console.timeEnd("소요시간");
-        </script>
-    </body>
-</html>
