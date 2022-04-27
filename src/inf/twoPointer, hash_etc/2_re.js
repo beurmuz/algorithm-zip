@@ -2,6 +2,12 @@
 
 function solution(arr1, arr2){
     let answer = [];
+    let allArr = arr1.concat(arr2);
+    allArr.sort((a, b) => a-b);
+    console.log(allArr);
+    for(let i = 0; i < allArr.length-1; i++) {
+        (allArr[i]===allArr[i+1])&&(answer.push(allArr[i]));
+    }
     return answer;
 }
 
