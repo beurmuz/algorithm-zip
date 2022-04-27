@@ -11,3 +11,8 @@ function solution(arr1, arr2){
 let a=[1, 3, 5];
 let b=[2, 3, 6, 7, 9];
 console.log(solution(a, b));
+
+/*
+    1. 배열 합치기 (concat)
+    2. 오름차순 정렬하기 (sort)
+*/

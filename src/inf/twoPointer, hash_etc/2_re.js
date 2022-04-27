@@ -14,3 +14,10 @@ function solution(arr1, arr2){
 let a=[1, 3, 9, 5, 2];
 let b=[3, 2, 5, 7, 8];
 console.log(solution(a, b));
+
+/*
+    1. a,b 합치기
+    2. 합친 배열의 공통원소 찾기 
+     1) index와 index+1이 같은 경우 
+     2) answer에 push(index)
+*/ 
