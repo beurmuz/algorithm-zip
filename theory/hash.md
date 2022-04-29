@@ -58,3 +58,6 @@ hashObject.get('key')+1;
 hashObject.has('key'); // boolean형태로 리턴됨
 ```
 
+---
+# 아나그램(Anagram)
+- 두 문자열이 알파벳의 나열 순서는 다르지만, 그 구성이 일치하는 경우 두 단어를 아나그램이라고 부름
