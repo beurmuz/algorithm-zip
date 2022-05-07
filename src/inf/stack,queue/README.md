@@ -1,3 +1,6 @@
+# 스택, 큐
+> [JavaScript stack, queue](../../../theory/stack%2Cqueue.md)
+
 # List
 |번호|정답여부|풀이|재응시|
 |:---:|:---:|:---:|:---:|
