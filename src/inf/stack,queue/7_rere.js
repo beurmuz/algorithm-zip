@@ -14,9 +14,6 @@ function solution(needSubject, designSubject) {
         return "NO";
     }
 
-    
-
-
     return answer;
 }
 
