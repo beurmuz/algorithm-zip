@@ -1,12 +1,12 @@
 'use strict';
 
 function solution(arr){
-    let answer=arr;
-    answer.sort((a,b) => {
-        if(a[0]===b[0]) {
-            return a[1]-b[1]; //y값에 대해 오름차순 정렬
-        } else {
-            return a[0]-b[0];
+    let answer = arr;
+    arr.sort((a,b) => {
+        if(a[0] === b[0]) { // x가 같은 경우 y에 의해 정렬
+            return a[1] - b[1];
+        } else { // x에 의해 정렬
+            return a[0] - b[0];
         }
     });
     return answer;
