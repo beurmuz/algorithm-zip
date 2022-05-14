@@ -4,6 +4,10 @@
 # 그리디
 > [JavaScript greedy](../../../theory/greedy.md)
 
+# 이분검색 (이진탐색)
+> [JavaScript Binary Search](../../../theory/binarySearch.md)
+
+
 # List
 |번호|정답여부|재응시|
 |:---:|:---:|:---:|
@@ -15,7 +19,7 @@
 |6|O|O|
 |7|△|O|
 |8|△|O|
-|9|X|O|
-|10|X|예정|
+|9|△|O|
+|10|△|한번 더 풀기|
 |11|X|예정|
 |12|X|예정|
