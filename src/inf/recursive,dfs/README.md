@@ -1,6 +1,9 @@
 # 정렬
 > [JavaScript Sort](../../../theory/recursive.md)
 
+# 이진트리
+> [JavaScript binary tree](../../../theory/binaryTree.md)
+
 # List
 |번호|정답여부|재응시|
 |:---:|:---:|:---:|
