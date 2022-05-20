@@ -2,7 +2,7 @@
 > [JavaScript Sort](../../../theory/recursive.md)
 
 # 이진트리
-> [JavaScript binary tree](../../../theory/binaryTree.md)
+> [JavaScript DFS](../../../theory/dfs.md)
 
 # List
 |번호|정답여부|재응시|
@@ -10,7 +10,7 @@
 |1|△|O|
 |2|O|O|
 |3|△|O|
-|4|||
+|4|X|다시이이이이|
 |5|||
 |6|||
 |7|||
