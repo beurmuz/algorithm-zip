@@ -3,7 +3,6 @@
 function solution(limitWeigth, arr) {
     let answer = Number.MIN_SAFE_INTEGER;
     let n = arr.length;
-    let flag = 0;
     function dfs(L, sum) {
         if(sum > limitWeigth) return;
         if(L === n) {
