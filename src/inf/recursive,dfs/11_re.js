@@ -15,7 +15,7 @@ function solution(n) {
 console.log(solution(5));
 
 /*
-    팩토리얼 문제
+    팩토리얼 문제!
     - dfs로 풀면된다 (재귀니깐)
     - n===1일때 그냥 1을 return함
     - 그게 아니면 n*dfs(n-1) return하기
