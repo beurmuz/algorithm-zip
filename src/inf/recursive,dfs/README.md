@@ -1,7 +1,7 @@
 # 정렬
 > [JavaScript Sort](../../../theory/recursive.md)
 
-# 이진트리
+# DFS
 > [JavaScript DFS](../../../theory/dfs.md)
 
 # List
@@ -12,8 +12,8 @@
 |3|△|O|
 |4|X|O|
 |5|X|O|
-|6|△|다시|
-|7|△|다시|
+|6|△|O|
+|7|△|O|
 |8|||
 |9|||
 |10|||
