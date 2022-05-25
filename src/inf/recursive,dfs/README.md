@@ -4,6 +4,9 @@
 # DFS
 > [JavaScript DFS](../../../theory/dfs.md)
 
+# Memoization
+> [JavaScript Memoization](../../../theory/memoization.md)
+
 # List
 |번호|정답여부|재응시|
 |:---:|:---:|:---:|
