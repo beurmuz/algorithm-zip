@@ -12,7 +12,7 @@ function solution(n, board) {
             let nx = x + dx[k]
             let ny = y + dy[k];
             if(nx >= 0 && nx < n && ny >= 0 && ny < n && board[nx][ny] === 1) {
-                // console.log(nx, ny);
+                console.log(nx, ny);
                 dfs(nx, ny);
             }
         }
@@ -24,6 +24,7 @@ function solution(n, board) {
                 answer++; // 처음 1을 발견했으니 answer++. answer는 dfs 호출 횟수와 같음
                 // console.log(i, j); // 넘어가는 지점이 출력됨
                 dfs(i, j);
+                console.log('dfs end');
             }
         }
     }
