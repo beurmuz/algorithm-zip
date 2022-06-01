@@ -1,4 +1,5 @@
 # BFS (넓이우선탐색)
+<img src='./img/bfs_1.JPG' width='400px' alt='bfs'> <br>
 - 레벨별로 탐색
 - 특정 노드와 연결된 노드들을 큐에 추가하고, 방문하면 pop을 함
 - BFS는 DFS와 달리 상태트리에서 많이 쓰임
