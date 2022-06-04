@@ -7,3 +7,4 @@
 |[정수 내림차순으로 배치하기](./sortNumber.js)|22.06.02|O|X|
 |[자릿수 더하기](./positionSum.js)|22.06.03|O|X|
 |[평균구하기](./average.js)|22.06.04|O|X|
+|[자연수 뒤집어 배열로 만들기](./reverseNumber.js)|22.06.04|O|X|
