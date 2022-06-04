@@ -1,3 +1,4 @@
+// 내가 푼 풀이
 process.stdin.setEncoding('utf8');
 process.stdin.on('data', data => {
     const n = data.split(' ');
@@ -9,4 +10,16 @@ process.stdin.on('data', data => {
         }
         console.log(answer);
     }
+});
+
+// 다른사람 풀이 (repeat 함수이용)
+process.stdin.setEncoding('utf8');
+process.stdin.on('data', data => {
+    const n = data.split(" ");
+    const a = Number(n[0]), b = Number(n[1]);
+    const row = '*'.repeat(a)
+    for(let i =0; i < b; i++){
+        console.log(row)
+    }
+
 });
