@@ -8,3 +8,4 @@
 |[자릿수 더하기](./positionSum.js)|22.06.03|O|X|
 |[평균구하기](./average.js)|22.06.04|O|X|
 |[자연수 뒤집어 배열로 만들기](./reverseNumber.js)|22.06.04|O|X|
+|[짝수와 홀수](./oddOrEven.js)|22.06.04|O|X|
