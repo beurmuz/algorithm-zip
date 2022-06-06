@@ -1,4 +1,5 @@
 'use strict';
+
 function solution(m, coin) {
     let answer = 0;
     let dy = Array.from({ length: m+1 }, () => 1000);
