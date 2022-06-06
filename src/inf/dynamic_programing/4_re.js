@@ -16,4 +16,4 @@ function solution(m, coin) {
 }
 
 let coinList = [1, 2, 5];
-console.log(solution(15, arr));
+console.log(solution(15, coinList));

@@ -1,4 +1,5 @@
 'use strict';
+
 function solution(m, arr) {
     let answer = 0;
     let dy = Array.from({ length: m+1 }, ()=> 0);
@@ -7,7 +8,7 @@ function solution(m, arr) {
         let ps = arr[i][0]; // 점수
         let pt = arr[i][1]; // 시간
 
-        for(let j = m; j > pt; j--) {
+        for(let j = m; j >= pt; j--) {
             dy[j] = Math.max(dy[j], dy[j-pt]+ps);
         }
     }
