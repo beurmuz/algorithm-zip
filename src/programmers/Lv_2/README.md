@@ -6,3 +6,4 @@
 |3|[최댓값과 최솟값](./maxAndMin.js)|22.06.06|O|X|
 |4|[124나라](./oneTwoFour.js)|22.06.06|X|O|
 |5|[최솟값 만들기](./accMin.js)|22.06.08|O|X|
+|6|[숫자의 표현](./expressionNumber.js)|22.06.11|O|X|
