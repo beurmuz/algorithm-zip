@@ -7,3 +7,4 @@
 |4|[124나라](./oneTwoFour.js)|22.06.06|X|O|
 |5|[최솟값 만들기](./accMin.js)|22.06.08|O|X|
 |6|[숫자의 표현](./expressionNumber.js)|22.06.11|O|X|
+|7|[짝지어 제거하기](./mateRemove.js)|22.06.13|O|X|
