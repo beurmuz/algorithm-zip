@@ -22,7 +22,7 @@ function solution(id_list, report, k) {
         if(x.length >= k) mailList.push(...x);
     });
     
-    // 빈 객체 생성
+    // 빈 객체 생성 및 0으로 초기화
     let obj = {};
     for (let i = 0; i < id_list.length; i++) {
         obj[id_list[i]] = 0;
@@ -37,5 +37,24 @@ function solution(id_list, report, k) {
     for(x in obj) {
         answer.push(parseInt(obj[x]));
     }
+    return answer;
+}
+
+
+
+// 다른 풀이 - Set과 Map 이용하기
+function solution(id_list, report, k) {
+    let reports = [...new Set(report)].map(a=>{return a.split(' ')});
+    let counts = new Map();
+    for (const bad of reports){
+        counts.set(bad[1],counts.get(bad[1])+1||1)
+    }
+    let good = new Map();
+    for(const report of reports){
+        if(counts.get(report[1])>=k){
+            good.set(report[0],good.get(report[0])+1||1)
+        }
+    }
+    let answer = id_list.map(a=>good.get(a)||0)
     return answer;
 }
