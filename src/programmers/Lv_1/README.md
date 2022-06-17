@@ -15,7 +15,7 @@
 |12|[수박수박수박수박수박수](./watermelon.js)|22.06.06|O|X|
 |13|[내적](./dotProduct.js)|22.06.07|O|X|
 |14|[없는 숫자 더하기](./accNoNumbers.js)|22.06.07|△|다시 풀기|
-|15|[크레인 인형뽑기 게임](./pickdolls.js)|22.06.08|△|다시 풀기|
+|15|[카카오_크레인 인형뽑기 게임](./pickdolls.js)|22.06.08|△|다시 풀기|
 |16|[음양 더하기](./accPlusMinus.js)|22.06.08|O|X|
 |17|[가운데 글자 가져오기](./bringMid.js)|22.06.08|O|X|
 |18|[k번째 수](./kNumber.js)|22.06.09|O|X|
@@ -28,3 +28,10 @@
 |25|[부족한 금액 계산하기](./shortMoney.js)|22.06.16|O|X|
 |26|[서울에서 김서방 찾기](./findKim.js)|22.06.17|O|X|
 |27|[문자열 내 p와 y의 개수](./pyInTheString.js)|22.06.17|O|X|
+|28|[카카오_신고 결과 받기](./reportingMail.js)|22.06.17|O|O|
+
+
+---
+> [JavaScript Object](../../../theory/object.md)
+
+> [JavaScript Array](../../../theory/array.md)
