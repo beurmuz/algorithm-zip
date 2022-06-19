@@ -31,6 +31,7 @@
 |28|[카카오_신고 결과 받기](./reportingMail.js)|22.06.17|O|O|
 |29|[로또의 최고 순위와 최저 순위](./lottoMinMax.js)|22.06.18|O|X|
 |30|[소수찾기](./findPrimeNumber.js)|22.06.18|X|O|
+|31|[모의고사](./mockTest.js)|22.06.19|O|O|
 
 
 ---
