@@ -33,6 +33,7 @@
 |30|[소수찾기](./findPrimeNumber.js)|22.06.18|X|O|
 |31|[모의고사](./mockTest.js)|22.06.19|O|O|
 |32|[나머지가 1이 되는 숫자 찾기](./findRestValue.js)|22.06.19|O|X|
+|33|[행렬의 덧셈](./addMatrix.js)|22.06.19|O|X|
 
 
 ---
