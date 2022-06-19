@@ -32,6 +32,7 @@
 |29|[로또의 최고 순위와 최저 순위](./lottoMinMax.js)|22.06.18|O|X|
 |30|[소수찾기](./findPrimeNumber.js)|22.06.18|X|O|
 |31|[모의고사](./mockTest.js)|22.06.19|O|O|
+|32|[나머지가 1이 되는 숫자 찾기](./findRestValue.js)|22.06.19|O|X|
 
 
 ---
