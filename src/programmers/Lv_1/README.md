@@ -35,7 +35,7 @@
 |32|[나머지가 1이 되는 숫자 찾기](./findRestValue.js)|22.06.19|O|X|
 |33|[행렬의 덧셈](./addMatrix.js)|22.06.19|O|X|
 |34|[신규 아이디 추천](./recommandNewId.js)|22.06.20|X|O|
-
+|35|[약수의 개수와 덧셈](./betweenNumbers.js)|22.06.20|O|X|
 
 ---
 > [JavaScript Object](../../../theory/object.md)
