@@ -36,6 +36,7 @@
 |33|[행렬의 덧셈](./addMatrix.js)|22.06.19|O|X|
 |34|[신규 아이디 추천](./recommandNewId.js)|22.06.20|X|O|
 |35|[약수의 개수와 덧셈](./betweenNumbers.js)|22.06.20|O|X|
+|36|[숫자 문자열과 영단어](./numberAndWord.js)|22.06.21|O|X|
 
 ---
 > [JavaScript Object](../../../theory/object.md)
