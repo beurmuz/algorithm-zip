@@ -39,6 +39,7 @@
 |36|[숫자 문자열과 영단어](./numberAndWord.js)|22.06.21|O|X|
 |37|[예산](./budget.js)|22.06.21|O|O|
 |38|[체육복](./workoutClothes.js)|22.06.22|X|O|
+|39|[이상한 문자 만들기](./strangeString.js)|22.06.22|X|O|
 
 ---
 > [JavaScript Object](../../../theory/object.md)
