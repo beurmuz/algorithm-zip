@@ -8,11 +8,11 @@
 */
 function solution(d, budget) {
     let answer = 0;
-    d.sort((a, b) => a-b);
-    for(let department of d) {
-        if(budget < department) break;
-        answer += 1;
-        budget -= department;
+    d.sort((a,b) => a-b);
+    for(let part of d) {
+        if(part > budget) break;
+        budget -= part;
+        answer++;
     }
     return answer;
 }

@@ -1,6 +1,6 @@
 // 내가 푼 코드
 function solution(s) {
-    let answer = s.split(' ').map((word) => word.split('').map((letter, index) => index % 2 === 0 ? word[index].toUpperCase() : word[index].toLowerCase()).join('')).join(' ');
+    let answer = s.split(' ').map((word) => word.split('').map((letter, index) => index%2 === 0 ? word[index].toUpperCase() : word[index].toLowerCase()).join('')).join(' ');
     return answer;
 }
 
