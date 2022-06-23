@@ -42,6 +42,7 @@
 |39|[이상한 문자 만들기](./strangeString.js)|22.06.22|X|X|
 |40|[약수의 합](./sumDivisor.js)|22.06.22|O|X|
 |41|[같은 숫자는 싫어](./hateSameNumber.js)|22.06.23|O|O|
+|42|[나누어 떨어지는 숫자 배열](./fitNumberArray.js)|22.06.24|O|X|
 
 ---
 > [JavaScript Object](../../../theory/object.md)
