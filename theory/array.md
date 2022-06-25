@@ -28,4 +28,14 @@ const arr2 = arr.reduce(function (acc, cur) {
 console.log(arr2);
 ```
 
-ch. https://codechacha.com/ko/javascript-flatten-array/
+cf. https://codechacha.com/ko/javascript-flatten-array/
+
+
+## `some()`으로 배열 내 요소들이 조건을 충족시키는지 확인하기
+- some은 배열 안의 어떤 요소라도 주어진 판별함수를 통과하는지를 테스트함
+- return 값은 true 또는 false
+- cf. [mdn some](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
+
+
+## `array.findIndex()`
+- cf. [findIndex?](https://bbaktaeho-95.tistory.com/40)
