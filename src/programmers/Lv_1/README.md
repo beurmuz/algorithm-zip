@@ -47,6 +47,7 @@
 |44|[소수 만들기](./makePrimeNumber.js)|22.06.25|X|다시 풀었다|
 |45|[시저 암호](./caesarPassword.js)|22.06.25|X|다시 풀었다|
 |46|[완주하지 못한 선수](./notCompletion.js)|22.06.26|O|X|
+|47|[두 개 뽑아서 더하기](./popTwoSum.js)|22.06.26|O|배열의 중복 제거방법 다시보기!|
 
 ---
 > [JavaScript Object](../../../theory/object.md)
