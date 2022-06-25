@@ -46,6 +46,7 @@
 |43|[키패드 누르기](./pushKeypad.js)|22.06.24|X|다시풀었다|
 |44|[소수 만들기](./makePrimeNumber.js)|22.06.25|X|다시 풀었다|
 |45|[시저 암호](./caesarPassword.js)|22.06.25|X|다시 풀었다|
+|46|[완주하지 못한 선수](./notCompletion.js)|22.06.26|O|X|
 
 ---
 > [JavaScript Object](../../../theory/object.md)
