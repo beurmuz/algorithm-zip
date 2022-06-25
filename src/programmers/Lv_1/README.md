@@ -43,7 +43,7 @@
 |40|[약수의 합](./sumDivisor.js)|22.06.22|O|X|
 |41|[같은 숫자는 싫어](./hateSameNumber.js)|22.06.23|O|O|
 |42|[나누어 떨어지는 숫자 배열](./fitNumberArray.js)|22.06.24|O|X|
-|43|[키패드 누르기](./pushKeypad.js)|22.06.24|X|O|
+|43|[키패드 누르기](./pushKeypad.js)|22.06.24|X|다시풀었다|
 
 ---
 > [JavaScript Object](../../../theory/object.md)
