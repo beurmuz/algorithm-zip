@@ -67,3 +67,23 @@ function solution(s, n) {
         }
     }).join('');
 }
+
+// 22.06.26 다시 풀어봄
+function solution(s, n) {
+    let upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let lower = upper.toLowerCase();
+    let answer= '';
+
+    for(let v of s) {
+        if(v === ' ') {
+            answer += ' ';
+            continue;
+        }
+        let upperOrLower = upper.includes(v) ? upper : lower;
+        let index = upperOrLower.indexOf(v) + n;
+        if(index >= upperOrLower.length) index -= upperOrLower.length;
+        answer += upperOrLower[index];
+    }
+    
+    return answer;
+}

@@ -45,7 +45,7 @@
 |42|[나누어 떨어지는 숫자 배열](./fitNumberArray.js)|22.06.24|O|X|
 |43|[키패드 누르기](./pushKeypad.js)|22.06.24|X|다시풀었다|
 |44|[소수 만들기](./makePrimeNumber.js)|22.06.25|X|다시 풀었다|
-|45|[시저 암호](./caesarPassword.js)|22.06.25|X|다시 풀어보기|
+|45|[시저 암호](./caesarPassword.js)|22.06.25|X|다시 풀었다|
 
 ---
 > [JavaScript Object](../../../theory/object.md)
