@@ -53,3 +53,18 @@ console.log(str2);
 ## [4번 문제]
 - 반복문을 이용하여 왼쪽 -> 오른쪽, 오른쪽 -> 왼쪽으로 도는 경우를 나누어 계산하기
 
+
+
+## padStart(자릿수, 시작수)
+- padStart() 메서드는 현재 문자열의 시작을 다른 문자열로 채워, 주어진 길이를 만족하는 새로운 문자열을 반환
+- cf. [MDN padStart](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)
+- [자릿수 채우는 또다른 방법](https://sosohanya.tistory.com/80)
+
+## 10진수 2진수로 변환?
+```js
+// 형식
+숫자.toString(진수)
+
+// example
+6.toString(2);
+```
