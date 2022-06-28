@@ -1,41 +1,42 @@
-// 내 풀이
+// 내 풀이 22.06.29 업데이트!
 /*
-    arr1, arr2를 forEach로 각각 2진법으로 만들고 padStart로 자릿수까지 맞춰준 후, 
-    sumArr를 만들어 값을 비교해 둘중 하나라도 1이면 #을 넣으려 했으나
-    값 비교에서 계속 빈배열이 나와서 결국 중단하고 답을 찾아봤다. 
+    풀이는 좀 길지만 시간은 10초대 나온다!
 
-    코드 엄청 길게 쓰고 작성하고 있었는데 다들 짧게 끝냈더라..^^
+    arr1, arr2를 map으로 각각 2진법으로 만들고 padStart로 자릿수를 맞춰줌
+    각각의 값을 비교하여 둘 중 하나라도 1이면 #을, 0이면 공백으로 판별해 answer에 push함
 */
 function solution(n, arr1, arr2) {
     let answer = [];
-    let binaryArr1 = [];
-    let binaryArr2 = [];
-    let sumArr = Array.from({length: n}, () => Array(n).fill(0));
+    let sumArr = [];
     
     // 이진수 변환
-    arr1.forEach((v) => {
+    let binaryArr1 = arr1.map((v) => {
         let binaryNum = v.toString(2);
-        binaryArr1.push(binaryNum.padStart(n, 0).split(''));
+        return binaryNum.padStart(n, 0);
+    });
+    let binaryArr2 = arr2.map((v) => {
+        let binaryNum = v.toString(2);
+        return binaryNum.padStart(n, 0);
     });
     
-    arr2.forEach((v) => {
-        let binaryNum = v.toString(2);
-        binaryArr2.push(binaryNum.padStart(n, 0).split(''));
-    });
-    
-    // 둘중 하나라도 1이면 1로 바꿔주기
-    for(let i = 0; i < n.length; i++) {
-        for(let j = 0; j < n.length; j++) {
-            if(binaryArr1[i][j] == '1' || binaryArr2[i][j] == '1') {
-                sumArr[i][j] = '#';
-            } else sumArr[i][j] = ' ';
+    // 둘 중 하나라도 1이면 #를, 0이면 공백으로 바꿔줌
+    for(let i = 0; i < binaryArr1.length; i++) {
+        let arr1 = binaryArr1[i].split('');
+        let arr2 = binaryArr2[i].split('');
+        let line = '';
+        for(let j = 0; j < n; j++) {
+            if(arr1[j] == 1 || arr2[j] == 1) {
+                line += '#';
+            } else line += ' ';            
         }
+        answer.push(line);
     }
     return answer;
 }
 
 
-// 어쨌거나 정답 풀이
+
+// 어쨌거나 다른 풀이들
 /*
     대부분의 풀이를 보면 다들 '|'를 썼던데, 잘 모르겠어서 찾아보니 'single vertical bar'라고 한다.
     single vertical bar는 `(A|B)` 형태로 작성할 수 있는데, 이는 이진수로 변환한 후 각 자리 버림 합을 구해 리턴해준다고 한다.
@@ -50,6 +51,23 @@ function solution(n, arr1, arr2) {
       let row = (arr1[i] | arr2[i]).toString(2); //Bitwise
       row = "0".repeat(n - row.length) + row;
       row = row.replace(/[10]/g, (a) => (+a ? "#" : " "));
+      answer.push(row);
+    }
+    return answer;
+}
+
+
+// 바로 위 코드 시간 줄이기 22.06.29
+/*
+    내 생각엔 repeat이 시간을 많이 잡아먹는 듯 하여 padStart를 이용함으로써 시간을 줄임
+*/
+function solution(n, arr1, arr2) {
+    const answer = [];
+    for (let i = 0; i < n; i++) {
+      let row = (arr1[i] | arr2[i]).toString(2).padStart(n, 0); //Bitwise
+        row = row.replace(/0/g, ' ').replace(/1/g, '#');
+      // row = "0".repeat(n - row.length) + row;
+      // row = row.replace(/[10]/g, (a) => (+a ? "#" : " "));
       answer.push(row);
     }
     return answer;
@@ -91,3 +109,7 @@ function solution(n, arr1, arr2) {
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_OR
 // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/padStart 
+
+// 06.29 다시 풀기
+let solution = (n, a, b) => a.map((a,i) => (a|b[i]).toString(2).padStart(n, 0).replace(/0/g, ' ').replace(/1/g, '#'));
+
