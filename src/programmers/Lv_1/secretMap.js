@@ -88,3 +88,6 @@ function solution(n, arr1, arr2) {
     }    
     return answer;
 }
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_OR
+// https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/padStart 

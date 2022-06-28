@@ -68,3 +68,20 @@ console.log(str2);
 // example
 6.toString(2);
 ```
+
+## localeCompare() ????
+- 인수로 지정된 문자열이 정렬상 string 객체의 문자열 뒤에 있으면 음수, 앞에 있으면 양수, 동등한 경우에는 0을 반환한다.
+```js
+var str = "JavaScript";
+
+// 인수 'apple'은 'JavaScript'보다는 앞쪽에 있다.
+console.log(str.localeCompare("apple")); // 1
+
+// 인수 'naver'은 'JavaScript'보다는 뒤쪽에 있다.
+console.log(str.localeCompare("naver")); // -1
+
+// 인수 'JavaScript'는 'JavaScript'와 동등한 위치에 있다.
+console.log(str.localeCompare("JavaScript")); // 0
+```
+ch.[localeCompare()](http://www.devdic.com/javascript/refer/NATIVE/method:1379/localeCompare())
+
