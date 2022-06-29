@@ -50,6 +50,7 @@
 |47|[두 개 뽑아서 더하기](./popTwoSum.js)|22.06.26|O|배열의 중복 제거방법 다시보기!|
 |48|[비밀 지도](./secretMap.js)|22.06.27|X|다시풀었음|
 |49|[문자열 내 마음대로 정하기](./asonelikes.js)|22.06.28|X|다시 풀었음|
+|50|[하샤드 수](./hashadNumber.js)|22.06.29|O|X|
 
 ---
 > [JavaScript Object](../../../theory/object.md)
