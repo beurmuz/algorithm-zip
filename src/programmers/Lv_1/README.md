@@ -53,7 +53,8 @@
 |50|[하샤드 수](./hashadNumber.js)|22.06.29|O|X|
 |51|[콜라츠 추측](./collatz.js)|22.06.29|O|X|
 |52|[3진법 뒤집기](./reverse3.js)|22.06.30|O|X|
-|53|[폰켓몬]()
+|53|[폰켓몬](./phonekemon.js)|22.06.30|O|X|
+|24|[최소직사각형](./minimumRect.js)|22.06.30|O|O|
 
 ---
 > [JavaScript Object](../../../theory/object.md)
