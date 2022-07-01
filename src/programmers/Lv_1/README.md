@@ -54,7 +54,8 @@
 |51|[콜라츠 추측](./collatz.js)|22.06.29|O|X|
 |52|[3진법 뒤집기](./reverse3.js)|22.06.30|O|X|
 |53|[폰켓몬](./phonekemon.js)|22.06.30|O|X|
-|24|[최소직사각형](./minimumRect.js)|22.06.30|O|O|
+|54|[최소직사각형](./minimumRect.js)|22.06.30|O|O|
+|55|[1차 다트게임](./dartGame.js)|22.07.01|X|정규표현식 다시다시다시|
 
 ---
 > [JavaScript Object](../../../theory/object.md)
