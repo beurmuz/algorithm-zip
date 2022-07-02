@@ -23,6 +23,17 @@ function solution(numbers) {
 }
 
 
+// 22.07.02 다시 풀기
+/*
+    a와 b문자열을 연결해 내림차순으로 정렬한 후 join()
+    answer[0]이 0인 경우도 처리해주어야 함 
+*/
+function solution(numbers) {
+    let answer = numbers.sort((a,b) => `${b}${a}` - `${a}${b}`).join('');
+    return answer[0] === '0' ? '0' : answer;
+}
+
+
 
 // 다른 풀이보고 변형한 것
 function solution(numbers) {
