@@ -10,3 +10,4 @@
 |7|[짝지어 제거하기](./mateRemove.js)|22.06.13|O|X|
 |8|[프린터](./printer.js)|22.06.24|X|다시풀었다|
 |9|[가장 큰 수](./greatestNumber.js)|22.07.01|X|O|
+|10|[기능개발](./functionDev.js)|22.07.03|O|O|
