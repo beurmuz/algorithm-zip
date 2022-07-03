@@ -48,6 +48,33 @@ function solution(dartResult) {
 // 특수문자 체크 /[#*]/g
 
 
+// 22.07.03 다시 풀어봄!
+function solution(dartResult) {
+    const regex = /\d{1,2}[SDT]{1}[*|#]?/g;
+    let result = [];
+    for(let dart of dartResult.match(regex)) {
+        const game = [...dart.split(/([SDT]{1})/)]; // 그냥 dart.split('')로 해도 될거 같아서 해봤더니, 숫자가 두자릿수인 경우에 쪼개져서 .. 테스트케이스 오류가 남
+        // 때문에 가운데에 있는 알파벳 기준으로 쪼개야함
+        const score = game[0];
+        
+        let bonus = 1;
+        let option = 1;
+        
+        if(game[1] === 'S') bonus = 1;
+        if(game[1] === 'D') bonus = 2;
+        if(game[1] === 'T') bonus = 3;
+        
+        if(game[2] === '*') {
+            if(result.length !== 0 ) result[result.length - 1] *= 2;
+            option = 2;
+        }
+        if(game[2] === '#') option =- 1;
+        result.push(score ** bonus * option);
+    }
+    return result.reduce((a,b) => a+b);
+}
+
+
 // 다른 풀이
 /*
     시간도 0점대 나오고~! 
