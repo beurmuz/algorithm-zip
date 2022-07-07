@@ -158,6 +158,9 @@ function solution(w) {
 
 
   // 고수의 풀이
+  /*
+    https://school.programmers.co.kr/learn/courses/30/lessons/60058/solution_groups?language=javascript
+  */
   function reverse(str) {
     return str.slice(1, str.length - 1).split("").map((c) => (c === "(" ? ")" : "(")).join("");
   }

@@ -15,3 +15,4 @@
 |12|[JodanCase 문자열 만들기](./jadenCaseString.js)|22.07.04|X|다시풀었음|
 |13|[다음 큰 숫자](./nextBIgNumber.js)|22.07.05|X|O|
 |14|[괄호 변환](./changeBracket.js)|22.07.06|X|O|
+|15|[소수 찾기](./findPrime.js)|22.07.07|X|O|
