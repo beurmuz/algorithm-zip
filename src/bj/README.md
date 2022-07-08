@@ -1,22 +1,10 @@
-# 코딩테스트 준비
-## 디렉토리 구성
-```
-|--- level1_9
-|--- recursive
-|--- bruteForce
-|--- sort
-|--- set_map
-|--- backtracking
-|--- dynamic
-|--- greedy
-|--- stack
-|--- queue_deque
-|--- divideConquer
-|--- DFS_BFS
-|--- shortestPath
-|--- two_pointer
-|--- tree
+# Baekjoon
+### 사이트에 코드 제출할 때 input값 가져오는 방법
+```js
+const input = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
 ```
 
-## Reference
-- baekjoon (https://www.acmicpc.net/step)
+### 에디터에서 연습할 때 input값 가져오는 방법
+```js
+const input = require('fs').readFileSync('./파일명.txt').toString().trim().split('\n');
+```
