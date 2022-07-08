@@ -78,17 +78,17 @@ function checkPrime(num) {
 function solution(numbers) {
     let answer = 0;
     const numArr = numbers.split("");
-    const permutationAll = [];
-    for (let r = 1; r <= numbers.length; r++) {
-      const permutationR = Permutation(numArr, r).map((arr) =>
-        parseInt(arr.join(""))
+    const permutationAll = []; // 모든 숫자 조합을 넣을 배열 
+    for (let r = 1; r <= numbers.length; r++) { // r은 자릿수
+      const permutationR = Permutation(numArr, r).map((arr) => // 자릿수 1개, 자릿수2개, ... n개인 경우를 모두 구하기
+        parseInt(arr.join("")) // 배열형태로 return하기에 join('') 해주기
       );
       for (let i = 0; i < permutationR.length; i++)
         permutationAll.push(permutationR[i]);
     }
-    const permutationSet = [...new Set(permutationAll)];
+    const permutationSet = [...new Set(permutationAll)]; // 중복 제거하기
     for (const number of permutationSet) {
-      if (isPrime(number)) answer += 1;
+      if (isPrime(number)) answer += 1; // 해당 수가 소수 일때마다 answer의 값을 하나씩 증가시킴 
     }
     return answer;
   }
@@ -111,3 +111,6 @@ function solution(numbers) {
     }
     return num >= 2;
 }
+
+
+// dfs랑 소수 구하기로 풀 수 있을 것 같은데...
