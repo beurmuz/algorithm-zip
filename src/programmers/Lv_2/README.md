@@ -16,3 +16,4 @@
 |13|[다음 큰 숫자](./nextBIgNumber.js)|22.07.05|X|O|
 |14|[괄호 변환](./changeBracket.js)|22.07.06|X|O|
 |15|[소수 찾기](./findPrime.js)|22.07.07|X|O|
+|16|[위장](./camouflage.js)|22.07.10|X|O|
