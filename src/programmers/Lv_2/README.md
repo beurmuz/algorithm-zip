@@ -17,3 +17,4 @@
 |14|[괄호 변환](./changeBracket.js)|22.07.06|X|O|
 |15|[소수 찾기](./findPrime.js)|22.07.07|X|O|
 |16|[위장](./camouflage.js)|22.07.10|X|다시풀었음|
+|17|[문자열 압축](./stringCompression.js)|22.07.12|X|다시 풀어보기|
