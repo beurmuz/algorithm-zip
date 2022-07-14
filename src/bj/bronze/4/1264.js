@@ -1,11 +1,12 @@
 // 내가 푼 풀이
 /*
-    입력의 끝이 '#'이면 pop()해서 제거해주기
-    분명 맞을텐데 런타임 에러가 발생한다. 정답을 복붙해서 넣어도똑같이 런타임에러 발생 
+    근데 이거 채점이 자꾸 아니라하네.. nodejs online editor에서도 맞다는데 왜 아니라는겨
 */
-// const input = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
-const input = require('fs').readFileSync('./1264.txt').toString().trim().split('\n');
-if (input[input.length-1] === '#') input.pop();
+const fs = require('fs');
+const file = process.platform === 'linux' ? '/dev/stdin' : './data/1264.txt';
+const input = fs.readFileSync(file).toString().trim().split('\n');
+
+if(input[input.length-1] === '#') input.pop();
 
 let regex = /[aeiouAEIOU]/gi;
 for(let i = 0; i < input.length; i++) {
