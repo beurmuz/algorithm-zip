@@ -1,9 +1,9 @@
 'use strict';
 
-function solution(N, M, ices) {
+function solution(N, M, iceTool) {
   const graph = [];
-  ices.split('\n').forEach(ice => {
-    ice = ice.split('').map(i => Number(i));
+  iceTool.split('\n').forEach(ice => {
+    ice = ice.split('').map(i => i*1);
     graph.push(ice);
   });
 
@@ -32,8 +32,7 @@ function solution(N, M, ices) {
       }
     }
   }
-
-  console.log(answer);
+  return answer;
 }
 
-solution(3, 3, '001\n010\n101')
+console.log(solution(3, 3, '001\n010\n101'));
