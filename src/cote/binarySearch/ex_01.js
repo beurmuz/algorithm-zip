@@ -5,8 +5,8 @@ function solution(n, store, m, guest) {
     store.sort();
 
     for(let i = 0; i < m; i++) {
-        let result = binarySearch(guest, i, 0, n-1);
-        if(result > 0) answer.push('yes');
+        let result = binarySearch(store, guest[i], 0, n-1);
+        if(result === true) answer.push('yes');
         else answer.push('no');
     }
     return answer;
@@ -15,9 +15,8 @@ function solution(n, store, m, guest) {
 function binarySearch(arr, target, start, end) {
     while(start <= end) {
         let mid = Math.floor((start + end)/2);
-        console.log(mid);
-        if(arr[mid] === target) return mid;
-        else if(target < arr[mid]) end = mid - 1;
+        if(arr[mid] === target) return true;
+        if(target < arr[mid]) end = mid - 1;
         else start = mid + 1;
     }
     return false;
