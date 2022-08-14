@@ -19,3 +19,4 @@
 |16|[위장](./camouflage.js)|22.07.10|X|다시풀었음|
 |17|[문자열 압축](./stringCompression.js)|22.07.12|X|다시 풀어보기|
 |18|[타겟 넘버](./targetNumber.js)|22.07.13|X|DFS 복습하기|
+|19|[다리를 지나는 트럭](./passingTruck.js)|22.08.15|X|스택, 다시풀기|
