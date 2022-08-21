@@ -118,3 +118,40 @@ function solution(survey, choices) {
     
     return answer;
 }
+
+// 최종 !!
+/*
+    switch문을 없애고 규칙을 이용해 연산함
+*/
+function solution(survey, choices) {
+    let answer = '';
+    let typeChar = 'RTCFJMAN';
+    let hash = new Map();
+    
+    // 점수표 제작 (default: 0)
+    for(let char of typeChar) {
+        hash.set(char, 0);
+    }
+    
+    // 선택지에 맞게 점수 계산하기
+    for(let i = 0; i < survey.length; i++) {
+        let keys = survey[i].split('');
+        if(choices[i] < 4) {
+            hash.set(keys[0], hash.get(keys[0]) + (4 - choices[i]));
+        } else if(choices[i] > 4) {
+            hash.set(keys[1], hash.get(keys[1]) + (choices[i] - 4));
+        }
+    }
+    
+    // 점수 결과로 mbti 정하기
+    let v = hash.get('R') >= hash.get('T') ? 'R' : 'T';
+    answer += v;
+    let b = hash.get('C') >= hash.get('F') ? 'C' : 'F';
+    answer += b;
+    let t = hash.get('J') >= hash.get('M') ? 'J' : 'M';
+    answer += t;
+    let i = hash.get('A') >= hash.get('N') ? 'A' : 'N';
+    answer += i;
+    
+    return answer;
+}
