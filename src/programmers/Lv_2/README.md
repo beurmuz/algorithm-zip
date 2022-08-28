@@ -25,3 +25,4 @@
 |22|[멀쩡한 사각형](./rightRect.js)|22.08.23|O|한번더|
 |23|[H-Index](./hindex.js)|22.08.24|△|[22.08.27](./replay/hindex_re.js)|
 |24|[행렬의 곱셈](./matrixMultiple.js)|22.08.26|X|다시|
+|25|[3차: 파일명 정렬](./sortFileName.js)|22.08.28|X|다시|
