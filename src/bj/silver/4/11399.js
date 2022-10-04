@@ -1,5 +1,6 @@
 "use strict";
 
+// 최소시간 구하기 문제, 최소 시간순서로 정렬 후 구하면 됨
 let [N, ...input] = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
