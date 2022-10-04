@@ -1,5 +1,7 @@
 "use strict";
 
+//  나를 제외한 나보다 작은 숫자라는건, 정렬된 배열의 Index값과 똑같다
+
 let [n, ...input] = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
