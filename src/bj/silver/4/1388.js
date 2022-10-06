@@ -1,5 +1,7 @@
 "use strict";
 
+"use strict";
+
 let [size, ...input] = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -13,32 +15,33 @@ const room = input.map((v) => {
 function solution(r, c, room) {
   let answer = 0;
 
-  // 가로
+  // row, - 구하기
   for (let i = 0; i < r; i++) {
-    let flag = true; // col
+    let check = "|";
     for (let j = 0; j < c; j++) {
-      if (flag === true && room[i][j] === "-") {
+      if (check === "|" && room[i][j] === "-") {
         answer++;
-        flag = false; // row
+        check = "-";
       } else if (room[i][j] === "|") {
-        flag = true; // col
+        check = "|";
       }
     }
   }
 
-  // 세로
+  // column, | 구하기
   for (let i = 0; i < c; i++) {
-    let flag = true; // col
+    let check = "-";
     for (let j = 0; j < r; j++) {
-      if (flag === true && room[j][i] === "|") {
+      if (check === "-" && room[j][i] === "|") {
         answer++;
-        flag = false;
+        check = "|";
       } else if (room[j][i] === "-") {
-        flag = true;
+        check = "-";
       }
+      // console.log(`${i}, ${j} , check is ... ${check} => ${room[j][i]}`);
     }
+    //   console.log('-------');
   }
-
   console.log(answer);
 }
 
