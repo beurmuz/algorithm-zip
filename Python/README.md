@@ -8,3 +8,4 @@
 4. [함수](./%ED%95%A8%EC%88%98.md)
 5. [입출력](./%EC%9E%85%EC%B6%9C%EB%A0%A5.md)
 6. [주요 라이브러리](./%EC%A3%BC%EC%9A%94%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC.md)
+7. 🚨 [핵심코드 만들기](./%ED%95%B5%EC%8B%AC%EC%BD%94%EB%93%9C.md) 🚨
