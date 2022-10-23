@@ -1,21 +1,20 @@
 "use strict";
 
-function solution(test) {
-  let answer = 0,
-    tmp = [];
-  m = test.length;
-  n = test[0].length;
+function solution(n, m, arr) {
+  let answer = 0;
+  let tmp = [];
   for (let i = 1; i <= n; i++) {
     // 멘토
     for (let j = 1; j <= n; j++) {
       // 멘티
       let cnt = 0;
       for (let k = 0; k < m; k++) {
-        let pi = (pj = 0);
+        let pi = 0;
+        let pj = 0;
         for (let s = 0; s < n; s++) {
           // s는 등수
-          if (test[k][s] === i) pi = s;
-          if (test[k][s] === j) pj = s;
+          if (arr[k][s] === i) pi = s;
+          if (arr[k][s] === j) pj = s;
         }
         if (pi < pj) cnt++;
       }
@@ -25,7 +24,6 @@ function solution(test) {
       }
     }
   }
-  console.log(...tmp);
   return answer;
 }
 
@@ -34,4 +32,4 @@ let arr = [
   [4, 3, 2, 1],
   [3, 1, 4, 2],
 ];
-console.log(solution(arr));
+console.log(solution(4, 3, arr));
