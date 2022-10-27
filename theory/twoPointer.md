@@ -37,3 +37,35 @@ let a = [1, 3, 5];
 let b = [2, 3, 6, 7, 9];
 console.log(solution(a, b));
 ```
+
+## Ex02. 연속부분수열1
+
+- 특정 수열에서 연속부분수열의 합이 M이 되는 경우 count한다.
+- lt와 rt를 생성과 동시에 0으로 초기화하여 이용하기
+  - sum이 m일 때 lt를 빼고 lt를 증가시킨다.
+- sum은 lt~rt까지의 합
+
+```js
+function solution(m, arr) {
+  let answer = 0;
+  let lt = 0;
+  let sum = 0;
+
+  for (let rt = 0; rt < arr.length; rt++) {
+    sum += arr[rt];
+    while (sum >= m) {
+      if (sum === m) answer++;
+      sum -= arr[lt++]; // lt 값을 뺀 후 lt값 1증가
+    }
+  }
+  return answer;
+}
+
+let arr = [1, 2, 1, 3, 1, 1, 1, 2];
+console.log(solution(6, arr));
+```
+
+> ✅ for문 안에 while문이 중첩되어 있는데 어떻게 시간 복잡도가 O(n)인가?
+>
+> - 시간 복잡도를 따질 때 2중 for문이라면 안쪽 for문에 속한 연산자가 몇 번 연산되는지 계산하는게 시간복잡도이다.
+> - 해당 문제는 for문 안에 있는 while문이 프로그램이 종료될 때까지 몇번 반복되는지 확인해보면, arr의 길이인 n번 이상 반복하지 않게 됨을 알 수 있다.
