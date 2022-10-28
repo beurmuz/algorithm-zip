@@ -14,21 +14,37 @@
 //   return answer;
 // }
 
-// [방법 2] 투포인터 활용하기
+// [방법 2] 투포인터 활용하기 - rt 움직이기
+// function solution(m, arr) {
+//   let answer = 0;
+//   let rt = 0;
+
+//   for (let lt = 0; lt < arr.length; lt++) {
+//     let sum = 0;
+//     rt = lt;
+//     while (sum <= m) {
+//       sum += arr[rt++];
+//       if (sum <= m) {
+//         answer++;
+//         // console.log(`sum: ${sum}, lt: ${lt}, rt: ${rt}`);
+//       }
+//     }
+//   }
+//   return answer;
+// }
+
+// [방법 3] 투포인터 활용하기 - lt 움직이기
 function solution(m, arr) {
   let answer = 0;
-  let rt = 0;
+  let sum = 0;
+  let lt = 0;
 
-  for (let lt = 0; lt < arr.length; lt++) {
-    let sum = 0;
-    rt = lt;
-    while (sum <= m) {
-      sum += arr[rt++];
-      if (sum <= m) {
-        answer++;
-        // console.log(`sum: ${sum}, lt: ${lt}, rt: ${rt}`);
-      }
+  for (let rt = 0; rt < arr.length; rt++) {
+    sum += arr[rt];
+    while (sum > m) {
+      sum -= arr[lt++];
     }
+    answer += rt - lt + 1;
   }
   return answer;
 }
