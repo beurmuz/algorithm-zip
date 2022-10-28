@@ -6,23 +6,24 @@
 
 # 이론 정리
 
-| 번호 |                  이론                   |
-| :--: | :-------------------------------------: |
-|  1   |        [배열](./theory/array.md)        |
-|  2   |        [기본](./theory/basic.md)        |
-|  3   |  [이진탐색](./theory/binarySearch.md)   |
-|  4   |  [브루트포스](./theory/brute_force.md)  |
-|  5   |         [DFS](./theory/dfs.md)          |
-|  6   |       [그래프](./theory/graph.md)       |
-|  7   |      [그리디](./theory/greedy.md)       |
-|  8   |        [해시](./theory/hash.md)         |
-|  9   |      [수학관련](./theory/math.md)       |
-|  10  | [메모이제이션](./theory/memoization.md) |
-|  11  |      [재귀](./theory/recursive.md)      |
-|  12  |        [정렬](./theory/sort.md)         |
-|  13  |  [스택, 큐](./theory/stack%2Cqueue.md)  |
-|  14  |      [문자열](./theory/string.md)       |
-|  15  |   [투포인터](./theory/twoPointer.md)    |
+| 번호 |                     이론                      |
+| :--: | :-------------------------------------------: |
+|  1   |           [배열](./theory/array.md)           |
+|  2   |           [기본](./theory/basic.md)           |
+|  3   |     [이진탐색](./theory/binarySearch.md)      |
+|  4   |     [브루트포스](./theory/brute_force.md)     |
+|  5   |            [DFS](./theory/dfs.md)             |
+|  6   |          [그래프](./theory/graph.md)          |
+|  7   |         [그리디](./theory/greedy.md)          |
+|  8   |           [해시](./theory/hash.md)            |
+|  9   |         [수학관련](./theory/math.md)          |
+|  10  |    [메모이제이션](./theory/memoization.md)    |
+|  11  |         [재귀](./theory/recursive.md)         |
+|  12  |           [정렬](./theory/sort.md)            |
+|  13  |     [스택, 큐](./theory/stack%2Cqueue.md)     |
+|  14  |         [문자열](./theory/string.md)          |
+|  15  |      [투포인터](./theory/twoPointer.md)       |
+|  16  | [슬라이딩 윈도우](./theory/sliding_window.md) |
 
 <br>
 
