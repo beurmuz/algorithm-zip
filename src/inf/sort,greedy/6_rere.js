@@ -2,12 +2,11 @@
 
 function solution(arr) {
   let answer = [];
-  let sortArr = arr.slice();
-  sortArr.sort((a, b) => a - b);
-  console.log(sortArr);
+  let sortedArr = arr.slice(); // slice로 배열을 복사하지 않으면 원본 배열도 함께 변화함
+  sortedArr.sort((a, b) => a - b);
 
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i] !== sortArr[i]) {
+    if (arr[i] !== sortedArr[i]) {
       answer.push(i + 1);
     }
   }
