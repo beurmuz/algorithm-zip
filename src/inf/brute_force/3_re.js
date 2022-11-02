@@ -2,24 +2,24 @@
 
 function solution(n, m, arr) {
   let answer = 0;
-  let tmp = [];
+  let candidateArr = [];
   for (let i = 1; i <= n; i++) {
-    // 멘토
-    for (let j = 1; j <= n; j++) {
-      // 멘티
+    // 4x4 경우의 수 모두 검사하기
+    for (let j = 1; j <= m; j++) {
+      // i는 멘토, j는 멘티
       let cnt = 0;
-      for (let k = 0; k < m; k++) {
-        let pi = 0;
-        let pj = 0;
-        for (let s = 0; s < n; s++) {
-          // s는 등수
-          if (arr[k][s] === i) pi = s;
-          if (arr[k][s] === j) pj = s;
+      for (let test = 0; test < m; test++) {
+        let mento = 0;
+        let menti = 0;
+        for (let rank = 0; rank < n; rank++) {
+          // test는 시험 횟수, rank는 각 시험의 등수
+          if (arr[test][rank] === i) mento = rank;
+          if (arr[test][rank] === j) menti = rank;
         }
-        if (pi < pj) cnt++;
+        if (mento < menti) cnt++;
       }
       if (cnt === m) {
-        tmp.push([i, j]);
+        candidateArr.push([i, j]);
         answer++;
       }
     }
