@@ -2,17 +2,18 @@
 
 function solution(n, k, card) {
   let answer;
-  let tmp = new Set();
+  let cardList = new Set();
   for (let i = 0; i < n; i++) {
     for (let j = i + 1; j < n; j++) {
       for (let k = j + 1; k < n; k++) {
-        tmp.add(card[i] + card[j] + card[k]); // 중복을 제거하며 3개씩 뽑아내는 방법
+        cardList.add(card[i] + card[j] + card[k]); // 중복을 제거하며 3개씩 뽑아내는 방법
       }
     }
   }
-  // console.log(tmp);
-  let a = Array.from(tmp).sort((a, b) => b - a); //내림차순
-  answer = a[k - 1];
+
+  // 내림차순 후 Array 형태로 바꾸기
+  let cardArr = Array.from(cardList).sort((a, b) => b - a);
+  answer = cardArr[k - 1];
   return answer;
 }
 
