@@ -1,6 +1,7 @@
 "use strict";
 
 function solution(n, k, card) {
+  // 3C10 (조합문제)
   let answer;
   let cardList = new Set();
   for (let i = 0; i < n; i++) {
