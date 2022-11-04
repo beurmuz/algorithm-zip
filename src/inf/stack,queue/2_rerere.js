@@ -1,7 +1,6 @@
 "use strict";
 
 function solution(s) {
-  let answer = "";
   let stack = [];
   let count = 0;
 
@@ -10,8 +9,8 @@ function solution(s) {
     else if (x === ")") count--;
     else if (count === 0) stack.push(x);
   }
-  answer = stack.join("");
-  return answer;
+
+  return stack.join("");
 }
 
 let str = "(A(BC)D)EF(G(H)(IJ)K)LM(N)";
