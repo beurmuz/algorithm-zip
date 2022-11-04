@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
 function solution(required, design) {
-    // 원래 짠 코드 - 스택 이용
-    /* 
+  // 원래 짠 코드 - 스택 이용
+  /* 
     let answer = "NO";
     let stack = [];
     required = required.split('');
@@ -17,24 +17,24 @@ function solution(required, design) {
     }
     */
 
-    // 새로 짠 코드 - 큐와 스택 이용
-    let answer = 'YES';
-    let queue = required.split('');
-    let stack = [];
-    for(let x of design) {
-        if(queue.includes(x)) {
-            stack.push(x);
-        }
+  // 새로 짠 코드 - 큐와 스택 이용
+  let answer = "YES";
+  let queue = required.split("");
+  let stack = [];
+  for (let x of design) {
+    if (queue.includes(x)) {
+      stack.push(x);
     }
-    
-    for(let i = 0; i < queue.length; i++) {
-        if(queue[i]!== stack[i]) {
-            answer = 'NO';
-        }
-    }
+  }
 
-    // queue만 이용하기
-    /*
+  for (let i = 0; i < queue.length; i++) {
+    if (queue[i] !== stack[i]) {
+      answer = "NO";
+    }
+  }
+
+  // queue만 이용하기
+  /*
     let answer = 'YES';
     let queue = required.split('');
     for(let x of design) {
@@ -44,15 +44,15 @@ function solution(required, design) {
             }
         }
     }
-    if(queue.lenght > 0) {
+    if(queue.length > 0) {
         return 'NO';
     }
     */
-    return answer;
+  return answer;
 }
 
-let requiredSubject = 'CBA';
-let designCase = 'CBDAGE';
+let requiredSubject = "CBA";
+let designCase = "CBDAGE";
 
 console.log(solution(requiredSubject, designCase));
 
