@@ -12,9 +12,14 @@ function solution(v, n) {
       // dfs(v * 2 + 1);
 
       // 2. 중위 순회
+      // dfs(v * 2);
+      // console.log(v);
+      // dfs(v * 2 + 1);
+
+      // 3. 후위 순회
       dfs(v * 2);
-      console.log(v);
       dfs(v * 2 + 1);
+      console.log(v);
     }
   }
   dfs(v);
