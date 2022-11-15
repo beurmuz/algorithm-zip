@@ -6,10 +6,8 @@ function solution(arr, change) {
   function dfs(L, sum) {
     if (sum > change) return;
     if (L >= answer) return;
-    if (sum === change) {
-      console.log(L, sum);
-      answer = Math.min(answer, L);
-    } else {
+    if (sum === change) answer = Math.min(L, answer);
+    else {
       for (let i = 0; i < arr.length; i++) {
         dfs(L + 1, sum + arr[i]);
       }

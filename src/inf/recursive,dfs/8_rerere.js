@@ -6,6 +6,7 @@ function solution(n, m) {
 
   function dfs(L) {
     if (L === m) {
+      console.log(tmp);
       answer.push(tmp.slice());
     } else {
       for (let i = 1; i <= n; i++) {
