@@ -2,13 +2,13 @@
 
 function solution(n, arr) {
   let answer = 0;
-  let graph = Array.from({ length: n + 1 }, () => []);
+  let graph = Array.from({ length: n + 1 }, () => []); // 각 행마다 빈 배열 선언
   let checked = Array.from({ length: n + 1 }, () => 0);
   let path = [];
 
   // 인접리스트 생성
   for (let [a, b] of arr) {
-    graph[a].push(b);
+    graph[a].push(b); // a행에 b 푸시
   }
   console.log(graph);
 
@@ -18,10 +18,11 @@ function solution(n, arr) {
       console.log(path);
     } else {
       for (let i = 0; i < graph[v].length; i++) {
+        // 해당 열에서 갈 수 있는 지점만 for문으로 돌아준다! (=> 모두 돌면 인접 행렬과 풀이법이 같아지고, 메모리 낭비가 일어남)
         if (checked[graph[v][i]] === 0) {
           checked[graph[v][i]] = 1;
           path.push(graph[v][i]);
-          dfs(graph[v][i]); // 정점 번호 넘기고
+          dfs(graph[v][i]); // graph[v][i]는 v에서 갈 수 있는 정점 번호
           checked[graph[v][i]] = 0; // back
           path.pop();
         }
@@ -29,7 +30,7 @@ function solution(n, arr) {
     }
   }
   path.push(1);
-  checked[1] = 1; // 1부터 방문 시작
+  checked[1] = 1; // 1번 정점부터 방문 시작
   dfs(1);
   return answer;
 }
