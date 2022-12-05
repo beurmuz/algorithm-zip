@@ -1,6 +1,10 @@
 "use strict";
 
 // 1. 슬라이딩 윈도우와 set으로 푸는 법
+/*
+    - 슬라이딩 윈도우 이용하기
+    - 원형 수열이므로 elements[(j+i-1)%n]으로 앞과 끝이 연결되어있다고 생각하기
+*/
 function solution(elements) {
   const sumSet = new Set();
   const n = elements.length;
@@ -23,7 +27,30 @@ function solution(elements) {
 }
 console.log([7, 9, 1, 1, 4]);
 
+// 2. slice로 풀기
 /*
-    - 슬라이딩 윈도우 이용하기
-    - 원형 수열이므로 elements[(j+i-1)%n]으로 앞과 끝이 연결되어있다고 생각하기
+    반복문으로 자르는 개수를 1씩 늘려가며 Set에 add하기
 */
+function solution(elements) {
+  const sumSet = new Set();
+  const n = elements.length;
+
+  function getSum(arr) {
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+      sum += arr[i];
+    }
+    return sum;
+  }
+
+  for (let i = 1; i <= n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (j + i > n)
+        sumSet.add(
+          getSum(elements.slice(j, n)) + getSum(elements.slice(0, j + i - n))
+        );
+      else sumSet.add(getSum(elements.slice(j, j + i)));
+    }
+  }
+  return sumSet.size;
+}
