@@ -25,7 +25,7 @@ function solution(elements) {
   }
   return sumSet.size;
 }
-console.log([7, 9, 1, 1, 4]);
+console.log(solution[(7, 9, 1, 1, 4)]);
 
 // 2. slice로 풀기
 /*
