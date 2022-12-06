@@ -51,5 +51,5 @@
 | 47  | [방문 길이](./visitLength.js)                    | 22.09.23 |     △     |                다시                 |
 | 48  | [모음 사전](./vowelDict.js)                      | 22.09.24 |     X     |             와아아몰라              |
 | 49  | [2xn 타일링](./2xnTile.js)                       | 22.09.25 |     X     |                 꺅                  |
-| 50  | [피로도](./tiredness.js)                         | 22.12.05 |     △     |               한번 더               |
+| 50  | [피로도](./tiredness.js)                         | 22.12.05 |     △     |  [22.12.06](./replay/tiredness.js)  |
 | 51  | [연속 부분 수열 합의 개수](./continuousPart.js)  | 22.12.05 |     X     |
