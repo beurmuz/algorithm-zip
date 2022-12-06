@@ -53,3 +53,4 @@
 | 49  | [2xn 타일링](./2xnTile.js)                       | 22.09.25 |     X     |                   꺅                   |
 | 50  | [피로도](./tiredness.js)                         | 22.12.05 |     △     |   [22.12.06](./replay/tiredness.js)    |
 | 51  | [연속 부분 수열 합의 개수](./continuousPart.js)  | 22.12.05 |     X     | [22.12.06](./replay/continuousPart.js) |
+| 52  | [게임 맵 최단거리](./gameMapShort.js)            | 22.12.06 |     △     |
