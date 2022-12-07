@@ -36,39 +36,62 @@ function solution(want, number, discount) {
 }
 
 console.log(
-  ["banana", "apple", "rice", "pork", "pot"],
-  [3, 2, 2, 2, 1],
-  [
-    "chicken",
-    "apple",
-    "apple",
-    "banana",
-    "rice",
-    "apple",
-    "pork",
-    "banana",
-    "pork",
-    "rice",
-    "pot",
-    "banana",
-    "apple",
-    "banana",
-  ]
+  solution(
+    ["banana", "apple", "rice", "pork", "pot"],
+    [3, 2, 2, 2, 1],
+    [
+      "chicken",
+      "apple",
+      "apple",
+      "banana",
+      "rice",
+      "apple",
+      "pork",
+      "banana",
+      "pork",
+      "rice",
+      "pot",
+      "banana",
+      "apple",
+      "banana",
+    ]
+  )
 );
 
 console.log(
-  ["apple"],
-  [10],
-  [
-    "banana",
-    "banana",
-    "banana",
-    "banana",
-    "banana",
-    "banana",
-    "banana",
-    "banana",
-    "banana",
-    "banana",
-  ]
+  solution(
+    ["apple"],
+    [10],
+    [
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+    ]
+  )
 );
+
+// 2. JS의 내장함수인 slice와 filter를 이용한 풀이법
+function solution(want, number, discount) {
+  let answer = 0;
+  for (let i = 0; i < discount.length - 9; i++) {
+    const sliceArray = discount.slice(i, i + 10); // discount의 i번째부터 i+9를 cut
+    // console.log(sliceArray);
+    let flag = true;
+    for (let j = 0; j < want.length; j++) {
+      if (sliceArray.filter((item) => item === want[j]).length !== number[j]) {
+        // filter는 조건을 만족하는 경우만 return함
+        flag = false;
+        break;
+      }
+    }
+    if (flag) answer += 1;
+  }
+  return answer;
+}
