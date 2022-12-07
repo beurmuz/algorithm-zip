@@ -83,3 +83,28 @@ function solution(numbers) {
 
   return answer;
 }
+
+// 3. 더 간단한 풀이법 (2번이랑 같은 원리)
+function solution(numbers) {
+  let answer = [];
+  let c;
+  numbers.forEach((now) => {
+    if (now < 2 || now % 2 === 0) {
+      // 2보다 작거나 짝수이면
+      answer.push(now + 1);
+    } else {
+      // 2보다 크고 홀수이면
+      let c = 2;
+      while (true) {
+        if ((now + 1) % (c * 2) === 0) {
+          // 짝수로 만든 후 / 짝수로 나누어 그 나머지가 0이면
+          c = c * 2; // c를 늘려줌
+        } else {
+          break; // 나머지가 0이 아니면 반복문 탈출
+        }
+      }
+      answer.push(now + c / 2);
+    }
+  });
+  return answer;
+}
