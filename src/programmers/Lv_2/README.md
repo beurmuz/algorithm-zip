@@ -55,5 +55,5 @@
 | 51  | [연속 부분 수열 합의 개수](./continuousPart.js)  | 22.12.05 |     X     | [22.12.06](./replay/continuousPart.js)  |
 | 52  | [게임 맵 최단거리](./gameMapShort.js)            | 22.12.06 |     △     |  [22.12.07](./replay/gameMapShort.js)   |
 | 53  | [귤 고르기](./choiceTangerine.js)                | 22.12.06 |     O     | [22.12.07](./replay/choiceTangerine.js) |
-| 54  | [할인 행사](./discount.js)                       | 22.12.07 |     O     |
+| 54  | [할인 행사](./discount.js)                       | 22.12.07 |     O     |    [22.12.08](./replay/discount.js)     |
 | 55  | [2개 이하로 다른 비트](./under2diffBit.js)       | 22.12.07 |     O     |
