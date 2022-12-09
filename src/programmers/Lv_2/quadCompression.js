@@ -71,7 +71,6 @@ function solution(arr) {
 
 // 또 다른 풀이법 2
 function solution(arr) {
-  // 부랄정복!
   const boolSet = { 0: 0, 1: 0 };
   const [isValid, partition, execute] = [
     (arr, n, i) =>
