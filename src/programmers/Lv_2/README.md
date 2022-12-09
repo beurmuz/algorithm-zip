@@ -57,3 +57,4 @@
 | 53  | [귤 고르기](./choiceTangerine.js)                | 22.12.06 |     O     | [22.12.07](./replay/choiceTangerine.js) |
 | 54  | [할인 행사](./discount.js)                       | 22.12.07 |     O     |    [22.12.08](./replay/discount.js)     |
 | 55  | [2개 이하로 다른 비트](./under2diffBit.js)       | 22.12.07 |     O     |  [22.12.08](./replay/under2diffBit.js)  |
+| 56  | [쿼드압축 후 개수 세기](./quadCompression.js)    | 22.12.09 |     X     |
