@@ -13,44 +13,6 @@
 function solution(n) {
   let answer = [];
   let count = 0;
-  let arr = Array.from({ length: n }, (_, index) => Array(index + 1).fill(0)); // 각 row마다 1~n개의 0으로 채우기
-
-  let nx = -1;
-  let ny = 0;
-  while (n > 0) {
-    // 위 -> 아래로 내려가는 대각선
-    for (let i = 0; i < n; i++) {
-      nx++;
-      count++;
-      arr[nx][ny] = count;
-    }
-
-    // 왼 -> 오로 이동
-    for (let i = 0; i < n; i++) {
-      nx++;
-      count++;
-      arr[nx][ny] = count;
-    }
-
-    // 아래 -> 위로 올라가는 대각선
-    for (let i = 0; i < n - 2; i++) {
-      nx--;
-      ny--;
-      count++;
-      arr[nx][ny] = count;
-    }
-    n -= 3;
-  }
-
-  for (let i = 0; i < arr.length; i++) {
-    answer = [...answer, ...arr[i]];
-  }
-
-  return answer;
-}
-function solution(n) {
-  let answer = [];
-  let count = 0;
   let arr = Array.from({ length: n }, (_, index) => Array(index + 1).fill(0));
   let currentX = -1;
   let currentY = 0;
