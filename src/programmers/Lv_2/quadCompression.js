@@ -44,3 +44,60 @@ console.log(
     [0, 0, 0, 0, 1, 1, 1, 1],
   ])
 );
+
+// 다른 풀이법 1
+function solution(arr) {
+  const quadZip = (row, col, n) => {
+    if (n < 2) return arr[row][col] ? [0, 1] : [1, 0];
+    let cnt0 = 0,
+      cnt1 = 0;
+    n >>= 1;
+    for (let [i, j] of [
+      [0, 0],
+      [0, 1],
+      [1, 0],
+      [1, 1],
+    ]) {
+      let [zero, one] = quadZip(row + i * n, col + j * n, n);
+      cnt0 += zero;
+      cnt1 += one;
+    }
+    if (cnt0 === 0) return [0, 1];
+    if (cnt1 === 0) return [1, 0];
+    return [cnt0, cnt1];
+  };
+  return quadZip(0, 0, arr.length);
+}
+
+// 또 다른 풀이법 2
+function solution(arr) {
+  // 부랄정복!
+  const boolSet = { 0: 0, 1: 0 };
+  const [isValid, partition, execute] = [
+    (arr, n, i) =>
+      i === n
+        ? "⚡"
+        : new Set(arr[i]).size == 1 && [...new Set(arr[i])][0] == arr[0][0]
+        ? isValid(arr, n, i + 1)
+        : false,
+    (arr, n) =>
+      [
+        [0, 0],
+        [0, n],
+        [n, 0],
+        [n, n],
+      ].map((v) =>
+        new Array(n)
+          .fill("🔥")
+          .map((_, i) => arr[v[0] + i].slice(v[1], v[1] + n))
+      ),
+    (arr, n) =>
+      isValid(arr, n, 0)
+        ? (boolSet[arr[0][0]] += 1)
+        : partition(arr, ~~(n / 2)).forEach((particle) =>
+            execute(particle, ~~(n / 2))
+          ),
+  ];
+  execute(arr, arr.length);
+  return Object.values(boolSet);
+}
