@@ -20,3 +20,12 @@ function solution(food) {
     return repeatedFood + acc + repeatedFood;
   }, "0");
 }
+
+// 3. 또 다른 풀이
+function solution(food) {
+  let res = "";
+  for (let i = 1; i < food.length; i++) {
+    res += String(i).repeat(food[i] / 2);
+  }
+  return res + "0" + [...res].reverse().join("");
+}
