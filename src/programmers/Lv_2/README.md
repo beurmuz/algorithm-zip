@@ -59,3 +59,4 @@
 | 55  | [2개 이하로 다른 비트](./under2diffBit.js)       | 22.12.07 |     O     |  [22.12.08](./replay/under2diffBit.js)  |
 | 56  | [쿼드압축 후 개수 세기](./quadCompression.js)    | 22.12.09 |     X     |
 | 57  | [삼각 달팽이](./triSnail.js)                     | 22.12.09 |     X     |    [22.12.10](./replay/triSnail.js)     |
+| 58  | [수식 최대화](./maxOperator.js)                  | 22.12.12 |     X     |
