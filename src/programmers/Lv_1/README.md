@@ -61,3 +61,4 @@
 | 57  | [삼총사](./threePeople.js)                        | 22.12.08 |     △     | [22.12.09](./replay/threePeople.js) |
 | 58  | [콜라 문제](./coke.js)                            | 22.12.08 |     △     |    [22.12.09](./replay/coke.js)     |
 | 59  | [푸드 파이트 문제](./food.js)                     | 22.12.11 |     △     |    [22.12.12](./replay/food.js)     |
+| 60  | [가장 가까운 같은 글자](./mostNear.js)            | 22.12.12 |     O     |
