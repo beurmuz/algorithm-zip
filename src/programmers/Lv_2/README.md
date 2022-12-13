@@ -60,3 +60,4 @@
 | 56  | [쿼드압축 후 개수 세기](./quadCompression.js)    | 22.12.09 |     X     |
 | 57  | [삼각 달팽이](./triSnail.js)                     | 22.12.09 |     X     |    [22.12.10](./replay/triSnail.js)     |
 | 58  | [수식 최대화](./maxOperator.js)                  | 22.12.12 |     X     |
+| 59  | [두 큐 합 같게 만들기](./twoQueue.js)            | 22.12.13 |
