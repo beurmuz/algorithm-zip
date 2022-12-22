@@ -52,3 +52,24 @@ function divisor(number) {
   }
   return nlist.length + 1;
 }
+
+/**
+ * 3. 다른 풀이
+ * 시간이 화아아악 줄어든다.
+ */
+function solution(number, limit, power) {
+  let answer = 0;
+
+  // 1부터 number까지 반복한다.
+  for (let n = 1; n <= number; n++) {
+    let count = 0; // 약수의 개수
+    for (let j = 1; j * j <= n; j++) {
+      if (j * j == n)
+        count++; // 어떤 수의 제곱을 했을 때 n이 나오면 약수의 개수를 1개 더한다.
+      else if (n % j == 0) count += 2; // 나눴을 때 나머지가 0이면 약수의 개수에 2를 더한다.
+    }
+    if (count > limit) count = power;
+    answer += count;
+  }
+  return answer;
+}
