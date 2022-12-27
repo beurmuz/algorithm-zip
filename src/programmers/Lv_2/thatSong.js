@@ -43,3 +43,34 @@ function solution(m, musicinfos) {
   }); // 1번 인덱스(총 재생수)가 같다면 순서를 유지하고, 같지 않다면 내림차순 정렬한다.
   return answer[0][0]; // 입력 순서 + 내림차순을 반영했으므로 배열의 첫번째 원소의 제목이 정답이다.
 }
+
+/** 2. 다른 풀이법
+ * new Date로 시차 구하기
+ */
+const solution = (m, musicInfos) => {
+  let answer = "";
+
+  musicInfos = musicInfos.map((e) => {
+    let eArr = e.split(",");
+    let timeDiff =
+      (new Date(`1970-01-01 ${eArr[1]}:00`) -
+        new Date(`1970-01-01 ${eArr[0]}:00`)) /
+      60000;
+    let melody = eArr[3].replace(/[A-Z]#/g, (m) => m[0].toLowerCase());
+    melody = melody
+      .repeat(Math.ceil(timeDiff / melody.length))
+      .substr(0, timeDiff);
+    return `${timeDiff},${eArr[2]},${melody}`;
+  });
+
+  musicInfos.sort((a, b) => b.split(",")[0] - a.split(",")[0]);
+
+  answer = musicInfos.filter(
+    (e) =>
+      e
+        .split(",")[2]
+        .indexOf(m.replace(/[A-Z]#/g, (m) => m[0].toLowerCase())) != -1
+  );
+
+  return answer.length == 0 ? "(None)" : answer[0].split(",")[1];
+};
