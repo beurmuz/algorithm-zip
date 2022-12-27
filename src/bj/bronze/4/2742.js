@@ -17,7 +17,6 @@ solution(n);
  * 2. 다시 푼 풀이
  * 변수 만들고, 문자열 형태로 다 더한 뒤에 출력했다
  */
-let n = require("fs").readFileSync("/dev/stdin").toString().trim() * 1;
 
 function solution(n) {
   let answer = "";
