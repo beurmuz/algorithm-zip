@@ -61,3 +61,4 @@
 | 57  | [삼각 달팽이](./triSnail.js)                     | 22.12.09 |     X     |    [22.12.10](./replay/triSnail.js)     |
 | 58  | [수식 최대화](./maxOperator.js)                  | 22.12.12 |     X     |
 | 59  | [두 큐 합 같게 만들기](./twoQueue.js)            | 22.12.13 |     △     |    [22.12.14](./replay/twoQueue.js)     |
+| 60  | [방금그곡](./thatSong.js)                        | 22.12.27 |     X     |
