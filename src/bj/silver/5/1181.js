@@ -20,13 +20,6 @@ console.log(Array.from(answer).join("\n"));
 /*
     🚨 정답 출력 시 반복문을 이용하면 정말 많은 시간이 걸리므로 join('\n')을 이용하자 !! 
 */
-const input = require("fs")
-  .readFileSync("/dev/stdin")
-  .toString()
-  .trim()
-  .split("\n");
-const n = input.shift();
-
 console.log(
   [...new Set(input)]
     .sort((a, b) => a.length - b.length || a.localeCompare(b))
