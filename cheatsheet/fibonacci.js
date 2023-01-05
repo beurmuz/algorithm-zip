@@ -2,6 +2,7 @@
 
 /**
  * 피보나치 함수
+ * fibonacci(n) = fibonacci(n‐1) + fibonacci(n‐2);
  */
 
 const fibonacci = (n) => {
@@ -14,6 +15,7 @@ console.log(fibonacci(3));
 
 /**
  * DP를 이용한 피보나치
+ * - 재귀를 반복하다보면 중복이 있으므로 값을 저장해두는 방법이다.
  */
 const fibonacci2 = (n) => {
   let fibo = [];
