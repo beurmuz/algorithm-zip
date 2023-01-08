@@ -1,10 +1,16 @@
-'use strict';
+"use strict";
 
-const input = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
-let [N, L, V] = input.shift().split(' ').map(v => +v);
-const edges = input.map(v => v.split(' ').map(v => +v));
+const input = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+let [N, L, V] = input
+  .shift()
+  .split(" ")
+  .map((v) => +v);
+const edges = input.map((v) => v.split(" ").map((v) => +v));
 const graph = [...Array(N + 1)].map(() => []);
-
 
 edges.forEach(([from, to]) => {
   graph[from].push(to);
@@ -23,7 +29,7 @@ const dfs = (start) => {
       stack.push(...graph[node]);
     }
   }
-  return order.join(' ');
+  return order.join(" ");
 };
 
 const bfs = (start) => {
@@ -38,11 +44,11 @@ const bfs = (start) => {
       queue.push(...graph[node]);
     }
   }
-  return order.join(' ');
+  return order.join(" ");
 };
 
-graph.forEach(v => v.sort((a, b) => b - a));
+graph.forEach((v) => v.sort((a, b) => b - a));
 console.log(dfs(V));
 
-graph.forEach(v => v.sort((a, b) => a - b));
+graph.forEach((v) => v.sort((a, b) => a - b));
 console.log(bfs(V));
