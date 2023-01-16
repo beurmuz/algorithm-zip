@@ -1,5 +1,9 @@
 "use strict";
 
+/**
+ * 그리디 알고리즘으로 풀기
+ * - 보통 그리디는 정렬 후 이용하면 좋다..
+ */
 const [N, K, ...values] = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
