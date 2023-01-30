@@ -12,12 +12,12 @@ const [n, m] = require("fs")
   .map(Number);
 
 const solution = (n, m) => {
-  const numbers = Array.from({ length: n }, (_, index) => ++index);
   const visited = Array.from({ length: n }, () => 0);
   const output = [];
   let answer = "";
 
   const dfs = (num, depth) => {
+    //   console.log(`num: ${num}, depth: ${depth}`);
     if (depth === m) {
       answer += `${output.join(" ")}\n`;
       return;
