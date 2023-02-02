@@ -64,3 +64,42 @@ const solution = (a, b) => {
 };
 
 console.log(solution(a, b));
+
+/**
+ * 3. 그리디로 푼 방법
+ * - A와 B가 같아질 때까지 B를 계속 줄여나간다.
+ * - A가 B보다 커지면 -1을, 같아지면 answer + 1을 출력한다.
+ *
+ * => 1, 2 풀이보다도 메모리를 가장 적게쓰며, 시간도 가장 빠르다.
+ */
+const solution = (a, b) => {
+  let answer = 1;
+
+  while (a !== b) {
+    if (a > b) return -1;
+    else if (getLastPositionNumber(b) === 1) {
+      // 1의 자리에 있는 값이 1이면
+      b = removeOneOfLastPosition(b); // 을 제거한 값을 b에 갱신한다.
+      answer += 1;
+    } else if (getLastPositionNumber(b) !== 1) {
+      // 1의 자리에 있는 값이 1이 아니면
+      b /= 2; // 2로 나눈 값을 b에 갱신한다.
+      answer += 1;
+    }
+  }
+  return answer;
+};
+
+const getLastPositionNumber = (number) => {
+  // 가장 마지막 숫자를 return하는 함수
+  return Number(String(number).split("")[String(number).split("").length - 1]);
+};
+
+const removeOneOfLastPosition = (number) => {
+  // 1을 제거하고 return하는 함수
+  const splited = String(number).split("");
+  splited.pop();
+  return Number(splited.join(""));
+};
+
+console.log(solution(a, b));
