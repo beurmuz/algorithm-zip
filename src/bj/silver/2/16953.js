@@ -2,6 +2,7 @@
 
 /**
  * 1. bfs로 푼 문제
+ * - 문제에 최소 연산 횟수를 구하라 했으므로 bfs로 풀어야한다고 생각했다.
  * - 시간초과 방지를 위해 b를 넘는 경우는 전부 건너뛰었으며,
  * - b+1개만큼 visited 배열을 생성하는 대신 방문한 번호를 visited에 넣고 includes로 방문 여부를 알아보았다.
  */
@@ -33,6 +34,33 @@ const solution = (a, b) => {
   };
   bfs();
   return answer === 0 ? -1 : answer;
+};
+
+console.log(solution(a, b));
+
+/**
+ * 2. dfs로 푼 방법
+ * - 현재 값을 저장하면서 이동하면 된다.
+ * - 1번에 비해 메모리는 반으로, 시간은 1/10으로 줄었다.
+ *   => 훨씬 효율적!!
+ */
+const solution = (a, b) => {
+  let answer = -1;
+  const dfs = (now, count) => {
+    if (now === b) {
+      answer = count;
+      return;
+    }
+
+    if (now * 2 <= b) {
+      dfs(now * 2, count + 1);
+    }
+    if (now + "1" <= b) {
+      dfs(parseInt(now + "1"), count + 1);
+    }
+  };
+  dfs(a, 1);
+  return answer === -1 ? -1 : answer;
 };
 
 console.log(solution(a, b));
