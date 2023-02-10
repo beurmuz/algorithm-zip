@@ -1,5 +1,8 @@
 "use strict";
 
+/**
+ * n숫자만 계산하는 게 아니라, 1~n까지의 수를 찾는 문제이다.
+ */
 const n = require("fs").readFileSync("/dev/stdin").toString();
 const solution = (n) => {
   let answer = 0;
@@ -10,9 +13,10 @@ const solution = (n) => {
       answer++;
       continue;
     }
-    let a = +nString[0] - +nString[1];
-    let b = +nString[1] - +nString[2];
+    let a = +nString[0] - +nString[1]; // 자릿 수 비교
+    let b = +nString[1] - +nString[2]; // 자릿 수 비교
     if (a === b) {
+      // 차이가 같으면 한수이다.
       answer++;
     }
   }
