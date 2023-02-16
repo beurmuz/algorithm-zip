@@ -22,6 +22,7 @@
 - [문자열](./theory/string.md)
 - [투포인터](./theory/twoPointer.md)
 - [슬라이딩 윈도우](./theory/sliding_window.md)
+- [배낭 문제](./theory/knapsack.md)
 
 <br>
 
