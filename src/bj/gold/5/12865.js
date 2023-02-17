@@ -16,12 +16,12 @@
  *   - 그 외: maxVSum[n][k] = Max(maxVSum[n-1][k], maxVSum[n-1][k-weight] + value)
  * cf. [참고](https://gywlsp.github.io/boj/12865/)
  */
-const [[N, K], ...items] = (inputs = require("fs")
+const [[N, K], ...items] = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
   .trim()
   .split("\n")
-  .map((v) => v.split(" ").map(Number)));
+  .map((v) => v.split(" ").map(Number));
 
 // n: 물품의 수
 // k: 준서가 버틸 수 있는 무게
