@@ -36,7 +36,7 @@ const solution = (n, inputs) => {
     downDP[i] = count;
   }
   return (
-    Math.max(...upDP.map((upDPValue, index) => upDPValue + downDP[index])) - 1
+    Math.max(...upDP.map((upDPValue, index) => upDPValue + downDP[index])) - 1 // upDP[i] + downDP[i]의 최댓값을 구해 -1을 하면 정답이 나온다.
   );
 };
 
