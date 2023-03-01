@@ -70,3 +70,4 @@
 | 66  | [햄버거 만들기](./makeHamberger.js)               | 22.12.23 |     O     |
 | 67  | [크기가 작은 부분 문자열](./smallPartString.js)   | 22.12.26 |     O     |
 | 68  | [문자열 나누기](./cutString.js)                   | 22.12.26 |     O     |
+| 69  | [개인정보 수집 유효기간](./privateInfo.js)        | 23.03.01 |     X     |
