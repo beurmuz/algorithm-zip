@@ -10,4 +10,4 @@
 6. [출력](./%EC%B6%9C%EB%A0%A5.md)
 7. [입출력](./%EC%9E%85%EC%B6%9C%EB%A0%A5.md)
 8. [표준 라이브러리](./%ED%91%9C%EC%A4%80%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC.md)
-9. 🚨 [핵심코드 만들기](./%ED%95%B5%EC%8B%AC%EC%BD%94%EB%93%9C.md) 🚨
+9. 🚨 [핵심코드 만들기](./%ED%95%B5%EC%8B%AC%EC%BD%94%EB%93%9C.md) 🚨 10.[배열](./%EB%B0%B0%EC%97%B4.md)
