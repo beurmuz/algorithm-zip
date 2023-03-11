@@ -1,5 +1,12 @@
 "use strict";
 
+/**
+ * ✅ a.localeCompare(b) ✅: a문자열과 b문자열을 비교해 정렬 순서에 따라 수치를 반환하는 것.
+ *   - a가 b 전에 위치하면 음수
+ *   - a와 b가 같은 곳에 위치하는 경우 0
+ *   - a가 b보다 뒤에 위치하면 양수를 리턴한다.
+ */
+
 const [N, ...input] = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
