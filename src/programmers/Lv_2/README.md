@@ -68,4 +68,4 @@
 | 64  | [숫자 변환하기](./changetheNum.js)               | 23.03.06 |     O     |
 | 65  | [줄 서는 방법](./howtoLine.js)                   | 23.03.06 |     X     |
 | 66  | [택배 상자](./parcelBox.js)                      | 23.03.07 |     △     |
-| 67  | [가장 큰 정사각형 찾기](./findSquare.js)         | 23.03.25 |     X     |
+| 67  | [가장 큰 정사각형 찾기](./findSquare.js)         | 23.03.25 |     X     |   [23.03.27](./replay/findSquare.js)    |
