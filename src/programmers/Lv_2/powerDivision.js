@@ -2,11 +2,13 @@
 
 /**
  * 트리 + 완전탐색 문제
- * => n의 크기가 100이므로 그냥 완전탐색을 해도 된다.
+ * => n의 크기가 100
+ * => n의 종류(?), 범위가 작으면 무조건 완전탐색을 이용하면 된다.
  */
 const solution = (n, wires) => {
   const connect = Array.from({ length: n + 1 }, () => []); // 연결 정보를 저장할 set
   wires.forEach((wire) => {
+    // 연결 정보를 전부 저장해준다.
     const [a, b] = wire;
     connect[a].push(b);
     connect[b].push(a);
