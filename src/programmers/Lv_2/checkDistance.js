@@ -48,8 +48,54 @@ const solution = (places) => {
   return answer;
 };
 
+// console.log(
+//   solution([
+//     ["POOOP", "OXXOX", "OPXPX", "OOXOX", "POXXP"],
+//     ["POOPX", "OXPXP", "PXXXO", "OXXXO", "OOOPP"],
+//     ["PXOPX", "OXOXP", "OXPOX", "OXXOP", "PXPOX"],
+//     ["OOOXX", "XOOOX", "OOOXX", "OXOOX", "OOOOO"],
+//     ["PXPXP", "XPXPX", "PXPXP", "XPXPX", "PXPXP"],
+//   ])
+// );
+
+/**
+ * 다른 풀이법
+ * - P기준 상하좌우에 P가 있으면 => 거리두기: 0
+ * - O기준 상하좌우에 P가 2개이상 있으면 => 거리두기: 0
+ *    - P가 하나거나 없다면 거리두기가 지켜진 것
+ * - 한명이라도 거리두기를 지키지 않으면 반복문을 탈출해야하므로 탐색 중간에 탈출할 수 있는 for, while, some, every, find 중 하나를 사용해야 한다.
+ */
+
+const solution2 = (places) => {
+  return places.map((place) => {
+    // 결과가 true이면 거리두기가 지켜지지 않는다.
+    return place.some((row, rIndex) => {
+      // true이면 거리두기가 지켜지지 않는다. (바로 종료된다.)
+      return row.split("").some((column, cIndex, arr) => {
+        // 파티션이면 거리두기를 지키므로 false를 반환
+        if (column === "X") return false;
+
+        // 파티션이 아닌 경우, 상하좌우의 P개수 세기
+        const pCount = [
+          arr[cIndex - 1] || null, // 좌
+          arr[cIndex + 1] || null, // 우
+          (place[rIndex - 1] || "").charAt(cIndex), // 상
+          (place[rIndex + 1] || "").charAt(cIndex), // 하
+        ].filter((v) => v == "P").length;
+
+        if ((column == "P" && pCount > 0) || (column == "O" && pCount >= 2))
+          // P기준 상하좌우에 P가 있는지, O기준 상하좌우에 P가 2개 이상인지
+          return true;
+        return false;
+      }, "");
+    })
+      ? 0
+      : 1;
+  });
+};
+
 console.log(
-  solution([
+  solution2([
     ["POOOP", "OXXOX", "OPXPX", "OOXOX", "POXXP"],
     ["POOPX", "OXPXP", "PXXXO", "OXXXO", "OOOPP"],
     ["PXOPX", "OXOXP", "OXPOX", "OXXOP", "PXPOX"],
