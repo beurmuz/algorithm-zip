@@ -70,3 +70,4 @@
 | 66  | [택배 상자](./parcelBox.js)                      | 23.03.07 |     △     |
 | 67  | [가장 큰 정사각형 찾기](./findSquare.js)         | 23.03.25 |     X     |   [23.03.27](./replay/findSquare.js)    |
 | 68  | [거리두기 확인하기](./checkDistance.js)          | 23.03.27 |     X     |
+| 69  | [전력망을 둘로 나누기](./powerDivision.js)       | 23.03.28 |     X     |
