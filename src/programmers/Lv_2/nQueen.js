@@ -42,7 +42,6 @@ const solution = (n) => {
     board[1] = i; // board[1]에 i를 넣는다.
     dfs(board, 1); // dfs로 탐색 시작
   }
-
   return answer;
 };
 
