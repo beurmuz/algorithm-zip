@@ -1,3 +1,5 @@
+# 얼추 비슷한데 '모듈화'해서 풀 것
+# 설계가 핵심 🚨
 '''
 # 1. 첫번째 플레이어부터 순차적으로 본인이 향하고 있는 방향대로 한 칸만큼 이동한다.
 # => if 해당 방향으로 나갈 때 격자를 벗어나면:
@@ -164,8 +166,123 @@ for round in range(k): # 총 라운드 수만큼 반복한다.
                     else:
                         continue
     print(have_guns)
-
-
-
 # 최종 출력
 print(total_point)
+
+
+# 최종 답안
+import sys
+input = sys.stdin.readline
+
+n, m, k = map(int, input().split())
+gun = [list(map(int, input().split())) for _ in range(n)]
+for i in range(n):
+    for j in range(n):
+        if gun[i][j] == 0:
+            gun[i][j] = []
+        else:
+            gun[i][j] = [gun[i][j]]
+
+player = []
+direct = []
+skill = [[] for _ in range(m)]
+point = [0] * (m)
+
+for i in range(m):
+    x, y, d, s = map(int, input().split())
+    player.append((x-1, y-1))
+    direct.append(d)
+    skill[i].append(s)
+
+def move(i): #플레이어 순서대로 이동 
+    dxs, dys = [-1, 0, 1, 0], [0, 1, 0, -1]
+    a, b = player[i]
+    d = direct[i]
+    x = a + dxs[d]
+    y = b + dys[d]
+
+    if not(0 <= x and x < n and 0 <= y and y < n):
+        if d == 0:
+            x, y = a + dxs[2], b + dys[2]
+            direct[i] = 2
+        elif d == 1:
+            x, y = a + dxs[3], b + dys[3]
+            direct[i] = 3
+        elif d == 2:
+            x, y = a + dxs[0], b + dys[0]
+            direct[i] = 0
+        elif d == 3:
+            x, y = a + dxs[1], b + dys[1]
+            direct[i] = 1
+    return x, y
+
+def move_loser(i): #진 플레이어 행동
+    dxs, dys = [-1, 0, 1, 0], [0, 1, 0, -1]
+    a, b = player[i]
+    if len(skill[i]) != 1: #가지고 있는 총이 있다면 
+        gun[a][b].append(skill[i][1]) #총 버림
+        skill[i].pop()
+    d = direct[i]
+    x = a + dxs[d]
+    y = b + dys[d]
+
+    while not(0 <= x and x < n and 0 <= y and y < n) or (x, y) in player: #90도 회전 이동 
+        if direct[i] == 3:
+            direct[i] = 0
+        else:
+            direct[i] += 1 
+        d = direct[i]
+        x = a + dxs[d]
+        y = b + dys[d]
+
+    player[i] = (x, y)
+    if len(gun[x][y]) != 0: #이동 후 총이 있으면 얻음
+        get_gun(x, y, i)
+
+def get_gun(x, y, i): #총 얻음, 총이 없을 때 
+    skill[i].append(max(gun[x][y]))
+    gun[x][y].remove(max(gun[x][y]))
+
+def change_gun(x, y, i):
+    if len(skill[i]) == 1: #싸워서 이겼는데 가진 총이 없을 경우
+        if len(gun[x][y]) != 0:
+            skill[i].append(max(gun[x][y]))
+            gun[x][y].remove(max(gun[x][y]))
+    elif len(gun[x][y]) != 0 and max(gun[x][y]) > skill[i][1]:
+        temp = skill[i][1]
+        skill[i][1] = max(gun[x][y])
+        gun[x][y].remove(max(gun[x][y]))
+        gun[x][y].append(temp)
+
+def fight(a, b): #싸우고 포인트 얻기 
+    if sum(skill[a]) > sum(skill[b]):
+        point[a] += (sum(skill[a]) - sum(skill[b]))
+        return a, b
+    elif sum(skill[a]) < sum(skill[b]):
+        point[b] += (sum(skill[b]) - sum(skill[a]))
+        return b, a
+    elif sum(skill[a]) == sum(skill[b]):
+        if skill[a][0] > skill[b][0]:
+            return a, b
+        else:
+            return b, a
+
+for _ in range(k):
+    for i in range(m):
+        player[i] = move(i) #처음 플레이어 이동
+        x, y = player[i]
+        temp = player[:] 
+        temp[i] = (-1, -1) #본인 자리 제외하고 싸울 플레이어 확인 위함
+        if len(gun[x][y]) != 0 and len(skill[i]) == 1 and (x, y) not in temp: #가진 총이 없는 경우, 플레이어도 없음
+            get_gun(x, y, i) #총 얻음 
+        elif len(gun[x][y]) != 0 and (x, y) not in temp: #플레이어 없고, 가진 총 있음
+            change_gun(x, y, i)
+        elif (x, y) in temp: #플레이어가 있는 경우
+            num = temp.index((x, y)) #싸울 플레이어
+            temp[i] = (x, y) #본인 자리 다시 추가 
+            win, lose = fight(num, i) #싸움
+            move_loser(lose) #진 플레이어
+            win_x, win_y = player[win]
+            change_gun(win_x, win_y, win) #이긴 플레이어
+
+print(*point)
