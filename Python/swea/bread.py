@@ -7,10 +7,7 @@ EMPTY = (-1, -1)
 n, m = tuple(map(int, input().split()))
 
 # 0이면 빈 칸, 1이면 베이스 캠프, 2라면 아무도 갈 수 없는 곳을 뜻합니다.
-grid = [
-    list(map(int, input().split()))
-    for _ in range(n)
-]
+grid = [list(map(int, input().split())) for _ in range(n)]
 
 # 편의점 목록을 관리합니다.
 cvs_list = []
