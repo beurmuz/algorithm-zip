@@ -171,9 +171,6 @@ print(total_point)
 
 
 # 최종 답안
-import sys
-input = sys.stdin.readline
-
 n, m, k = map(int, input().split())
 gun = [list(map(int, input().split())) for _ in range(n)]
 for i in range(n):
