@@ -10,7 +10,7 @@
     => 남은 일의 작업량들을 서로 같거나 비슷한 값으로 만들어준다.
 */
 const solution = (n, works) => {
-  if (works.reduce((a, b) => a + b) <= n) return 0;
+  if (works.reduce((acc, v) => acc + v) <= n) return 0; // 배열의 총 합이 n보다 작거나 같은 경우 0을 return
 
   let sorted = works.sort((a, b) => a - b);
   while (n) {
@@ -19,7 +19,7 @@ const solution = (n, works) => {
     for (let i = works.length - 1; i >= 0; i--) {
       if (sorted[i] >= max) {
         sorted[i]--; // 그 지점을 1 줄인다.
-        n--;
+        n--; // n시간 만큼 반복문을 돈다.
       }
       if (!n) break; // 만약 n == 0이면 탈출
     }
