@@ -33,3 +33,33 @@ const solution = (n, computers) => {
 
   return answer;
 };
+
+/**
+ * 다시 풀기
+ */
+const solution2 = (n, computers) => {
+  let answer = 0;
+  const visited = Array.from({ length: n }, () => 0); // 방문 여부를 기록
+
+  const dfs = (index) => {
+    visited[index] = 1; // 방문 체크
+
+    for (let i = 0; i < computers.length; i++) {
+      if (computers[index][i] && visited[i] === 0) {
+        // 해당 컴퓨터와 연결되어 있고 아직 방문하지 않았으면 방문한다.
+        // console.log(`index: ${index},  i: ${i}`);
+        dfs(i);
+      }
+    }
+  };
+
+  for (let i = 0; i < n; i++) {
+    if (visited[i] === 0) {
+      // i에 아직 방문하지 않았다면 방문한다.
+      //   console.log(`---- dfs(${i}) 시작 ----`);
+      dfs(i);
+      answer++;
+    }
+  }
+  return answer;
+};
