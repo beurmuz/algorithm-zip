@@ -12,7 +12,6 @@ const solution = (input) => {
     .split(" ")
     .map((v) => +v);
   let board = Array.from({ length: M }, () => Array(N).fill(0));
-  //  let visited = Array.from({ length: M}, () => Array(N).fill(0));
   for (let k = 0; k < K; k++) {
     let [y1, x1, y2, x2] = input[k].split(" ").map((v) => +v);
     for (let i = x1; i < x2; i++) {
@@ -49,7 +48,8 @@ const solution = (input) => {
       }
     }
   }
-  return answer.sort((a, b) => a - b).join(" ");
+  console.log(answer.length);
+  console.log(answer.sort((a, b) => a - b).join(" "));
 };
 
-console.log(solution(input));
+solution(input);
