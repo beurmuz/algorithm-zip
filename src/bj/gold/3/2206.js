@@ -3,8 +3,7 @@
 /**
  * 처음에 푼 풀이
  * - 반복문을 돌면서 벽인 부분을 1개씩 깼다 말았다를 반복하며 bfs를 계속 호출해주었다.
- * - 테스트케이스들은 전부 통과했는데(물론 히든은 모른다ㅎ), 채점해보니 메모리 초과가 발생했다.
- *      => 매번 tempGrid 배열에 벽을 부순 정보가 저장된 grid를 계속 깊은복사해서 메모리 초과가 발생한 듯 하다.
+ * - 테스트케이스들은 전부 통과했는데(물론 히든은 모른다ㅎ), 채점해보니 시간초과가 발생했다.
  */
 const [input, ...board] = require("fs")
   .readFileSync("/dev/stdin")
@@ -54,7 +53,59 @@ const solution = (input, board) => {
     }
   }
   let plusAnswer = answer.filter((v) => v > 0);
-  return plusAnswer.length === 0 ? -1 : Math.min(...plusAnswer);
+  return plusAnswer.length === 0 ? -1 : math.min(...plusAnswer);
 };
 
 console.log(solution(input, board));
+
+/**
+ * 다른 사람 풀이
+ * - 2차원 배열이 아닌 3차원 배열로 풀었다.
+ * - 이로써 굳이 반복문을 돌 필요도, 임시 배열을 주고 받을 필요도 없어졌다!
+ */
+const input = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+
+const solution = (input) => {
+  let [n, m] = input[0].split(" ").map((v) => +v);
+  input = input.slice(1).map((v) => v.split("").map((v) => +v));
+  const ch = Array.from({ length: n }, () =>
+    Array.from({ length: m }, () => Array.from({ length: 2 }, () => 0))
+  );
+  const dx = [-1, 1, 0, 0]; // 상하좌우
+  const dy = [0, 0, -1, 1];
+  const queue = [[0, 0, 0]];
+  ch[0][0][0] = 1;
+
+  const bfs = () => {
+    let qIndex = 0;
+
+    while (queue.length !== qIndex) {
+      const [y, x, isBreak] = queue[qIndex]; // 왜 순서를 바꾸는거지?
+
+      if (x === m - 1 && y === n - 1) return ch[y][x][isBreak];
+
+      for (let k = 0; k < 4; k++) {
+        const [nx, ny] = [x + dx[k], y + dy[k]];
+
+        if (nx >= 0 && nx < m && ny >= 0 && ny < n) {
+          if (input[ny][nx] === 0 && ch[ny][nx][isBreak] === 0) {
+            ch[ny][nx][isBreak] = ch[y][x][isBreak] + 1;
+            queue.push([ny, nx, isBreak]);
+          } else if (input[ny][nx] === 1 && isBreak === 0) {
+            ch[ny][nx][isBreak + 1] = ch[y][x][isBreak] + 1;
+            queue.push([ny, nx, isBreak + 1]);
+          }
+        }
+      }
+      qIndex++;
+    }
+    return -1;
+  };
+  return bfs();
+};
+
+console.log(solution(input));
