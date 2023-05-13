@@ -9,4 +9,4 @@
 |  5  | [단어 변환](./changeWord.js)    | 23.04.11 |     X     | [23.05.13](./changeWord.js) |
 |  6  | [베스트 앨범](./bestAlbum.js)   | 23.04.11 |     X     |
 |  7  | [단속카메라](./detectCamera.js) | 23.04.12 |     X     |
-|  8  | [가장 먼 노드](./farNode.js)    | 23.05.13 |
+|  8  | [가장 먼 노드](./farNode.js)    | 23.05.13 |     △     |
