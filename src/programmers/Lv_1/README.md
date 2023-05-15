@@ -75,5 +75,5 @@
 | 71  | [둘만의 암호](./secretPassword.js)                | 23.03.03 |     O     |
 | 72  | [추억 점수](./remindScore.js)                     | 23.04.26 |     O     |
 | 73  | [덧칠하기](./addToAdd.js)                         | 23.05.07 |     △     |
-| 74  | [대충 만든 자판](./roughKeyboard.js)              | 23.05.14 |
+| 74  | [대충 만든 자판](./roughKeyboard.js)              | 23.05.14 |     X     |
 | 75  | [달리기 경주](./runContest.js)                    | 23.05.14 |     O     |

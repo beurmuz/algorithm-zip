@@ -1,25 +1,36 @@
 "use strict";
 
 const solution = (keymap, targets) => {
-  let answer = [];
-  let obj = {};
-  const targetSet = [...new Set(targets.join(""))];
-
-  targetSet.map((v) => {
-    keymap.map((value) => {
-      if (!value.includes(v)) return;
-      const index = value.indexOf(v);
-      if (!obj.hasOwnProperty(v)) return (obj[v] = index);
-      if (obj.hasOwnProperty(v))
-        return (obj[v] = obj[v] > index ? index : obj[v]);
+  return targets.map((word) => {
+    let pressKey = 0;
+    word.split("").forEach((char, index) => {
+      let count = Infinity;
+      keymap.forEach((key) => {
+        let idx = key.indexOf(char);
+        if (idx > -1) count = Math.min(count, idx + 1); // 최소한의 횟수를 넣는다.
+      });
+      pressKey += count; // pressKey를 누적합하여
     });
+    return pressKey === Infinity ? -1 : pressKey;
   });
-  targets.map((v, i) => {
-    for (let a = 0; a < v.length; a++) {
-      if (!obj.hasOwnProperty(v[a])) return (answer[i] = -1);
-      if (obj.hasOwnProperty(v[a]) && !answer[i]) answer[i] = 0;
-      answer[i] += obj[v[a]] + 1;
-    }
-  });
-  return answer;
 };
+
+// 다른 풀이
+function solution(keymap, targets) {
+  const answer = [];
+  const map = {};
+  for (const items of keymap) {
+    items
+      .split("")
+      .map(
+        (item, index) =>
+          (map[item] = map[item] < index + 1 ? map[item] : index + 1)
+      );
+  }
+  for (const items of targets) {
+    answer.push(
+      items.split("").reduce((cur, item) => (cur += map[item]), 0) || -1
+    );
+  }
+  return answer;
+}
