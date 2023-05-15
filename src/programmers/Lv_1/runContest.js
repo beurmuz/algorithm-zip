@@ -2,24 +2,19 @@
 
 const solution = (players, callings) => {
   const playerMap = {};
+  players.forEach((name, index) => {
+    playerMap[name] = index;
+  });
 
-  // calling 원소들의 idx를 미리 구해서 저장
-  for (let i = 0; i < players.length; i++) {
-    playerMap[players[i]] = i;
-  }
+  callings.forEach((name, index) => {
+    const before = playerMap[name]; // 이름이 불린 선수의 원래 위치
+    const front = players[before - 1]; // 이름이 불린 선수의 바로 앞에 있는 선수
 
-  for (let i = 0; i < callings.length; i++) {
-    const idx = playerMap[callings[i]];
-    const temp = players[idx - 1];
+    players[before - 1] = name;
+    players[before] = front;
 
-    // 해당 idx와 이전 idx의 원소를 swap
-    players[idx - 1] = callings[i];
-    players[idx] = temp;
-
-    // map의 idx도 갱신
-    playerMap[callings[i]] = idx - 1;
-    playerMap[temp] = idx;
-  }
-
+    playerMap[name] = before - 1;
+    playerMap[front] = before;
+  });
   return players;
 };
