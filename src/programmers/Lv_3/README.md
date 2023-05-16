@@ -11,3 +11,4 @@
 |  7  | [단속카메라](./detectCamera.js)   | 23.04.12 |     X     |
 |  8  | [가장 먼 노드](./farNode.js)      | 23.05.13 |     △     |
 |  9  | [섬 연결하기](./islandConnect.js) | 23.05.16 |     X     |
+| 10  | [여행경로](./travelRoute.js)      | 23.05.16 |     △     |
