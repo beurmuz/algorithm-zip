@@ -9,23 +9,17 @@
  *      - 출발역 tickets[0]을 기준으로 오름차순 정렬
  *      - 출발역이 동일하면 도착역 tickets[1]을 기준으로 오름차순 정렬
  * - JS의 sort()함수는 위의 조건대로 정렬하는 것이 default로 설정되어 있다.
- * - 이동 횟수가 tickets의 길이와 일치하는 경우, 모든 역을 방문했다는 뜻이된다.
  */
 const solution = (tickets) => {
-  let answer = [];
   const result = []; // 방문하는 역을 저장할 배열
   const visited = [];
-
   tickets.sort();
-  console.log(tickets);
 
   const dfs = (node, level) => {
     result.push(node);
 
-    if (level === tickets.length) {
-      answer = result;
-      return true;
-    }
+    // 이동 횟수가 tickets의 길이와 일치하는 경우, 모든 역을 방문했다는 뜻이다.
+    if (level === tickets.length) return true;
 
     for (let i = 0; i < tickets.length; i++) {
       if (!visited[i] && tickets[i][0] === node) {
@@ -45,5 +39,55 @@ const solution = (tickets) => {
   };
 
   dfs("ICN", 0);
-  return answer;
+  return result;
+};
+
+/**
+ * BFS로도 푸는 방법이 있길래 확인해봤는데, dfs보다 훨씬 많은 시간이 소요된다.
+ *
+ */
+const solution = (tickets) => {
+  let answer = [];
+  let withICN = [];
+  let withoutICN = [];
+  let flag = false;
+
+  for (let i = 0; i < tickets.length; i++) {
+    if (tickets[i][0] === "ICN") withICN.push(tickets[i]);
+    else withoutICN.push(tickets[i]);
+  }
+
+  // 항상 ICN으로 시작하기 때문에 ICN을 기준으로 tickets을 정렬함
+  tickets = [...withICN.sort(), ...withoutICN.sort()];
+
+  const bfs = (i) => {
+    let queue = [[tickets[i][1], [tickets[i][0]]]]; // 출발공항, 전체 경로
+    let visited = [[i]];
+
+    while (queue.length) {
+      let now = queue.shift();
+      let checkVisited = visited.shift();
+
+      // 현재 저장된 값이 tickets의 길이와 같을 때
+      // (= 모든 여행경로를 돌고 마지막 공항에 도착한 경우)
+      if (now[1].length === tickets.length) {
+        flag = true;
+        return (answer = [...now[1], now[0]]); // [...지금까지의 경로, 현재 출발지점]
+      }
+
+      tickets.forEach((ticket, index) => {
+        if (checkVisited.includes(index)) return; // 이미 방문했으니 건너뛴다.
+        if (ticket[0] === now[0]) {
+          queue.push([ticket[1], [...now[1], ticket[0]]]);
+          visited.push([...checkVisited, index]);
+        }
+      });
+    }
+  };
+
+  // BFS를 활용하여 모든 경우의 수를 탐색함
+  for (let i = 0; i < tickets.length; i++) {
+    bfs(i);
+    if (flag) return answer;
+  }
 };
