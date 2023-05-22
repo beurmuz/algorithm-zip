@@ -1,5 +1,10 @@
 "use strict";
 
+/**
+ * [이분탐색 문제]
+ * - 정렬 문제는 이분탐색으로 풀면 빠르다.
+ * - 단, 이분탐색으로 풀기 위해서는 반드시 이분탐색하는 배열을 미리 '정렬'해야한다.
+ */
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
