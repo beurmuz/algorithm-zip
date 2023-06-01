@@ -33,6 +33,7 @@ console.log(solution(n, arr));
 /**
  * 다시 푼 풀이 (정답 코드)
  * - LIS 알고리즘을 이용한다. (이분 탐색)
+ * cf. 참고 코드(https://minse5k.github.io/boj-12015/)
  */
 const solution1 = (n, arr) => {
   const result = [arr[0]];
