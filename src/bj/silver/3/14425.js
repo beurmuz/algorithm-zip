@@ -10,13 +10,13 @@ const solution = (values, input) => {
   const [n, m] = values.split(" ").map((v) => +v);
   const list = input.slice(0, n);
   const candidate = input.slice(n);
-    const listSet = new Set(list);
+  const listSet = new Set(list);
 
-    let answer = 0;
-    candidate.forEach((word) => {
-        if(listSet.has(word)) answer++;
-    })
-    return answer;
+  let answer = 0;
+  candidate.forEach((word) => {
+    if (listSet.has(word)) answer++;
+  });
+  return answer;
 };
 
 console.log(solution(values, input));
