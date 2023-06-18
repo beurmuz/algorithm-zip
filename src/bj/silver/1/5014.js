@@ -3,7 +3,7 @@
 /**
  * [bfs 문제]
  * - 갈 수 있는 범위가 정해져있고, 이동하는 간격이 정해져있으므로 bfs로 풀었다.
-*/
+ */
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -34,7 +34,7 @@ const solution = (input) => {
   };
 
   let answer = bfs();
-  return answer ? answer : 'use the stairs';
+  return answer ? answer : "use the stairs";
 };
 
 console.log(solution(input));
