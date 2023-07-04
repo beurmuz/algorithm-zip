@@ -7,6 +7,7 @@
 
 - [기본](./theory/basic.md)
 - [배열](./theory/array.md)
+- [연결리스트](./theory/linked-list.md)
 - [이진탐색](./theory/binarySearch.md)
 - [이진트리](./theory/binaryTree.md)
 - [브루트포스](./theory/brute_force.md)
