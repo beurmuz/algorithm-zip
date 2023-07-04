@@ -69,3 +69,23 @@ console.log(solution(6, arr));
 >
 > - 시간 복잡도를 따질 때 2중 for문이라면 안쪽 for문에 속한 연산자가 몇 번 연산되는지 계산하는게 시간복잡도이다.
 > - 해당 문제는 for문 안에 있는 while문이 프로그램이 종료될 때까지 몇번 반복되는지 확인해보면, arr의 길이인 n번 이상 반복하지 않게 됨을 알 수 있다.
+
+# [Python] - Two Sum example
+
+```py
+def twoSum(nums, target):
+  nums.sort()
+  n = len(nums)
+  lt, rt = 0, n-1
+
+  while lt < rt:
+    if nums[lt] + nums[rt] == target:
+      return True
+    else if nums[lt] + nums[rt] > target:
+      rt = rt - 1 # rt -= 1
+    else if nums[lt] + nums[rt] < target:
+      lt = lt + 1 # lt += 1
+  return False
+
+print(twoSum(nums=[1, 5, 7, 2], target=4))
+```
