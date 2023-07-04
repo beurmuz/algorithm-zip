@@ -1,6 +1,6 @@
 # Linked-list
 
-## Node Class 만들기
+## 0. Node Class 만들기
 
 ```py
 # 1. Node는 Value와 next address를 갖는다.
@@ -22,7 +22,7 @@ num2.next = third
 num1.value = 101
 ```
 
-## Linked List Class 만들기
+## 1. head만을 이용한 Single Linked List Class 만들기
 
 - tail없이 head만을 이용해 single linked list를 만들어보자.
 - 만들 함수
@@ -103,5 +103,64 @@ linkedList.insert(idx = 3, value = 7)
 
 # 특정 위치에 있는 값 삭제하기
 linkedList.delete(2)
+```
 
+## 2. head와 tail을 이용한 Doubly Linked List 만들기
+
+```py
+
+```
+
+## 3. pre, next 값이 저장된 Doubly Linked List 만들기
+
+```py
+
+```
+
+# 적용
+
+## 방문기록 구현하기
+
+- 인터넷 브라우저 방문기록의 작동 원리대로 구현해보자.
+- 앞으로가기, 뒤로가기를 구현하려면 두가지 정보 모두를 저장해야하므로 doubly linked list를 이용해야한다.
+
+```py
+class ListNode(object):
+    def __init__(self, val = 0, next = None, prev = None):
+        self.val = val
+        self.next = next
+        self.prev = prev
+
+class HistoryRecord(object):
+    def __init__(self, homepage): # 생성자 함수
+        self.head = self.current = ListNode(val = homepage) # head와 current가 생성된 node를 가리킨다.
+
+    def visit(self, url):
+        self.current.next = ListNode(val = url, prev = self.current) # 새로운 노드를 생성한다.
+        self.current = self.current.next
+        return None
+
+    def back(self, steps):
+        while steps > 0 and self.current.prev != None: # steps이 0이 되거나 / current가 맨 앞에 올때까지 반복한다.
+            steps -= 1
+            self.current = self.current.prev
+        return self.current.val
+
+    def forward(self, steps):
+        while steps > 0 and self.current.next != None:
+            steps -= 1
+            self.current = self.current.next
+        return self.current.val
+
+# ---------------------------------------------------
+historyRecord = HistoryRecord('naver.com')
+historyRecord.visit('google.com')
+historyRecord.visit('daum.net')
+historyRecord.visit('youtube.com')
+historyRecord.back(1)
+historyRecord.forward(1)
+
+historyRecord.visit('naver.com')
+historyRecord.forward(3)
+historyRecord.back(2)
 ```
