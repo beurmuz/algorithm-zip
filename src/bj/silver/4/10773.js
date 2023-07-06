@@ -17,6 +17,7 @@ for (let i = 0; i < n; i++) {
 }
 
 for (let x of arr) {
+  // reduce를 쓰는 것보다 시간이 덜 소요된다.
   answer += x;
 }
 
