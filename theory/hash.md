@@ -87,6 +87,8 @@ hashObject.has("key"); // boolean형태로 리턴됨
 
 - Python의 Dictionary는 Hash Table로 만들어졌다.
 
+### 1. dictionary 이용하기
+
 ```py
 def twoSum(nums, target):
     dicts = {} # dictionary 선언
@@ -104,6 +106,23 @@ def twoSum(nums, target):
     return False
 
 print(twoSum(nums = [1, 5, 7, 8, 4], target = 10))
+```
+
+### 2. set 이용하기
+
+```py
+def twoSum(nums, target):
+  numsSet = set(nums) # nums 리스트를 set으로 만든다.
+
+  for num in numsSet: # 순회: O(n)
+    rest = target - num
+    if rest in numsSet: # numsSet에 rest가 있다면
+      if rest != num: # 중복은 허용하지 X
+        return True
+  return False
+
+
+print(twoSum(nums=[2, 1, 8, 5, 9, 6], target=12))
 ```
 
 ## 2. [Python] 가장 긴 연속된 수열
