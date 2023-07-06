@@ -83,7 +83,7 @@ hashObject.has("key"); // boolean형태로 리턴됨
 
 # 활용 예시
 
-## [Python] Two sum 문제에 dictionary 적용해보기
+## 1. [Python] Two sum 문제에 dictionary 적용해보기
 
 - Python의 Dictionary는 Hash Table로 만들어졌다.
 
@@ -104,4 +104,117 @@ def twoSum(nums, target):
     return False
 
 print(twoSum(nums = [1, 5, 7, 8, 4], target = 10))
+```
+
+## 2. [Python] 가장 긴 연속된 수열
+
+### 1. 가장 직관적으로 풀어보기
+
+- O(n^3)
+
+```py
+for i in range(n):
+    while nx in numsArray:
+        cnt += 1
+        nx += 1
+```
+
+### 2. dict 이용해보기
+
+- O(n^2)
+
+```py
+for i in range(n):
+    while nx in numsDictionary:
+        cnt += 1
+        nx += 1
+```
+
+### 3. 정렬하고 풀어보기
+
+- O(n log n)
+  - 정렬 시 O(n log n) + 전체 배열 탐색 시 O(n)
+
+```py
+nums = [3, 4, 2, 1, 100, 200]
+nums.sort() # O(n log n)
+answer = 0
+cnt = 1
+
+for i in range(len(nums)):
+    if nums[i-1] + 1 == nums[i]:
+        cnt += 1
+        answer = max(cnt, answer) # cnt과 answer중 더 큰 값을 answer로 갱신한다.
+    else:
+        cnt = 1
+
+print(answer)
+```
+
+### 4. (최종) ⭐ if문으로 반복되는 수 줄이기
+
+- O(n^2) 보다는 확실히 적은 O(2n) = O(n)에 가까워진다.
+- 앞선 수가 numsDictionary에 없다면 시작점으로 잡고 while문을 실행한다.
+
+```py
+for i in range(n): # n
+    if prev not in numsDictionary:
+        while nx in numsDictionary: # n
+            count += 1
+            nx += 1
+```
+
+```py
+def continiousNums(nums):
+    if len(nums) == 0:
+        return 0
+
+    answer = 0
+    numsDict = {}
+
+    # Dictionary에 key값으로 넣기: O(n)
+    for num in nums:
+        numsDict[num] = 1
+
+    # 가장 긴 연속된 수열 찾기
+    for num in numsDict: # numsDict에 있는 값들을 순회: O(n)
+        # 만약 현재 값 - 1인 값이 있다면
+        if num - 1 not in numsDict: # ⭐ 현재 값 -1인 값이 없을 때 (이게 첫 지점이 된다.)
+            cnt = 1
+            target = num + 1
+            while target in numsDict: # numsDict에 있는 key값 중에서 target과 같은 값이 있는지 찾는다. O(1)
+                cnt += 1
+                target += 1
+            answer = max(answer, cnt)
+    return answer
+
+print(continiousNums([100, 4, 5, 4, 7, 6]))
+```
+
+### 5. (+ 확장) HashSet 이용해서 풀기
+
+- Dictionary가 아닌 hashset을 이용하는 방법도 있다.
+- hashset을 이용하면 dictionary를 이용할 때 value값을 고려할 필요가 없다.
+- hashset도 hashtable, dictionary랑 동작 원리가 똑같다.
+
+```py
+def continiousNums(nums):
+    if len(nums) == 0:
+        return 0
+
+    answer = 1
+    numsSet = set(nums)
+
+    for num in numsSet: # numsSet을 순회한다. : O(n)
+        if num-1 not in numsSet: # numsSet안에 num-1이 없다면, 시작점이 된다.
+            target = num + 1
+            cnt = 1
+            while target in numsSet:
+                cnt += 1
+                target += 1
+                if cnt > answer:
+                    answer = cnt
+    return answer
+
+print(continiousNums([100, 4, 5, 4, 7, 6]))
 ```
