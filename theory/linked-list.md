@@ -22,9 +22,11 @@ num2.next = third
 num1.value = 101
 ```
 
-## 1. head만을 이용한 Single Linked List Class 만들기
+## 1. next를 이용한 Singly Linked List Class 만들기
 
 - tail없이 head만을 이용해 single linked list를 만들어보자.
+- singly linked list는 next만을 가지고 있다.
+  - 즉, 다음 위치 정보는 가지고 있지만 이전 위치 정보는 가지고있지 않다는 것
 - 만들 함수
   - `get_size()`: 현재 linkedlist의 길이를 반환
   - `search()`: 현재 idx 위치의 값을 반환
@@ -105,13 +107,10 @@ linkedList.insert(idx = 3, value = 7)
 linkedList.delete(2)
 ```
 
-## 2. head와 tail을 이용한 Doubly Linked List 만들기
+## 2. prev, next 이용한 Doubly Linked List 만들기
 
-```py
-
-```
-
-## 3. pre, next 값이 저장된 Doubly Linked List 만들기
+- prev와 next를 이용해서 Doubly linked List를 만들어보자.
+  - 이전 위치 정보, 다음 위치 정보를 가지고 있는 Linked list이다.
 
 ```py
 
