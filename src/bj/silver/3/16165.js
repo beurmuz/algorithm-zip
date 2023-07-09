@@ -1,36 +1,48 @@
 "use strict";
 
-const input = require("fs").readFileSync("/dev/stdin").toString().split("\n");
-let n = input[0].split(" ")[0]; // 총 입력 받을 걸그룹의 수 N
-let m = input[0].split("")[2]; // 맞혀야 할 문제의 수 M
-let index = 1;
-let group_member = 0;
-let group_name = new Map();
-let member = new Map();
+/**
+ * [hash 문제]
+ * - N+M의 길이에 의해 시간복잡도가 정해진다.
+ * - idx만 잘 갱신해주면 금방 풀 수 있다.
+ */
+const [input, ...infos] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .split("\n");
 
-for (let i = 0; i < n; i++) {
-  group_name.set(input[index], input[index + 1]);
-  group_member = Number(input[index + 1]);
+const solution = (input, infos) => {
+  const [N, M] = input.split(" ").map((v) => +v);
+  let idx = 0;
+  let groupMember = 0;
+  let groupInfo = new Map();
+  let member = new Map();
+  let answer = "";
 
-  for (let j = 0; j < group_member; j++) {
-    member.set(input[index + 2 + j], input[index]);
+  for (let i = 0; i < N; i++) {
+    groupInfo.set(infos[idx], infos[idx + 1]);
+    groupMember = +infos[idx + 1];
+
+    for (let j = 0; j < groupMember; j++) {
+      member.set(infos[idx + 2 + j], infos[idx]);
+    }
+    idx = idx + 2 + groupMember;
   }
-  index = index + 2 + group_member;
-}
 
-let member_sort = new Map([...member.entries()].sort());
+  let sortedGroup = new Map([...member.entries()].sort()); // 사전순 정렬
 
-// 퀴즈 시작
-for (let j = 0; j < m; j++) {
-  if (Number(input[index + 1]) === 1) {
-    console.log(member.get(input[index]));
-    index += 2;
-  } else {
-    for (let [k, v] of member_sort) {
-      if (v === input[index]) {
-        console.log(k);
+  // 퀴즈
+  for (let i = 0; i < M; i++) {
+    if (Number(infos[idx + 1]) === 1) {
+      let groupName = member.get(infos[idx]);
+      answer += `${groupName}\n`;
+    } else if (Number(infos[idx + 1]) === 0) {
+      for (let [k, v] of sortedGroup) {
+        if (v === infos[idx]) answer += `${k}\n`;
       }
     }
-    index += 2;
+    idx += 2;
   }
-}
+  return answer.trim();
+};
+
+console.log(solution(input, infos));
