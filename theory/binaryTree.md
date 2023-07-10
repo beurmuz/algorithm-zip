@@ -72,3 +72,24 @@ bt.root.left.left = Node(value = 4)
 bt.root.left.right = Node(value = 5)
 bt.root.right.right = Node(value = 6)
 ```
+
+## 두 노드의 가장 낮은 공통 조상 구하기
+
+- postOrder 방식으로 순회하는 것과 같다.
+- left, right를 먼저 방문을하고, 그 결괏값을 토대로 root를 방문하기 때문이다.
+
+```py
+def LCA(root, p, q):
+   if root = None:
+      return None
+
+   letf = LCA(root.left, p, q)
+   right = LCA(root.right, p, q)
+
+   if root == p or root == q: # root가 p이거나 q이면
+      return root
+   elif left and right: # left와 right가 둘다 있다면 (=> root를 반환)
+      return root
+   return left or right # left도 None, right도 None이면 None을 반환
+
+```
