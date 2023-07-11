@@ -93,3 +93,47 @@ def LCA(root, p, q):
    return left or right # left도 None, right도 None이면 None을 반환
 
 ```
+
+## 이진트리의 최대 깊이 구하기
+
+- level order로 해당 문제를 해결할 수 있다.
+- O(n)
+
+```py
+from collections import deque
+
+def maxDepth(node):
+   maxDepth = 0
+   if root is None: # root 노드가 없으면 깊이는 0이다.
+      return maxDepth
+
+   q = deque() # queue만들기
+   q.append((node, depth))
+
+   while q:
+      nowNode, nowDepth = q.popleft()
+      maxDepth = max(maxDepth, nowDepth)
+      if nowNode.left:
+         q.append((nowNode, nowDepth + 1))
+      if nowNode.right:
+         q.append((nowNode, nowDepth + 1))
+
+   return maxDepth
+
+root = [3, 9, 21, None, None, 17, 4]
+
+# 트리 구성하는법
+class TreeNode:
+   def __init__(self, l - None, r = None, v):
+      self.left = l
+      self.right = r
+      self.value = v
+
+root = TreeNode(v = 3)
+root.left = TreeNode(v = 9)
+root.right = TreeNode(v = 21)
+root.right.left = TreeNode(v = 17)
+root.right.right = TreeNode(v = 4)
+
+print(maxDepth(root))
+```
