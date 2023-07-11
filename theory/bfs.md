@@ -7,7 +7,9 @@
 - BFS는 DFS와 달리 상태트리에서 많이 쓰임
 - 출발 지점에서 도착 지점으로 가는 최단거리를 구할 때 많이 사용함
 
-# [python] bfs
+# [python]
+
+## 트리의 탐색 방법 - bfs
 
 - queue를 이용해서 푼다.
 
@@ -33,4 +35,34 @@ def bfs(root):
     return visited
 
 print(bfs(root))
+```
+
+## 그래프의 탐색 방법 - bfs
+
+- 인접 리스트와 그래프를 탐색하는 방법이다.
+
+```py
+graph = {
+    'A': ['B', 'D', 'E'],
+    'B': ['A', 'C', 'D'],
+    'C': ['B'],
+    'D': ['A', 'B'],
+    'E': ['A']
+}
+
+from collections import deque
+
+def bfs(graph, start_v):
+    visited = [start_v]
+    queue = deque(start_v) # 시작 노드를 queue에 넣고 시작한다.
+
+    while queue:
+        now_v = queue.popleft()
+        for v in graph[now_v]:
+            if v not in visited:
+                visitied.append(v)
+                queue.append(v) # 나중에 들릴게~
+    return visited
+
+bfs(graph, 'A')
 ```

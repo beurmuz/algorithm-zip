@@ -143,9 +143,9 @@ A = {1, 2, 3}
   - nCn = 1
   - nC0 = 1
 
-# [python] dfs
+# [python]
 
-## 기본 방문 방법
+## 트리 기본 방문 방법
 
 ```py
 def dfs(nowNode):
@@ -157,7 +157,7 @@ def dfs(nowNode):
 dfs(root)
 ```
 
-## 3가지 순회 방법
+## 3가지 트리의 순회 방법
 
 ### 1. 전위 순회 (PreOrder)
 
@@ -199,4 +199,27 @@ def postorder(nowNode):
   postorder(nowNode.left) # 자식노드부터 모두 방문한 뒤에
   postorder(nowNode.right)
   print(nowNode.value) # 자기 자신을 방문
+```
+
+## 그래프 순회 방법
+
+```py
+graph = {
+    'A': ['B', 'D', 'E'],
+    'B': ['A', 'C', 'D'],
+    'C': ['B'],
+    'D': ['A', 'B'],
+    'E': ['A']
+}
+
+visited = []
+
+def dfs(now_v):
+  visited.append(now_v)
+  for v in graph[now_v]:
+    if v not in visited:
+      dfs(v)
+
+dfs('A')
+
 ```
