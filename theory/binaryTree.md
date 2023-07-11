@@ -96,7 +96,8 @@ def LCA(root, p, q):
 
 ## 이진트리의 최대 깊이 구하기
 
-- level order로 해당 문제를 해결할 수 있다.
+### 1. level order로 해결하기
+
 - O(n)
 
 ```py
@@ -124,11 +125,47 @@ root = [3, 9, 21, None, None, 17, 4]
 
 # 트리 구성하는법
 class TreeNode:
-   def __init__(self, l - None, r = None, v):
+   def __init__(self, l = None, r = None, v = 0):
       self.left = l
       self.right = r
       self.value = v
 
+# 트리 생성
+root = TreeNode(v = 3)
+root.left = TreeNode(v = 9)
+root.right = TreeNode(v = 21)
+root.right.left = TreeNode(v = 17)
+root.right.right = TreeNode(v = 4)
+
+print(maxDepth(root))
+```
+
+### 2. Post Order로 해결하기
+
+- post order는 모든 child들을 방문한 뒤, 그 이후에 나 자신을 방문(= 어떤 액션을 취한다)한다.
+- 해당 노드가 leaf 노드라면 1을 반환하고, 윗 레벨에서 해당 정보들을 취합하는 과정을 반복하면 결국 루트 노드에서 최대 깊이를 반환할 수 있게 된다.
+
+```py
+# O(n), 재귀를 이용한다.
+def maxDepth(root):
+   # basecase: 무한루프 방지를 위한 조건
+   if root is None:
+      return 0
+
+   leftDepth = maxDepth(root.left)
+   rightDepth = maxDepth(root.right)
+   return max(leftDepth, rightDepth) + 1
+
+root = [3, 9, 21, None, None, 17, 4]
+
+# 트리 구성하는법
+class TreeNode:
+   def __init__(self, l = None, r = None, v = 0):
+      self.left = l
+      self.right = r
+      self.value = v
+
+# 트리 생성
 root = TreeNode(v = 3)
 root.left = TreeNode(v = 9)
 root.right = TreeNode(v = 21)
