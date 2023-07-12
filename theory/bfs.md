@@ -67,12 +67,10 @@ def bfs(graph, start_v):
 bfs(graph, 'A')
 ```
 
-### 섬 갯수 카운트하기 - bfs
+### 1) 섬 갯수 카운트하기 - bfs
 
 ```py
 from collections import deque
-
-
 
 def numIslands(grid):
     answer = 0
@@ -102,7 +100,6 @@ def numIslands(grid):
             if grid[i][j] == 1 and not visited[i][j]:
                 bfs(i, j)
                 answer += 1
-
     return answer
 
 print(numIslands(grid = [
@@ -110,5 +107,54 @@ print(numIslands(grid = [
     [1, 1, 0, 0, 0],
     [0, 0, 1, 0, 0],
     [0, 0, 0, 1, 1]
+]))
+```
+
+### 2) 최단거리 구하기 - bfs
+
+```py
+from collections import deque
+
+def shortestPath(grid):
+    answer = -1
+    row = len(grid)
+    col = len(grid[0])
+
+    if grid[0][0] != 0 or grid[row - 1][col - 1] != 0:
+        return -1
+
+    dx = [1, -1, 0, 0, 1, 1, -1, -1] # 상하좌우대각선
+    dy = [0, 0, 1, -1, 1, -1, 1, -1]
+    visited = [[False] * col for _ in range(row)]
+
+    q = deque() # ⭐ 튜플은 선언할 때 바로 초기화 하면 안된다.
+    q.append((0, 0, 1)) # (0, 0)에 방문했을 때 길이는 1이다.
+    visited[0][0] = True
+
+    while q:
+        nowR, nowC, nowLength = q.popleft()
+        # 목적지에 도착했을 때 nowLength를 answer에 저장한다.
+        if nowR == row - 1 and nowC == col - 1:
+            answer = nowLength
+            break
+
+        # 현재 node에 연결되어있는 모든 node를 방문 예약을 한다.
+        for k in range(8):
+            nextR = nowR + dx[k]
+            nextC = nowC + dy[k]
+
+            if (nextR >= 0 and nextR < row) and nextC >= 0 and nextC < col:
+                if grid[nextR][nextC] == 0 and not visited[nextR][nextC]: # 아직 방문하지 않았다면
+                    q.append((nextR, nextC, nowLength + 1))
+                    visited[nextR][nextC] = True
+
+    return answer
+
+print(shortestPath(grid = [
+    [0, 0, 0, 1, 0, 0, 0],
+    [0, 1, 1, 1, 0, 1, 0],
+    [0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 0, 1, 1, 1, 0],
+    [0, 1, 0, 0, 0, 0, 0]
 ]))
 ```
