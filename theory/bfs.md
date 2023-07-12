@@ -66,3 +66,49 @@ def bfs(graph, start_v):
 
 bfs(graph, 'A')
 ```
+
+### 섬 갯수 카운트하기 - bfs
+
+```py
+from collections import deque
+
+
+
+def numIslands(grid):
+    answer = 0
+    m = len(grid) # 4
+    n = len(grid[0]) # 5
+    visited = [[False] * n for _ in range(m)]
+    dx = [-1, 1, 0, 0] # 상, 하, 좌, 우
+    dy = [0, 0, -1, 1]
+
+    def bfs(x, y):
+        visited[x][y] = True # 방문 표시
+        q = deque((x, y))
+
+        while q:
+            nowX, nowY = q.popleft()
+            for k in range(4):
+                nextX = nowX + dx[k]
+                nextY = nowY + dy[k]
+
+                if (nextX >= 0 and nextX < m) and (nextY >= 0 and nextY < n): # 0~m, 0~n이내에 있고
+                    if grid[nextX][nextY] == 1 and not visited[nextX][nextY]: # 섬이고 아직 방문하지 않았다면
+                        visited[nextX][nextY] = True
+                        q.append((nextX, nextY))
+
+    for i in range(m):
+        for j in range(n):
+            if grid[i][j] == 1 and not visited[i][j]:
+                bfs(i, j)
+                answer += 1
+
+    return answer
+
+print(numIslands(grid = [
+    [1, 1, 0, 0, 0],
+    [1, 1, 0, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 0, 1, 1]
+]))
+```
