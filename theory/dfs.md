@@ -222,3 +222,33 @@ def dfs(now_v):
 
 dfs('A')
 ```
+
+## dfs 활용 - 열 수 없는 방이 있는가?
+
+- 시간복잡도: O(V+E)
+
+```py
+def canOpenRooms(rooms):
+  visited = set() # dict인 {}를 해도 된다.
+  # visited = [] # 으로 하면 dfs함수 내에서 in 연산자를 사용할 때 O(n) 시간복잡도가 쓰이므로 set()이나 dict {}을 쓰는 것이 좋다.
+
+  # v에 연결되어있는 모든 vertex에 방문한다.
+  def dfs(v):
+    visited.append(v)
+
+    for nv in rooms[v]:
+      if nv not in visited:
+        dfs(nv)
+
+
+
+  dfs(0)
+
+  if len(visited) == len(rooms):
+    return True
+  else:
+    return False
+
+rooms = [[1, 3], [2, 4], [0], [4], [], [3, 4]]
+print(canOpenRooms(rooms))
+```
