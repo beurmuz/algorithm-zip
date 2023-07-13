@@ -240,8 +240,6 @@ def canOpenRooms(rooms):
       if nv not in visited:
         dfs(nv)
 
-
-
   dfs(0)
 
   if len(visited) == len(rooms):

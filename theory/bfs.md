@@ -158,3 +158,32 @@ print(shortestPath(grid = [
     [0, 1, 0, 0, 0, 0, 0]
 ]))
 ```
+
+### 3 ) 열 수 없는 방이 있는가? - bfs
+
+```py
+from collections import deque
+
+def canOpenRooms(rooms):
+  visited = [False] * len(rooms)
+
+  # v에 연결되어있는 모든 vertex에 방문한다.
+  def bfs(v):
+    q = deque()
+    q.append(v)
+    visited[v] = True
+
+    while q:
+        nowV = q.popleft()
+
+        for nextV in rooms[nowV]:
+            if visited[nextV] == False:
+                q.append(nextV)
+                visited[nextV] = True
+
+  bfs(0)
+
+
+rooms = [[1, 3], [2, 4], [0], [4], [], [3, 4]]
+print(canOpenRooms(rooms))
+```
