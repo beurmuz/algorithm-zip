@@ -16,6 +16,8 @@
 
 ### 재귀ver. (Top-down 방식)
 
+- 🧐 보통 Top-down 방식을 memoization이라고 부른다.
+
 ```py
 def climbingStairs(n):
     # basecase 설정
@@ -41,6 +43,20 @@ def climbingStairs(n):
 
     if n not in memo:
         memo[n] = climbingStairs(n-1) + climbingStairs(n-2)
+
+    return memo[n]
+```
+
+### 반복ver. (Bottom-up 방식)
+
+- 🧐 보통 Bottom-up 방식을 tabulation이라고 부른다.
+
+```py
+def climbingStairs(n):
+    memo = {1: 1, 2: 2}
+
+    for i in range(3, n+1):
+        memo[i] = memo[i-1] + memo[i-2]
 
     return memo[n]
 ```
