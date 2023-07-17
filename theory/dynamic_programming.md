@@ -62,7 +62,12 @@ def climbingStairs(n):
 
 ## 활용 2) 최소 비용으로 계단 오르기
 
-### v1. 재귀를 이용한 완전 탐색
+### v1. top-down) 재귀를 이용한 완전 탐색
+
+- top-down 방식
+
+  - 계단 꼭대기 입장에서 생각해서 식을 세웠다.
+  - dp(n) = dp(n-1) + dp(n-2)
 
 - 시간복잡도: **O(2^n)**
   - (n-1)과 (n-2)에 대한 식을 계속 재귀로 호출하니 2가 되는것이고, 이를 총 n번 반복하니 O(2^n)이 되는 것이다.
@@ -80,7 +85,7 @@ def dp(n):
 print(dp(2))
 ```
 
-### v2. memoization으로 중복 호출 방지하기
+### v2. top-down) memoization으로 중복 호출 방지하기
 
 - v1의 코드에 memoization을 기능을 넣어보자.
   - 각 단계에 해당하는 최소 비용을 계산해서 메모리에 저장해놓고 가져다 쓰자.
@@ -89,7 +94,7 @@ print(dp(2))
 
 ```py
 cost = [17, 10, 1, 2, 1, 7]
-memo = {0: 0, 1: 1}
+memo = {0: 0, 1: 0}
 
 def dp(n):
     if n not in memo:
@@ -98,4 +103,25 @@ def dp(n):
     return memo[n]
 
 print(dp(2))
+```
+
+### v3. bottom-up) 반복문으로 풀어보기
+
+- bottom-up 방식은 계단의 시작점을 기준으로 관계식을 세운다.
+  - base case에 해당하는 부분은 직접 넣어준다.
+  - ex) dp[0] = 0, dp[1] = 1
+  - dp[2] = min(dp[1] + cost[1], dp[0] + cost[0]) ...
+- 즉 점화식은 `dp[n] = min(dp[n-1] + cost[n-1], dp[n-2] + cost[n-2])`
+
+```py
+cost = [10, 15, 20, 17, 1]
+
+dp = [-1] * (len(cost) + 1)
+dp[0] = 0 # basecase 설정
+dp[1] = 0 # basecase 설정
+
+for n in range(2, len(cost)):
+    dp[n] = min(dp[n-1] + cost[n-1], dp[n-2] + cost[n-2])
+
+print(dp[3]) # 15
 ```
