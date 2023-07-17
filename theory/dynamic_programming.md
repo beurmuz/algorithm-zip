@@ -125,3 +125,75 @@ for n in range(2, len(cost)):
 
 print(dp[3]) # 15
 ```
+
+## 활용 3) 경로 횟수 세기
+
+### v1. 완전 탐색 풀이
+
+- 완전 탐색으로 풀면 중복 호출되는 함수도 굉장히 많고, 시간복잡도도 엄청 커져버린다.
+
+```py
+def dfs(r, c):
+    if r == 0 and c == 0:
+        return 1
+    paths = 0
+
+    if r-1 >= 0:
+        paths += dfs(r+1, c)
+    if c-1 >= 0:
+        paths += dfs(r, c+1)
+
+    return paths
+```
+
+### v2. dp (top-down) 풀이
+
+- dp를 이용하면 중복되는 부분은 저장해 쓰기 때문에, 시간을 확 줄일 수 있다.
+- python의 dictionary는 tuple 자료구조를 key값으로 쓸 수 있다.
+
+```py
+def findPaths(m, n):
+    memo = [[-1] * n for _ in range(m)] # -1로 초기화
+
+    def dp(r, c):
+        if r == 0 and c == 0:
+            memo[r][c] = 1
+            return memo[r][c]
+
+        paths = 0
+        if memo[r][c] == -1:
+            if r-1 >= 0:
+                paths += dp(r-1, c) # 위
+            if c-1 >= 0:
+                paths += dp(r, c-1) # 왼쪽
+            memo[r][c] = paths
+
+        return memo[r][c]
+
+    return dp(m-1, n-1)
+
+print(findPaths(3, 7))
+```
+
+### v3. dp (bottom-up) 풀이
+
+- 개인적으로 bottom-up이 더 쉬운 듯 하다.
+- 시간복잡도는 O(m\*n)이 된다.
+
+```py
+def findPaths(m, n):
+    memo = [[-1] * n for _ in range(m)] # -1로 초기화
+
+    for r in range(m):
+        memo[r][0] = 1
+
+    for c in range(n):
+        memo[0][c] = 1
+
+    for r in range(1, m):
+        for c in range(1, n):
+            memo[r][c] = memo[r-1][c] + memo[r][c-1] # 위 + 아래값 더하기
+
+    return memo[m-1][n-1]
+print(findPaths(3, 7))
+```
