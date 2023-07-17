@@ -13,7 +13,7 @@ dp는 Top-down과 Bottom-up 방식으로 나뉜다.
 
 ## 활용 1) 계단 오르기
 
-### 재귀ver. (Top-down 방식)
+### v1. 재귀 (Top-down 방식)
 
 - 🧐 보통 Top-down 방식을 memoization이라고 부른다.
 
@@ -46,7 +46,7 @@ def climbingStairs(n):
     return memo[n]
 ```
 
-### 반복ver. (Bottom-up 방식)
+### v2. 반복문 (Bottom-up 방식)
 
 - 🧐 보통 Bottom-up 방식을 tabulation이라고 부른다.
 
@@ -58,4 +58,44 @@ def climbingStairs(n):
         memo[i] = memo[i-1] + memo[i-2]
 
     return memo[n]
+```
+
+## 활용 2) 최소 비용으로 계단 오르기
+
+### v1. 재귀를 이용한 완전 탐색
+
+- 시간복잡도: **O(2^n)**
+  - (n-1)과 (n-2)에 대한 식을 계속 재귀로 호출하니 2가 되는것이고, 이를 총 n번 반복하니 O(2^n)이 되는 것이다.
+  - 아래와 같은 코드를 작성하게 되면 최악의 경우 O(2^1000)이 된다. 이는 10^8을 거뜬히 넘는 수이다.
+
+```py
+cost = [17, 10, 1, 2, 1, 7]
+
+def dp(n):
+    if n == 0 and n == 1: # 0, 1층에서 시작한다고 했으니 0을 return
+        return 0
+
+    return min(dfs(n-1) + cost[n-1], dfs(n-2) + cost[n-2])
+
+print(dp(2))
+```
+
+### v2. memoization으로 중복 호출 방지하기
+
+- v1의 코드에 memoization을 기능을 넣어보자.
+  - 각 단계에 해당하는 최소 비용을 계산해서 메모리에 저장해놓고 가져다 쓰자.
+- 이렇게 되면 시간복잡도가 **O(n)**이 된다.
+  - 계단의 높이가 n일 때, memo를 그대로 사용하기 때문에 총 2n번 호출되므로 시간복잡도가 O(n)이 되는 것이다.
+
+```py
+cost = [17, 10, 1, 2, 1, 7]
+memo = {0: 0, 1: 1}
+
+def dp(n):
+    if n not in memo:
+        memo[n] = min(dp(n-1) + cost[n-1], dp(n-2) + cost[n-2])
+
+    return memo[n]
+
+print(dp(2))
 ```
