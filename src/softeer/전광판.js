@@ -23,23 +23,26 @@ const solution = (T, inputs) => {
   };
 
   for (let t = 0; t < T; t++) {
-    let [A, B] = inputs[t].split(" ").map((v) => +v);
+    let [A, B] = inputs[t].split(" ");
 
-    A = " ".repeat(5 - A.length) + A;
-    B = " ".repeat(5 - B.length) + B;
+    // 자릿수 맞추기
+    A = (" ".repeat(5 - A.length) + A).split("");
+    B = (" ".repeat(5 - B.length) + B).split("");
 
     let total = 0;
-
     for (let i = 0; i < 5; i++) {
+      // console.log(`---A: ${A}, 현재 비교값: ${A[i]}, 여기 값은: ${nums[A[i]]}`);
+      // console.log(`---B: ${B}, 현재 비교값: ${B[i]}, 여기 값은: ${nums[B[i]]}`);
       for (let j = 0; j < 7; j++) {
-        if (A[i][j] !== B[i][j]) {
+        if (nums[A[i]][j] != nums[B[i]][j]) {
           total += 1;
         }
+        //   console.log(`A: ${nums[+A[i]][j]} // B: ${nums[+B[i]][j]}`);
       }
     }
     answer.push(total);
   }
-  return answer;
+  return answer.join("\n");
 };
 
 console.log(solution(+T, inputs));
