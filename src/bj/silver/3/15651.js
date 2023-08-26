@@ -24,7 +24,7 @@ const solution = (N, M) => {
       for (let k = 1; k <= N; k++) {
         arr.push(k);
         // visited[k] = true;
-        dfs(k + 1, arr);
+        dfs(k, arr);
         // visited[k] = false;
         arr.pop();
       }
