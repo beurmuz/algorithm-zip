@@ -2,41 +2,47 @@
 
 /**
  * [백트래킹 문제]
- * - 어떻게 백트래킹을 써야할지 계속 고민이었다. 최대 깨진 갯수로 answer를 갱신하는 것까진 예상했지만 dfs(now+1) 이후, 왜 같은 구문을 반복하는지 의문이다.
+ * - 특정 계란을 깼다 말았다를 백트래킹으로 구현해야한다.
  */
 
 const input = require("fs")
-  .readFileSync("./dev/stdin")
+  .readFileSync("/dev/stdin")
   .toString()
-  .split("\n")
-  .map((v) => v.split(" ").map(Number));
-const N = input.shift()[0];
-let answer = 0;
+  .trim()
+  .split("\n");
 
-let eggs = input;
+const solution = (input) => {
+  const N = Number(input.shift());
+  const eggs = input.map((string) => string.split(" ").map(Number));
+  let answer = 0;
 
-function dfs(now) {
-  if (now == N) {
-    let broken = 0;
-    for (let i = 0; i < N; i++) {
-      if (eggs[i][0] <= 0) broken++;
+  const dfs = (nowIndex, cnt) => {
+    if (nowIndex == N) {
+      // 끝까지 탐색했다면
+      answer = Math.max(answer, cnt);
+      return;
     }
-    answer = Math.max(broken, answer);
-    return;
-  }
-  let flag = true;
-  for (let next = 0; next < N; next++) {
-    if (next == now) continue;
-    if (eggs[now][0] <= 0 || eggs[next][0] <= 0) continue;
-    flag = false;
-    eggs[now][0] = eggs[now][0] - eggs[next][1];
-    eggs[next][0] = eggs[next][0] - eggs[now][1];
-    dfs(now + 1);
-    eggs[now][0] = eggs[now][0] + eggs[next][1];
-    eggs[next][0] = eggs[next][0] + eggs[now][1];
-  }
-  if (flag) dfs(now + 1);
-}
 
-dfs(0);
-console.log(answer);
+    if (eggs[nowIndex][0] <= 0 || cnt === N - 1) {
+      // 현재 계란이 깨졌거나, 깨진 개수가 N-1개 일때
+      dfs(nowIndex + 1, cnt);
+      return;
+    }
+
+    for (let nextIndex = 0; nextIndex < N; nextIndex++) {
+      if (nextIndex == nowIndex || eggs[nextIndex][0] <= 0) continue; // 같은 계란을 가리키거나, 비교하는 계란이 깨진 경우는 건너뛴다.
+      eggs[nextIndex][0] -= eggs[nowIndex][1];
+      eggs[nowIndex][0] -= eggs[nextIndex][1];
+      dfs(
+        nowIndex + 1,
+        cnt + Number(eggs[nowIndex][0] <= 0) + Number(eggs[nextIndex][0] <= 0)
+      ); // 기존의 깨진 갯수에 현재 깨진 계란 수를 세서 더한다.
+      eggs[nextIndex][0] += eggs[nowIndex][1];
+      eggs[nowIndex][0] += eggs[nextIndex][1];
+    }
+  };
+  dfs(0, 0);
+  return answer;
+};
+
+console.log(solution(input));
