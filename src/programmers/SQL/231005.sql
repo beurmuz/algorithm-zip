@@ -1,0 +1,42 @@
+-- 강원도에 위치한 생산공장 목록 출력하기 | O
+SELECT FACTORY_ID, FACTORY_NAME, ADDRESS
+FROM FOOD_FACTORY
+WHERE ADDRESS LIKE '강원도%'
+ORDER BY FACTORY_ID;
+
+
+-- 흉부외과 또는 일반외과 의사 목록 출력하기 | X
+-- 출력해보면 HIRE_YMD에 시간 정보도 포함되어 있음을 알 수 있다. 이를 '연도-월-일' 형태로 바꿔주어야한다.
+SELECT DR_NAME, DR_ID, MCDP_CD, DATE_FORMAT(HIRE_YMD, '%Y-%m-%d') AS HIRE_YMD
+FROM DOCTOR
+WHERE MCDP_CD = 'CS' OR MCDP_CD = 'GS'
+ORDER BY HIRE_YMD DESC, DR_NAME;
+
+
+-- 12세 이하인 여자 환자 목록 출력하기 | O
+-- 만약 TLNO의 값이 NULL이면, NONE을 출력한다. => IFNULL로 설정 가능
+SELECT PT_NAME, PT_NO, GEND_CD, AGE, IFNULL(TLNO, 'NONE') AS TLNO
+FROM PATIENT
+WHERE AGE < 13 and GEND_CD = 'W'
+ORDER BY AGE DESC, PT_NAME
+
+
+-- 조건에 맞는 회원수 구하기 | X
+-- JOINED에서 YEAR 정보만 뽑는 방법을 몰랐다. => YEAR(컬럼명)을 해주면 된다.
+SELECT COUNT(*) AS USERS
+FROM USER_INFO
+WHERE YEAR(JOINED) = 2021 and AGE > 19 and AGE < 30
+
+
+-- 인기있는 아이스크림 | O
+SELECT FLAVOR
+FROM FIRST_HALF
+ORDER BY TOTAL_ORDER DESC, SHIPMENT_ID;
+
+
+-- 조건에 맞는 도서 리스트 출력하기 | O
+-- %Y는 2021을, %y는 21 형태로 만들어준다.
+SELECT BOOK_ID, DATE_FORMAT(PUBLISHED_DATE, '%Y-%m-%d') AS PUBLISHED_DATE
+FROM BOOK
+WHERE YEAR(PUBLISHED_DATE) = 2021 and CATEGORY = '인문'
+ORDER BY PUBLISHED_DATE;
