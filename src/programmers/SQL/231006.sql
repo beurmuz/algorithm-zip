@@ -1,0 +1,59 @@
+-- 평균 일일 대여 요금 구하기 | X
+-- ROUND로 반올림하면 된다.
+SELECT ROUND(AVG(DAILY_FEE)) AS AVERAGE_FEE
+FROM CAR_RENTAL_COMPANY_CAR
+WHERE CAR_TYPE = 'SUV'
+
+
+-- 과일로 만든 아이스크림 고르기 | X
+-- 두 개의 테이블을 조인해서 푸는 문제이다. 
+SELECT HALF.FLAVOR
+FROM FIRST_HALF HALF
+-- 'HALF'라고 부를 FIRST_HALF에 'INFO'라고 부를 ICECREAM_INFO를 조인한다.
+INNER JOIN ICECREAM_INFO INFO
+-- 두 테이블의 조인 기준 컬럼은 'FLAVOR'이다.
+ON HALF.FLAVOR = INFO.FLAVOR
+-- 모든 컬럼을 그냥 사용할 수 있으므로, 컬럼명 앞에 테이블 이름을 붙여주지 않아도 된다.
+WHERE TOTAL_ORDER > 3000
+AND INGREDIENT_TYPE = 'fruit_based'
+ORDER BY TOTAL_ORDER DESC
+
+
+-- 최댓값 구하기 | O
+-- 최신 날짜는 MAX로 구할 수 있다.
+SELECT MAX(DATETIME)
+FROM ANIMAL_INS;
+
+
+-- 특정 옵션이 포함된 자동차 리스트 구하기 | O
+SELECT CAR_ID, CAR_TYPE, DAILY_FEE, OPTIONS
+FROM CAR_RENTAL_COMPANY_CAR
+WHERE OPTIONS LIKE '%네비게이션%'
+ORDER BY CAR_ID DESC;
+
+
+-- 자동차 대여 기록에서 장기/단기 대여 구분하기 | O
+-- 날짜 계산은 DATEDIFF(최근, 이전) 함수를 이용하면 된다.
+SELECT HISTORY_ID,
+       CAR_ID,
+       DATE_FORMAT(START_DATE, '%Y-%m-%d') AS START_DATE, 
+       DATE_FORMAT(END_DATE, '%Y-%m-%d') AS END_DATE, 
+      IF(DATEDIFF(END_DATE, START_DATE) >= 29, '장기 대여', '단기 대여') AS REND_TYPE
+FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
+WHERE DATE_FORMAT(START_DATE, "%Y-%m") LIKE '2022-09'
+ORDER BY HISTORY_ID DESC;
+
+
+-- 조건에 부합하는 중고거래 댓글 조회하기 | X
+-- 두 테이블을 JOIN한 후 조건에 맞는 경우만 보여주면 된다. 
+SELECT TITLE, 
+       BOARD.BOARD_ID, 
+       REPLY_ID, 
+       REPLY.WRITER_ID, 
+       REPLY.CONTENTS, 
+       DATE_FORMAT(REPLY.CREATED_DATE, '%Y-%m-%d') AS CREATED_DATE
+FROM USED_GOODS_REPLY AS REPLY
+LEFT JOIN USED_GOODS_BOARD AS BOARD
+ON REPLY.BOARD_ID=BOARD.BOARD_ID
+WHERE DATE_FORMAT(BOARD.CREATED_DATE, '%Y-%m') = '2022-10'
+ORDER BY REPLY.CREATED_DATE, TITLE
