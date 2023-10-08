@@ -1,0 +1,60 @@
+-- DATETIME에서 DATE로 형변환 | O
+SELECT ANIMAL_ID, NAME, DATE_FORMAT(DATETIME, "%Y-%m-%d") AS 날짜
+FROM ANIMAL_INS
+ORDER BY ANIMAL_ID
+
+
+-- 가격이 제일 비싼 식품의 정보 출력하기 | X
+-- ✅ 풀이 1) 가격 기준 내림차순 정렬 후, LIMIT으로 1개만 출력하는 방법
+SELECT *
+FROM FOOD_PRODUCT
+ORDER BY PRICE DESC
+LIMIT 1;
+
+-- ✅ 풀이 2) WHERE로 가장 큰 가격과 가격이 같은 경우에 출력하는 방법
+SELECT *
+FROM FOOD_PRODUCT
+WHERE PRICE = (SELECT MAX(PRICE) FROM FOOD_PRODUCT);
+
+
+-- 중성화 여부 파악하기 | X
+-- ✅ END 뒤에 '중성화'는 컬럼명을 의미한다. 그래서 END AS '중성화'도 되고, END '중성화'도 된다.
+SELECT ANIMAL_ID, 
+       NAME, 
+       CASE WHEN SEX_UPON_INTAKE LIKE "%Neutered%" OR SEX_UPON_INTAKE LIKE "%Spayed%"
+       THEN "O"
+       ELSE "X"
+       END '중성화'
+FROM ANIMAL_INS
+
+
+-- 고양이와 개는 몇마리 있을까 | O
+SELECT ANIMAL_TYPE, COUNT(ANIMAL_TYPE) AS count
+FROM ANIMAL_INS
+GROUP BY ANIMAL_TYPE
+ORDER BY ANIMAL_TYPE
+
+
+-- 카테고리 별 상품 개수 구하기 | X
+-- ✅ 앞 2자리는 LEFT를 이용해서 풀 수 있다. 
+SELECT LEFT(PRODUCT_CODE, 2) AS CATEGORY, COUNT(PRODUCT_ID) AS PRODUCTS
+FROM PRODUCT
+GROUP BY CATEGORY
+
+
+-- 입양 시각 구하기 (1) | X
+-- ✅ 9시와 19시 사이는 WHERE절에서 BETWEEN으로 표현할 수 있다.
+SELECT HOUR(DATETIME) AS HOUR, COUNT(*) AS COUNT
+FROM ANIMAL_OUTS
+WHERE HOUR(DATETIME) BETWEEN 9 AND 19
+GROUP BY HOUR
+ORDER BY HOUR
+
+
+-- 진료과별 총 예약 횟수 출력하기 | X
+-- 2022-05 인걸 찾아라! 하면 LIKE로 푸는게 가장 빠른것 같다.
+SELECT MCDP_CD AS '진료과코드', COUNT(APNT_YMD) AS '5월예약건수'
+FROM APPOINTMENT
+WHERE APNT_YMD LIKE '2022-05-%'
+GROUP BY MCDP_CD
+ORDER BY COUNT(APNT_YMD), MCDP_CD
