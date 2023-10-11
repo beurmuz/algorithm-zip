@@ -16,7 +16,7 @@
 | 12  | [수박수박수박수박수박수](./watermelon.js)         | 22.06.06 |  O   |                  X                  |
 | 13  | [내적](./dotProduct.js)                           | 22.06.07 |  O   |                  X                  |
 | 14  | [없는 숫자 더하기](./accNoNumbers.js)             | 22.06.07 |  △   | [23.10.11](./replay/addNoNumber.js) |
-| 15  | [카카오\_크레인 인형뽑기 게임](./pickdolls.js)    | 22.06.08 |  △   |              다시 풀기              |
+| 15  | [크레인 인형뽑기 게임](./pickdolls.js)            | 22.06.08 |  △   |  [23.10.11](./replay/pickdolls.js)  |
 | 16  | [음양 더하기](./accPlusMinus.js)                  | 22.06.08 |  O   |                  X                  |
 | 17  | [가운데 글자 가져오기](./bringMid.js)             | 22.06.08 |  O   |                  X                  |
 | 18  | [k번째 수](./kNumber.js)                          | 22.06.09 |  O   |                  X                  |
