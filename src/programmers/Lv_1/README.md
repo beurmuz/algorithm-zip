@@ -12,7 +12,7 @@
 |  8  | [짝수와 홀수](./oddOrEven.js)                     | 22.06.04 |  O   |                  X                  |
 |  9  | [x만큼 간격이 있는 n개의 숫자](./xLength.js)      | 22.06.05 |  O   |                  X                  |
 | 10  | [핸드폰 번호 가리기](./hideNumber.js)             | 22.06.05 |  O   |                  X                  |
-| 11  | [정수 제곱근 판별](./integerSqrt.js)              | 22.06.06 |  O   |                  O                  |
+| 11  | [정수 제곱근 판별](./integerSqrt.js)              | 22.06.06 |  O   | [23.10.11](./replay/integerSqrt.js) |
 | 12  | [수박수박수박수박수박수](./watermelon.js)         | 22.06.06 |  O   |                  X                  |
 | 13  | [내적](./dotProduct.js)                           | 22.06.07 |  O   |                  X                  |
 | 14  | [없는 숫자 더하기](./accNoNumbers.js)             | 22.06.07 |  △   |              다시 풀기              |
