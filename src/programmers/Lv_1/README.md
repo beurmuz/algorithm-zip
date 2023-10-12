@@ -25,7 +25,7 @@
 | 21  | [두 정수 사이의 합](./betweenAandB.js)            | 22.06.12 |  O   |                  X                  |
 | 22  | [문자열 내림차순으로 배치하기](./sortString.js)   | 22.06.12 |  O   |                  X                  |
 | 23  | [문자열을 정수로 바꾸기](./stringToNumber.js)     | 22.06.14 |  O   |                  X                  |
-| 24  | [문자열 다루기 기본](./basicString.js)            | 22.06.15 |  O   |                  O                  |
+| 24  | [문자열 다루기 기본](./basicString.js)            | 22.06.15 |  O   | [23.10.12](./replay/basicString.js) |
 | 25  | [부족한 금액 계산하기](./shortMoney.js)           | 22.06.16 |  O   |                  X                  |
 | 26  | [서울에서 김서방 찾기](./findKim.js)              | 22.06.17 |  O   |                  X                  |
 | 27  | [문자열 내 p와 y의 개수](./pyInTheString.js)      | 22.06.17 |  O   |                  X                  |
