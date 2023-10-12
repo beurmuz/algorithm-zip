@@ -39,7 +39,7 @@
 | 35  | [약수의 개수와 덧셈](./betweenNumbers.js)         | 22.06.20 |  O   |                  X                   |
 | 36  | [숫자 문자열과 영단어](./numberAndWord.js)        | 22.06.21 |  O   |                  X                   |
 | 37  | [예산](./budget.js)                               | 22.06.21 |  O   |                  X                   |
-| 38  | [체육복](./trainingClothes.js)                    | 22.06.22 |  X   |                  X                   |
+| 38  | [체육복](./trainingClothes.js)                    | 22.06.22 |  X   |   [23.10.12](./replay/uniform.js)    |
 | 39  | [이상한 문자 만들기](./strangeString.js)          | 22.06.22 |  X   |                  X                   |
 | 40  | [약수의 합](./sumDivisor.js)                      | 22.06.22 |  O   |                  X                   |
 | 41  | [같은 숫자는 싫어](./hateSameNumber.js)           | 22.06.23 |  O   | [23.10.12](./replay/hateSameNum.js)  |
