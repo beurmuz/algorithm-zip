@@ -42,7 +42,7 @@
 | 38  | [체육복](./trainingClothes.js)                    | 22.06.22 |  X   |                  X                   |
 | 39  | [이상한 문자 만들기](./strangeString.js)          | 22.06.22 |  X   |                  X                   |
 | 40  | [약수의 합](./sumDivisor.js)                      | 22.06.22 |  O   |                  X                   |
-| 41  | [같은 숫자는 싫어](./hateSameNumber.js)           | 22.06.23 |  O   |                  O                   |
+| 41  | [같은 숫자는 싫어](./hateSameNumber.js)           | 22.06.23 |  O   | [23.10.12](./replay/hateSameNum.js)  |
 | 42  | [나누어 떨어지는 숫자 배열](./fitNumberArray.js)  | 22.06.24 |  O   |                  X                   |
 | 43  | [키패드 누르기](./pushKeypad.js)                  | 22.06.24 |  X   |              다시풀었다              |
 | 44  | [소수 만들기](./makePrimeNumber.js)               | 22.06.25 |  X   |             다시 풀었다              |
