@@ -32,7 +32,7 @@
 | 28  | [카카오\_신고 결과 받기](./reportingMail.js)      | 22.06.17 |  O   |                  O                   |
 | 29  | [로또의 최고 순위와 최저 순위](./lottoMinMax.js)  | 22.06.18 |  O   |                  X                   |
 | 30  | [소수찾기](./findPrimeNumber.js)                  | 22.06.18 |  X   | [23.10.12](./replay/findPrimeNum.js) |
-| 31  | [모의고사](./mockTest.js)                         | 22.06.19 |  O   |                  O                   |
+| 31  | [모의고사](./mockTest.js)                         | 22.06.19 |  O   |   [23.10.12](./replay/mocktest.js)   |
 | 32  | [나머지가 1이 되는 숫자 찾기](./findRestValue.js) | 22.06.19 |  O   |                  X                   |
 | 33  | [행렬의 덧셈](./addMatrix.js)                     | 22.06.19 |  O   |                  X                   |
 | 34  | [신규 아이디 추천](./recommandNewId.js)           | 22.06.20 |  X   |                  O                   |
