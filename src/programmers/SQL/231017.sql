@@ -1,0 +1,9 @@
+-- 보호소에서 중성화한 동물 | X
+-- LIKE 뒤에 단어의 첫 문자를 대문자로 하면 결과가 출력되지 않는다.
+SELECT ANIMAL_ID, ANIMAL_TYPE, NAME
+FROM ANIMAL_INS
+WHERE SEX_UPON_INTAKE LIKE 'intact%' AND ANIMAL_ID IN (
+    SELECT ANIMAL_ID 
+    FROM ANIMAL_OUTS 
+    WHERE SEX_UPON_OUTCOME LIKE 'spayed%'
+    OR SEX_UPON_OUTCOME LIKE 'neutered%');
