@@ -1,4 +1,6 @@
 -- 서울에 위치한 식당 목록 출력하기 | X
+-- WHERE로 풀면 틀리고, HAVING으로 풀어야 정답처리가 된다. 
+-- ✅ ROUND를 이용해서 반올림 처리를 할 수 있다.
 SELECT A.REST_ID, B.REST_NAME, B.FOOD_TYPE, B.FAVORITES, B.ADDRESS, ROUND(AVG(A.REVIEW_SCORE),2) AS SCORE
 FROM REST_REVIEW A
 JOIN REST_INFO B ON A.REST_ID = B.REST_ID
