@@ -50,7 +50,7 @@
 | 46  | [완주하지 못한 선수](./notCompletion.js)          | 22.06.26 |  O   |                   X                    |
 | 47  | [두 개 뽑아서 더하기](./popTwoSum.js)             | 22.06.26 |  O   |   [23.10.25](./replay/popTowsum.js)    |
 | 48  | [비밀 지도](./secretMap.js)                       | 22.06.27 |  X   |               다시풀었음               |
-| 49  | [문자열 내 마음대로 정하기](./asonelikes.js)      | 22.06.28 |  X   |              다시 풀었음               |
+| 49  | [문자열 내 마음대로 정하기](./asonelikes.js)      | 22.06.28 |  X   |   [23.10.25](./replay/mymindSort.js)   |
 | 50  | [하샤드 수](./hashadNumber.js)                    | 22.06.29 |  O   |                   X                    |
 | 51  | [콜라츠 추측](./collatz.js)                       | 22.06.29 |  O   |                   X                    |
 | 52  | [3진법 뒤집기](./reverse3.js)                     | 22.06.30 |  O   |                   X                    |
