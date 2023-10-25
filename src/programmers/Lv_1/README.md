@@ -55,7 +55,7 @@
 | 51  | [콜라츠 추측](./collatz.js)                       | 22.06.29 |  O   |                   X                    |
 | 52  | [3진법 뒤집기](./reverse3.js)                     | 22.06.30 |  O   |                   X                    |
 | 53  | [폰켓몬](./phonekemon.js)                         | 22.06.30 |  O   |                   X                    |
-| 54  | [최소직사각형](./minimumRect.js)                  | 22.06.30 |  O   |                   O                    |
+| 54  | [최소직사각형](./minimumRect.js)                  | 22.06.30 |  O   |  [23.10.25](./replay/minimumRect.js)   |
 | 55  | [1차 다트게임](./dartGame.js)                     | 22.07.01 |  X   |           정규표현식.......            |
 | 56  | [카카오 성격 유형 검사하기](./mbti.js)            | 22.08.21 |  O   |                                        |
 | 57  | [삼총사](./threePeople.js)                        | 22.12.08 |  △   |  [22.12.09](./replay/threePeople.js)   |
