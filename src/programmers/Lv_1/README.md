@@ -45,7 +45,7 @@
 | 41  | [같은 숫자는 싫어](./hateSameNumber.js)           | 22.06.23 |  O   |  [23.10.12](./replay/hateSameNum.js)  |
 | 42  | [나누어 떨어지는 숫자 배열](./fitNumberArray.js)  | 22.06.24 |  O   |                   X                   |
 | 43  | [키패드 누르기](./pushKeypad.js)                  | 22.06.24 |  X   |              다시풀었다               |
-| 44  | [소수 만들기](./makePrimeNumber.js)               | 22.06.25 |  X   |              다시 풀었다              |
+| 44  | [소수 만들기](./makePrimeNumber.js)               | 22.06.25 |  X   |   [23.10.25](./replay/primeNum.js)    |
 | 45  | [시저 암호](./caesarPassword.js)                  | 22.06.25 |  X   |              다시 풀었다              |
 | 46  | [완주하지 못한 선수](./notCompletion.js)          | 22.06.26 |  O   |                   X                   |
 | 47  | [두 개 뽑아서 더하기](./popTwoSum.js)             | 22.06.26 |  O   |    배열의 중복 제거방법 다시보기!     |
