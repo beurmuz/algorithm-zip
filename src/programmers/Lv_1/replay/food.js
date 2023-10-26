@@ -1,13 +1,14 @@
-"use strict";
+/**
+ * [단순 구현]
+ */
 
-// 1. 내가 푼 풀이
 function solution(food) {
   let answer = "0";
 
   for (let i = food.length - 1; i >= 0; i--) {
-    let calorie = i.toString();
-    const repeatedFood = calorie.repeat(parseInt(food[i] / 2));
-    answer = repeatedFood + answer + repeatedFood;
+    let cal = i.toString();
+    const repeatFood = cal.repeat(parseInt(food[i] / 2));
+    answer = repeatFood + answer + repeatFood;
   }
   return answer;
 }
