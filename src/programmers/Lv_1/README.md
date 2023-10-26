@@ -66,7 +66,7 @@
 | 62  | [숫자 짝꿍](./pairOfNum.js)                       | 22.12.14 |  △   |
 | 63  | [명예의 전당](./contest.js)                       | 22.12.22 |  △   |
 | 64  | [기사단원의 무기](./weapons.js)                   | 22.12.22 |  △   |
-| 65  | [옹알이](./babbling.js)                           | 22.12.22 |  X   |
+| 65  | [옹알이](./babbling.js)                           | 22.12.22 |  X   |   [23.10.26](./replay/babbling.js갱)   |
 | 66  | [햄버거 만들기](./makeHamberger.js)               | 22.12.23 |  O   |
 | 67  | [크기가 작은 부분 문자열](./smallPartString.js)   | 22.12.26 |  O   |
 | 68  | [문자열 나누기](./cutString.js)                   | 22.12.26 |  O   |
