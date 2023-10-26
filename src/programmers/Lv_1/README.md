@@ -70,7 +70,7 @@
 | 66  | [햄버거 만들기](./makeHamberger.js)               | 22.12.23 |  O   |
 | 67  | [크기가 작은 부분 문자열](./smallPartString.js)   | 22.12.26 |  O   |
 | 68  | [문자열 나누기](./cutString.js)                   | 22.12.26 |  O   |
-| 69  | [개인정보 수집 유효기간](./privateInfo.js)        | 23.03.01 |  X   |
+| 69  | [개인정보 수집 유효기간](./privateInfo.js)        | 23.03.01 |  X   |    [23.10.26](./replay/privacy.js)     |
 | 70  | [카드 뭉치](./cardSet.js)                         | 23.03.02 |  △   |
 | 71  | [둘만의 암호](./secretPassword.js)                | 23.03.03 |  O   |
 | 72  | [추억 점수](./remindScore.js)                     | 23.04.26 |  O   |
