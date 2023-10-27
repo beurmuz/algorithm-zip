@@ -1,15 +1,22 @@
 "use strict";
 
+/**
+ * [BFS]
+ * - 최단거리, 최단경로는 BFS를 이용해서 풀자!
+ * - 방문 표시 여부, while문을 돌기 전 queue에 넣어주기, queue를 사용한 코드 작성에 유의하자.
+ */
+
 function solution(maps) {
   let answer = 1;
-  let queue = [];
-  const dx = [0, 0, 1, -1];
-  const dy = [1, -1, 0, 0];
-  const n = maps.length;
-  const m = maps[0].length;
+  let dx = [0, 0, 1, -1]; // 동, 서, 남, 북
+  let dy = [1, -1, 0, 0];
 
-  queue.push([0, 0]); // 출발지점 넣어놓고 시작!
-  maps[0][0] = 0; // 벽으로 만들기
+  let queue = [];
+  const N = maps.length;
+  const M = maps[0].length;
+
+  queue.push([0, 0]);
+  maps[0][0] = 0; // 방문했으면 벽으로 만들어준다.
 
   while (queue.length) {
     let size = queue.length;
@@ -21,8 +28,8 @@ function solution(maps) {
         let nx = x + dx[k];
         let ny = y + dy[k];
 
-        if (nx >= 0 && nx < n && ny >= 0 && ny < m && maps[nx][ny] === 1) {
-          if (nx === n - 1 && ny === m - 1) return answer + 1;
+        if (nx >= 0 && ny >= 0 && nx < N && ny < M && maps[nx][ny] === 1) {
+          if (nx === N - 1 && ny === M - 1) return answer + 1;
           queue.push([nx, ny]);
           maps[nx][ny] = 0; // 벽으로 만들기
         }
@@ -32,22 +39,3 @@ function solution(maps) {
   }
   return -1;
 }
-
-console.log(
-  solution([
-    [1, 0, 1, 1, 1],
-    [1, 0, 1, 0, 1],
-    [1, 0, 1, 1, 1],
-    [1, 1, 1, 0, 1],
-    [0, 0, 0, 0, 1],
-  ])
-);
-console.log(
-  solution([
-    [1, 0, 1, 1, 1],
-    [1, 0, 1, 0, 1],
-    [1, 0, 1, 1, 1],
-    [1, 1, 1, 0, 0],
-    [0, 0, 0, 0, 1],
-  ])
-);
