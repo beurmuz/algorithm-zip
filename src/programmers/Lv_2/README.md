@@ -19,9 +19,9 @@
 | 15  | [소수 찾기](./findPrime.js)                      | 22.07.07 |     X     |                    O                    |
 | 16  | [위장](./camouflage.js)                          | 22.07.10 |     X     |               다시풀었음                |
 | 17  | [문자열 압축](./stringCompression.js)            | 22.07.12 |     X     |              다시 풀어보기              |
-| 18  | [타겟 넘버](./targetNumber.js)                   | 22.07.13 |     X     |              DFS 복습하기               |
+| 18  | [타겟 넘버](./targetNumber.js)                   | 22.07.13 |     X     |  [23.10.27](./replay/targetNumber.js)   |
 | 19  | [다리를 지나는 트럭](./passingTruck.js)          | 22.08.15 |     X     |             스택, 다시풀기              |
-| 20  | [큰 수 만들기(그리디)](./makeBigNumber.js)       | 22.08.15 |     X     |   [23.10.26](./replay/makeBigNums.js)   |
+| 20  | [큰 수 만들기(그리디)](./makeBigNumber.js)       | 22.08.15 |     X     |   [23.10.27](./replay/makeBigNums.js)   |
 | 21  | [카카오 튜플](./tuple.js)                        | 22.08.22 |     △     |                 한번더                  |
 | 22  | [멀쩡한 사각형](./rightRect.js)                  | 22.08.23 |     O     |                 한번더                  |
 | 23  | [H-Index](./hindex.js)                           | 22.08.24 |     △     |    [22.08.27](./replay/hindex_re.js)    |
@@ -80,3 +80,4 @@
 | 76  | [마법의 엘리베이터](./elevator.js)               | 23.04.30 |     △     |
 | 77  | [호텔 대실](./hotel.js)                          | 23.05.01 |     X     |
 | 78  | [혼자 놀기의 달인](./alonePlay.js)               | 23.05.17 |     X     |
+| 79  | [전화번호 목록](./telList.js)                    | 23.10.27 |     X     |
