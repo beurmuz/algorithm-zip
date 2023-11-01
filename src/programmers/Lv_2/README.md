@@ -36,7 +36,7 @@
 | 32  | [카펫](./carpet.js)                              | 22.09.09 |     X     |     [23.10.30](./replay/carpet.js)      |
 | 33  | [구명보트](./lifeboat.js)                        | 22.09.10 |     △     |    [23.10.30](./replay/lifeboat.js)     |
 | 34  | [멀리 뛰기](./longJump.js)                       | 22.09.11 |     △     |    [23.10.31](./replay/longJump.js)     |
-| 35  | [예상 대진표](./predict.js)                      | 22.09.12 |     O     |                 한번 더                 |
+| 35  | [예상 대진표](./predict.js)                      | 22.09.12 |     O     |     [23.11.01](./replay/predict.js)     |
 | 36  | [1차 캐시](./cash.js)                            | 22.09.13 |     X     |                  다시                   |
 | 37  | [점프와 순간이동](./jumpAndMove.js)              | 22.09.14 |     O     |                  다시                   |
 | 38  | [괄호 회전하기](./spinBrackets.js)               | 22.09.15 |     X     |                  다시                   |
