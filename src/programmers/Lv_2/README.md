@@ -72,7 +72,7 @@
 | 68  | [거리두기 확인하기](./checkDistance.js)          | 23.03.27 |     X     |
 | 69  | [전력망을 둘로 나누기](./powerDivision.js)       | 23.03.28 |     X     |
 | 70  | [배달](./delivery.js)                            | 23.03.28 |     △     |
-| 71  | [점 찍기](./drawDot.js)                          | 23.03.29 |    ??     |
+| 71  | [점 찍기](./drawDot.js)                          | 23.03.29 |    ??     |     [23.11.02](./replay/drawDot.js)     |
 | 72  | [하노이의 탑](./hanoi.js)                        | 23.03.29 |     X     |
 | 73  | [N-Queen](./nQueen.js)                           | 23.03.29 |     X     |
 | 74  | [연속된 부분 수열의 합](.sequenceSum.js)         | 23.04.27 |     △     |
