@@ -1,3 +1,7 @@
+/**
+ * [동적 계획법]
+ */
+
 function solution(triangle) {
   const dp = triangle.slice();
 
