@@ -75,7 +75,7 @@
 | 71  | [점 찍기](./drawDot.js)                          | 23.03.29 |    ??     |     [23.11.02](./replay/drawDot.js)     |
 | 72  | [하노이의 탑](./hanoi.js)                        | 23.03.29 |     X     |
 | 73  | [N-Queen](./nQueen.js)                           | 23.03.29 |     X     |
-| 74  | [연속된 부분 수열의 합](.sequenceSum.js)         | 23.04.27 |     △     |
+| 74  | [연속된 부분 수열의 합](.sequenceSum.js)         | 23.04.27 |     △     |   [23.12.05](./replay/sequenceSum.js)   |
 | 75  | [무인도 여행](./island.js)                       | 23.04.29 |     O     |
 | 76  | [마법의 엘리베이터](./elevator.js)               | 23.04.30 |     △     |
 | 77  | [호텔 대실](./hotel.js)                          | 23.05.01 |     X     |
