@@ -85,7 +85,7 @@
 | 81  | [숫자 카드 나누기](./divideNumCard.js)           | 23.11.07 |     X     |
 | 82  | [시소 짝꿍](./playPartner.js)                    | 23.11.08 |     X     |
 | 83  | [리코쳇 로봇](./robot.js)                        | 23.11.09 |     X     |
-| 84  | [디펜스 게임](./defence.js)                      | 23.11.10 |     X     |     [23.12.15](./replay/defence.js)     |
+| 84  | [디펜스 게임](./defence.js)                      | 23.11.10 |     X     |     [23.12.19](./replay/defence.js)     |
 | 85  | [요격 시스템](./system.js)                       | 23.11.15 |     X     |     [23.12.07](./replay/system.js)      |
 | 86  | [미로 탈출](./miro.js)                           | 23.12.08 |     X     |
 | 87  | [우박수열 정적분](./math.js)                     | 23.12.14 |     X     |      [23.12.18](./replay/math.js)       |
