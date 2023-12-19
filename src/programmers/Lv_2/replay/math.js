@@ -1,3 +1,8 @@
+/**
+ * [구현?]
+ * - 구현 문제인듯.. 근데 다시 풀 필요는 없는 듯 하다
+ */
+
 function solution(k, ranges) {
   const point = [];
   const area = [0];
