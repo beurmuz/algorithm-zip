@@ -1,27 +1,26 @@
 /**
  * [구현]
- * - nextHealth를 구하는 식에서 좀 헤맸다. 다시 풀어봐야 할듯
+ * - 단순 구현이다. nextHP 식을 세우는 것이 좀 어려웠다.
+ * - (회복 시간/공격 시간)이 1보다 크면 해당 초동안 추가 회복량을 더 얻을 수 있다는 것이 핵심인 듯 하다.
  */
 
 function solution(bandage, health, attacks) {
-  let nowHealth = health; // 현재 체력
-  let dead = false; // true면 죽은 것
+  let nowHP = health;
   let nowTime = 0; // 현재 시간
+  let isDead = false; // 죽었는지 여부
 
   attacks.forEach(([attackTime, damage]) => {
-    let duration = attackTime - nowTime - 1;
-    let nextHealth =
-      nowHealth +
+    let duration = attackTime - nowTime - 1; // 현재 시간 ~ 공격받기까지의 시간
+    let nextHP =
+      nowHP +
       (duration * bandage[1] + Math.floor(duration / bandage[0]) * bandage[2]);
-    // 현재 체력 + (지속시간 * 몬스터 공격으로 인한 피해 + (지속 시간/공격 시간) * 추가 회복량)
+    // 현재 체력 + (회복 시간 * 초당 회복량 + (회복 시간/공격 시간) * 추가 회복량)으로 다음 체력을 구할 수 있다. (회복 시간/공격 시간)이 1이상이면 1초마다 추가 회복량만큼 얻을 수 있으므로 곱해서 구한다.
 
-    nowTime = attackTime; // 현재 시간을 갱신
-
-    // 최대 체력을 초과하면 health를, 아니면 nextHealth로 갱신한다.
-    nowHealth = nextHealth > health ? health : nextHealth;
-    nowHealth -= damage; // 데미지만큼 빼기
-
-    if (nowHealth < 1) dead = true; // 0이하이면 죽은 것
+    nowTime = attackTime; // 현재 시간 갱신
+    nowHP = nextHP > health ? health : nextHP; // 현재 체력은 최대 체력보다 커질 수 없다.
+    nowHP -= damage;
+    if (nowHP < 1) isDead = true; // 체력이 0 이하가 되면 캐릭터가 죽는다.
   });
-  return dead ? -1 : nowHealth;
+
+  return isDead ? -1 : nowHP;
 }
