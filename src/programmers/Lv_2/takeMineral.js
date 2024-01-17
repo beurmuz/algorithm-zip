@@ -1,3 +1,8 @@
+/**
+ * [구현]
+ * - 나중에 sort를 왜 하는건지 이해하지 못했다.. 왜하지?
+ */
+
 function solution(picks, minerals) {
   let cutCount = Math.ceil(minerals.length / 5);
   // 곡갱이 개수
