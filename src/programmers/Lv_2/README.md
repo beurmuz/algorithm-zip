@@ -79,7 +79,7 @@
 | 75  | [무인도 여행](./island.js)                       | 23.04.29 |     O     |     [23.12.05](./replay/island.js)      |
 | 76  | [마법의 엘리베이터](./elevator.js)               | 23.04.30 |     △     |    [23.12.06](./replay/elevator.js)     |
 | 77  | [호텔 대실](./hotel.js)                          | 23.05.01 |     X     |      [23.12.13](./replay/hotel.js)      |
-| 78  | [혼자 놀기의 달인](./alonePlay.js)               | 23.05.17 |     X     |
+| 78  | [혼자 놀기의 달인](./alonePlay.js)               | 23.05.17 |     X     |    [24.01.18](./replay/alonePlay.js)    |
 | 79  | [전화번호 목록](./telList.js)                    | 23.10.27 |     X     |
 | 80  | [주식 가격](./stockPrice.js)                     | 23.10.29 |     X     |
 | 81  | [숫자 카드 나누기](./divideNumCard.js)           | 23.11.07 |     X     |
