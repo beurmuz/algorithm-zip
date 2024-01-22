@@ -2,20 +2,22 @@
  * [정렬, 구현]
  * - 최대 공약수를 활용해 푸는 방법도 있지만, some()과 every()를 이용해 푸는 방법도 있다.
  */
-function solution(arrayA, arrayB) {
-  // 각각에서 a를 찾는다.
-  const aResult = getA(arrayA, arrayB);
-  const bResult = getA(arrayB, arrayA);
+const solution = (arrayA, arrayB) => {
+  let intA = getInt(arrayA, arrayB);
+  let intB = getInt(arrayB, arrayA);
 
-  return aResult > bResult ? aResult : bResult;
-}
+  return intA > intB ? intA : intB;
+};
 
-function getA(A, B) {
-  // 오름차순 정렬 후
+const getInt = (A, B) => {
+  // 오름차순으로 정렬한다. => 가장 작은 값을 찾기 위함
   A.sort((a, b) => a - b);
-  for (let i = A[0]; i > 1; i--) {
-    // a가 i로 모두 나눠지고, b가 하나도 i로 나눠지지 않는 경우, i를 return 한다.
-    if (A.every((a) => a % i === 0) && !B.some((b) => b % i === 0)) return i;
+
+  // 가장 큰 값부터 1까지 순회하면서 양의 정수 num을 찾는다.
+  for (let num = A[0]; num > 1; num--) {
+    // A의 요소들이 num으로 모두 나누어떨어지고, B의 요소들이 num으로 모두 안나눠지는 경우
+    if (A.every((a) => a % num === 0) && !B.some((a) => a % num === 0))
+      return num;
   }
-  return 0;
-}
+  return 0; // 조건을 만족하는 값이 없다면 0을 return 한다.
+};
