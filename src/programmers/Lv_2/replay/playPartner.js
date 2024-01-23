@@ -14,8 +14,8 @@ function solution(weights) {
     if (dict[(w * 4) / 3]) count += dict[(w * 4) / 3]; // 3 : 4
 
     // 사전 갱신
-    dict[w] = (dict[w] || 0) + 1;
-    // console.log(w, dict);
+    dict[w] = (dict[w] || 0) + 1; // dict[w]가 있으면 dict[w]값에 +1을, 없다면 0에 +1한 값을 dict[w]에 갱신한다.
+    // dict[w] = (dict[w] ? dict[w] + 1 : 1);
     return count;
   }, 0);
 }

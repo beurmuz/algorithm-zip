@@ -83,7 +83,7 @@
 | 79  | [전화번호 목록](./telList.js)                    | 23.10.27 |     O     |     [24.01.19](./replay/telList.js)     |
 | 80  | [주식 가격](./stockPrice.js)                     | 23.10.29 |     △     |   [24.01.20](./replay/stockPrice.js)    |
 | 81  | [숫자 카드 나누기](./divideNumCard.js)           | 24.01.22 |     X     |  [24.01.21](./replay/divideNumCard.js)  |
-| 82  | [시소 짝꿍](./playPartner.js)                    | 23.11.08 |     X     |   [24.01.22](./replay/playPartner.js)   |
+| 82  | [시소 짝꿍](./playPartner.js)                    | 23.11.08 |     X     |   [24.01.23](./replay/playPartner.js)   |
 | 83  | [리코쳇 로봇](./robot.js)                        | 23.11.09 |     X     |
 | 84  | [디펜스 게임](./defence.js)                      | 23.11.10 |     X     |     [23.12.19](./replay/defence.js)     |
 | 85  | [요격 시스템](./system.js)                       | 23.11.15 |     X     |     [23.12.07](./replay/system.js)      |
