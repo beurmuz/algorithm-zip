@@ -98,3 +98,4 @@
 | 94  | [교점에 별 만들기](./crossStar.js)               | 24.01.05 |     X     |
 | 95  | [양궁대회](./archery.js)                         | 24.01.11 |
 | 96  | [광물 캐기](./takeMineral.js)                    | 24.01.17 |     X     |   [24.01.18](./replay/takeMineral.js)   |
+| 97  | [석유 시추](./oil.js)                            | 24.01.24 |     X     |
