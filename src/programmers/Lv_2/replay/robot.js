@@ -66,6 +66,7 @@ function solution(board) {
 
         // 목표 지점이면
         if (grid[nx][ny] === "G") {
+          console.log("🥰 목표 지점 도달!");
           return answer + 1;
           // 방문하지 않은 경우
         } else if (grid[nx][ny] !== "C") {
@@ -76,7 +77,7 @@ function solution(board) {
       }
     }
     answer++;
-    console.log(`answer가 갱신되었다! ${answer}`);
+    console.log(`🥸 answer가 갱신되었다! ${answer}`);
   }
   return -1;
 }
