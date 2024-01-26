@@ -99,3 +99,4 @@
 | 95  | [양궁대회](./archery.js)                         | 24.01.11 |
 | 96  | [광물 캐기](./takeMineral.js)                    | 24.01.17 |     X     |   [24.01.18](./replay/takeMineral.js)   |
 | 97  | [석유 시추](./oil.js)                            | 24.01.24 |     X     |
+| 98  | [당구 연습](./billiard.js)                       | 24.01.26 |     X     |
