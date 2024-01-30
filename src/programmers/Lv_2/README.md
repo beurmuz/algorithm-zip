@@ -50,7 +50,7 @@
 | 46  | [3차: n진수 게임](./nthGame.js)                  | 22.09.22 |     △     |                  다시                   |
 | 47  | [방문 길이](./visitLength.js)                    | 22.09.23 |     △     |                  다시                   |
 | 48  | [모음 사전](./vowelDict.js)                      | 22.09.24 |     X     |    [23.11.05](./replay/vowelDict.js)    |
-| 49  | [2xn 타일링](./2xnTile.js)                       | 22.09.25 |     X     |                   꺅                    |
+| 49  | [2xn 타일링](./2xnTile.js)                       | 22.09.25 |     X     |     [24.01.30](./replay/2xnTile.js)     |
 | 50  | [피로도](./tiredness.js)                         | 22.12.05 |     △     |    [22.12.06](./replay/tiredness.js)    |
 | 51  | [연속 부분 수열 합의 개수](./continuousPart.js)  | 22.12.05 |     X     | [22.12.06](./replay/continuousPart.js)  |
 | 52  | [게임 맵 최단거리](./gameMapShort.js)            | 22.12.06 |     △     |  [23. 10.27](./replay/gameMapShort.js)  |
