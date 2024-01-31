@@ -94,7 +94,7 @@
 | 90  | [숫자 블록](./numsBlock.js)                      | 24.01.01 |     X     |
 | 91  | [택배 배달과 수거하기](./deliveryPick.js)        | 24.01.02 |     X     |
 | 92  | [과제 진행하기](./assignment.js)                 | 24.01.03 |     X     |       [24.01.12](./assignment.js)       |
-| 93  | [3xn 타일링](./3xn.js)                           | 24.01.04 |     X     |
+| 93  | [3xn 타일링](./3xn.js)                           | 24.01.04 |     X     |       [24.01.31](./replay/3xn.js)       |
 | 94  | [교점에 별 만들기](./crossStar.js)               | 24.01.05 |     X     |
 | 95  | [양궁대회](./archery.js)                         | 24.01.11 |
 | 96  | [광물 캐기](./takeMineral.js)                    | 24.01.17 |     X     |   [24.01.18](./replay/takeMineral.js)   |
