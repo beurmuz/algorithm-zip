@@ -12,6 +12,7 @@ function solution(n, times) {
 
   // 최소 시간 찾기 시작!
   while (lt <= rt) {
+    // lt와 rt의 중간값을 찾는다.
     let mid = Math.floor((lt + rt) / 2);
     let count = 0;
 
@@ -19,11 +20,13 @@ function solution(n, times) {
     times.forEach((time) => {
       count += Math.floor(mid / time);
       if (count >= n) {
-        answer = Math.min(mid, answer); // 최솟값 갱신
+        // n명과 같거나 더 많이 심사할 수 있는 경우
+        answer = Math.min(mid, answer); // 둘중 더 작은 값으로 최솟값 갱신
         return;
       }
     });
 
+    // 만약 n명 or n명보다 더 많이 심사할 수 있다면 rt값을 중간값-1로 갱신한다.
     if (count >= n) rt = mid - 1;
     else lt = mid + 1;
   }

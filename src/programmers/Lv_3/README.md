@@ -19,7 +19,7 @@
 | 15  | [가장 긴 팰린드롬](./longest.js)    | 23.12.09 |     X     |  [23.12.20](./replay/longest.js)   |
 | 16  | [풍선 터트리기](./ballon.js)        | 23.12.11 |     X     |
 | 17  | [부대 복귀](./troop.js)             | 23.12.12 |     X     |   [23.12.13](./replay/troop.js)    |
-| 18  | [입국 심사](./enterTest.js)         | 24.02.01 |     X     |
+| 18  | [입국 심사](./enterTest.js)         | 24.02.02 |     X     |
 | 19  | [순위](./ranking.js)                | 23.12.24 |     X     |
 | 20  | [거스름돈](./restMoney.js)          | 23.12.27 |     X     |
 | 21  | [인사고과](./workScore.js)          | 23.12.18 |     X     |
