@@ -29,3 +29,4 @@
 | 25  | [경주로 건설](./raceRoad.js)        | 24.01.07 |     X     |
 | 26  | [숫자 게임](./numberGame.js)        | 24.01.29 |     △     | [24.01.30](./replay/numberGame.js) |
 | 27  | [스티커 모으기(2)](./sticker.js)    | 24.02.03 |     X     |
+| 28  | [기지국 설치](./callinstall.js)     | 24.02.04 |     X     |
