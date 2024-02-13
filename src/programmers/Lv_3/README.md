@@ -5,7 +5,7 @@
 |  1  | [최고의 집합](./bestSet.js)         | 23.04.10 |     △     |  [23.12.21](./replay/bestSet.js)   |
 |  2  | [이중우선순위큐](./heap.js)         | 23.04.11 |     O     |
 |  3  | [야근 지수](./totalNight.js)        | 23.04.11 |   △?O?    |
-|  4  | [네트워크](./network.js)            | 23.04.11 |     X     |
+|  4  | [네트워크](./network.js)            | 23.04.11 |     X     |  [24.02.13](./replay/network.js)   |
 |  5  | [단어 변환](./changeWord.js)        | 23.04.11 |     X     |    [23.05.13](./changeWord.js)     |
 |  6  | [베스트 앨범](./bestAlbum.js)       | 23.04.11 |     X     |
 |  7  | [단속카메라](./detectCamera.js)     | 23.04.12 |     X     |
