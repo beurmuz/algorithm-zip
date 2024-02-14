@@ -1,7 +1,7 @@
 /**
  * [구현, 수학]
  */
-
+// 23.12.21 풀이
 const solution = (n, s) => {
   if (n > s) return [-1];
 
@@ -16,3 +16,19 @@ const solution = (n, s) => {
 
   return answer;
 };
+
+// 24.02.14 풀이
+function solution(n, s) {
+  if (n > s) return [-1]; // 최고의 집합을 만들 수 없는 경우
+
+  // 최고의 집합은 중간값에 가까울수록 곱이 가장 크다.
+  const mid = Math.floor(s / n);
+  const answer = Array.from({ length: n }, () => mid);
+
+  for (let i = 0; i < s % n; i++) {
+    // 나머지만큼 순회
+    answer[answer.length - 1 - i]++; // 맨 뒤부터 앞으로 1씩 증가시키기
+  }
+
+  return answer;
+}
