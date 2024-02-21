@@ -13,37 +13,35 @@
  * - 만약 0이 되는 돌이 k번 연속되는 경우라면, 최댓값의 범위를 mid보다 작게 설정하여 다시 이분탐색을 진행해야 한다.
  * - 만약 k번보다 돌의 개수가 작은 경우, 더 많은 니니즈 친구들이 징검다리를 건널 수 있다는 것이다.
  */
-function checkStone(stones, mid, k) {
-  let now = 0; // 몇개가 연속으로 0 미만이 되었는지
+
+function checkStones(stones, mid, k) {
+  let zeroCount = 0;
+
   for (let i = 0; i < stones.length; i++) {
     if (stones[i] < mid) {
-      // mid가 더 크면 stones[i] - mid 가 0보다 작다는 소리다. 그러면 마지막 사람이 지나가기 전에 돌이 0이 됐다는 소리다.
-      // 만약 딱 0이라면 자신이 지나가고 나서 0이 되므로 지나갈 수 있다는 소리.
-      now += 1;
+      // 지나갈 수 없는 경우
+      // stones[i] - mid < 0 => 마지막 사람이 지나가기 전에 이미 돌이 0이 되었다는 것
+      zeroCount += 1;
     } else {
-      // 지나갈 수 있을 땐 연속으로 못 지나가는게 초기화 됨.
-      now = 0;
+      // 지나갈 수 있는 경우 => 지금까지의 연속된 0 카운트는 의미가 없어짐
+      zeroCount = 0;
     }
-    if (now >= k) {
-      // 연속으로 못 지나가는 개수가 k보다 크거나 같으면 통과 못 하는 것.
+
+    if (zeroCount >= k) {
       return false;
     }
   }
-
   return true;
 }
+
 function solution(stones, k) {
-  let left = 1; // 최소, 최대값
-  let right = 200000000;
+  let [lt, rt] = [1, 200000000];
 
-  while (left < right - 1) {
-    let mid = parseInt((left + right) / 2);
-    if (checkStone(stones, mid, k)) {
-      left = mid;
-    } else {
-      right = mid;
-    }
+  while (lt < rt - 1) {
+    let mid = Math.floor((lt + rt) / 2);
+
+    if (checkStones(stones, mid, k)) lt = mid;
+    else rt = mid;
   }
-
-  return left;
+  return lt;
 }
