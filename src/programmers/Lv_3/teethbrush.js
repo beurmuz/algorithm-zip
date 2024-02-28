@@ -13,12 +13,10 @@ function solution(enroll, referral, seller, amount) {
   seller.forEach((name, i) => {
     let nowAmount = amount[i] * 100; // 이익금
     let nowSeller = members.get(name);
-    console.log(`name: ${name}--------`);
 
     while (nowAmount && nowSeller) {
       // div는 총 이익의 10%를 의미한다. 총 이익을 10으로 나누면 구할 수 있다.
       div = Math.floor(nowAmount / 10); // 1원 단위이므로 나머지를 버린다.
-      console.log(nowAmount, div);
       nowSeller.profit += nowAmount - div; // 현 판매자는 90%를 갖는다.
       // 현재 값을 10%로 갱신한다.
       nowAmount = div;
