@@ -33,7 +33,7 @@
 | 29  | [파괴되지 않은 건물](./undestory.js)   | 24.02.17 |     X     |
 | 30  | [표 편집](./editTable.js)              | 24.02.18 |     X     |
 | 31  | [징검다리 건너기](./crossBridge.js)    | 24.02.21 |     X     |
-| 32  | [불량 사용자](./errorUser.js)          | 24.02.28 |     X     |
+| 32  | [불량 사용자](./errorUser.js)          | 24.02.29 |     X     |
 | 33  | [다단계 칫솔 판매](./teethbrush.js)    | 24.02.27 |     △     |  [24.02.28](./replay/teethbrush.js)  |
 | 34  | [길찾기 게임](./findRoad.js)           | 24.02.24 |     X     |
 | 35  | [디스크 컨트롤러](./diskController.js) | 24.02.25 |     X     |
