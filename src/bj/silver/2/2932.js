@@ -16,44 +16,51 @@ const [input, ...cases] = require("fs")
 
 const solution = (input, cases) => {
   const [N, K] = input.split(" ").map((v) => +v);
-  const kCases = cases.map((line) => {
-    let lineInfo = line.split(" ").map((v) => +v);
-    lineInfo[1] -= 1; // row
-    lineInfo[2] -= 1; // column
-    lineInfo.push(Math.floor(lineInfo[0] - 1 / N)); // 현재 숫자가 있는 row 위치
-    lineInfo.push((lineInfo[0] - 1) % N); // 현재 숫자가 있는 column 위치
-    return lineInfo;
+  const nums = cases.map((c) => {
+    let info = c.split(" ").map((v) => +v);
+    // [info[1], info[2]]는 목표 칸을 의미한다. index가 0부터 시작이므로 -1씩 해준다.
+    info[1] -= 1;
+    info[2] -= 1;
+    // 옮기려는 숫자가 어느 위치에 있는지 찾아서 row, col 순서대로 info에 push한다.
+    // row: 타겟 숫자를 N으로 나눈 몫이 row값이 된다. 단, index를 맞추기 위해 타겟 숫자에 -1을 해준 후 계산해야 한다.
+    // col: 타겟 숫자를 N으로 나눈 나머지 값이 col값이 된다.
+    info.push(Math.floor((info[0] - 1) / N));
+    info.push((info[0] - 1) % N);
+    return info;
   });
 
-  for (let i = 0; i < K; i++) {
-    const [target, targetRow, targetCol, nowRow, nowCol] = kCases[i]; // [타겟 넘버, 목표 행, 목표 열, 현재 행, 현재 열]
+  // nums를 순회하면서 회전 수를 카운트 한다.
+  for (let i = 0; i < nums.length; i++) {
+    const [target, tr, tc, cr, cc] = nums[i]; // [타겟넘버, 목표 행, 목표 열, 현재 행, 현재 열]
 
-    let turnCount = 0; // 회전 횟수
-    const rowTurn =
-      targetRow < nowRow ? N + targetRow - nowRow : targetRow - nowRow;
-    const colTurn =
-      targetCol < nowCol ? N + targetCol - nowCol : targetCol - nowCol;
-    turnCount += rowTurn + colTurn;
+    let turnCnt = 0; // 총 회전 횟수
+    // 목표 행(열)이 현재 행(열)보다 작은 경우, 한바퀴 돌아야 하므로 (N + 목표 행(열)) - 현재 행(열)을 해주면 된다.
+    const rowTurn = tr < cr ? N + tr - cr : tr - cr;
+    const colTurn = tc < cc ? N + tc - cc : tc - cc;
+    turnCnt += rowTurn + colTurn; // 현재 k의 회전 횟수를 구한 것.
 
-    for (let j = i + 1; j < K; j++) {
-      // 나머지 관련 수들의 현재 인덱스값을 변경해주어야 한다.
-      const [nextNum, nextTr, nextTc, nextNr, nextNc] = kCases[j];
+    // 현재 target값은 다음에 찾아야 할 target값들에게 영향을 미친다.
+    // 그러므로 남은 target들이 현재 target과 관련되어 있는지 체크하고, 관련되어 있다면 위치를 바꿔주어야 한다.
+    for (let j = i + 1; j < nums.length; j++) {
+      const [nextTarget, nextTr, nextTc, nextCr, nextCc] = nums[j];
 
-      if (nextNum === target) {
-        // 다음 회전에 같은 수를 이동 시킨다면, 현재 위치를 이동한 위치로 변경해준다.
-        kCases[j][3] = targetRow;
-        kCases[j][4] = targetCol;
-      } else if (nextNr === nowRow) {
-        // 다음 회전에 이동 시킬 수의 행이 이전에 이동시킨 행과 같다면
-        kCases[j][4] += colTurn;
-        if (kCases[j][4] >= N) kCases[j][4] = kCases[j][4] % N;
-      } else if (nextNc === targetCol) {
-        // 다음 회전에 이동 시킬 수의 열이 이전에 이동시킨 열과 같다면
-        kCases[j][3] += rowTurn;
-        if (kCases[j][3] >= N) kCases[j][3] = kCases[j][3] % N;
+      if (nextTarget === target) {
+        // 다음 회전 때 같은 수를 회전시킨다면, (현재 타겟 숫자 === 다음 타겟 숫자)
+        // [j][3]: 다음 타겟의 현재 row, [j][4]: 다음 타겟의 현재 col값을, 현재 이동한 최종 위치로 변경해준다.
+        nums[j][3] = tr;
+        nums[j][4] = tc;
+      } else if (nextCr === cr) {
+        // 다음 타겟 숫자의 현재 col 위치가, 방금 이동시킨 현재 col와 같다면
+        // [j][4]: 다음 타겟의 현재 col. 이 값에 col 턴 횟수를 더해준다. (턴한 만큼 자리를 옮겨주는 것이다.)
+        nums[j][4] += colTurn;
+        if (nums[j][4] >= N) nums[j][4] = nums[j][4] % N;
+      } else if (nextCc === tc) {
+        // 다음 타겟 숫자의 현재 row 위치가, 방금 이동시킨 열의 위치와 같다면
+        nums[j][3] += rowTurn;
+        if (nums[j][3] >= N) nums[j][3] = nums[j][3] % N;
       }
     }
-    console.log(turnCount);
+    console.log(turnCnt);
   }
 };
 
