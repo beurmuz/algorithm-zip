@@ -17,7 +17,7 @@
 | 13  | [두 원 사이의 정수 쌍](./dotSet.js)    | 23.11.18 |     X     |
 | 14  | [과제 진행하기](./doing.js)            | 23.11.19 |     X     |
 | 15  | [가장 긴 팰린드롬](./longest.js)       | 23.12.09 |     X     |   [23.12.20](./replay/longest.js)    |
-| 16  | [풍선 터트리기](./ballon.js)           | 23.12.11 |     X     |
+| 16  | [풍선 터트리기](./ballon.js)           | 23.12.11 |     X     |    [24.03.11](./replay/ballon.js)    |
 | 17  | [부대 복귀](./troop.js)                | 23.12.12 |     X     |    [23.12.13](./replay/troop.js)     |
 | 18  | [입국 심사](./enterTest.js)            | 24.02.02 |     X     |  [24.02.05](./replay/enterTest.js)   |
 | 19  | [순위](./ranking.js)                   | 23.12.24 |     X     |
