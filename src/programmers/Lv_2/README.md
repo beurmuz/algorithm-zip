@@ -99,7 +99,7 @@
 | 95  | [양궁대회](./archery.js)                         | 24.01.11 |
 | 96  | [광물 캐기](./takeMineral.js)                    | 24.01.17 |     X     |   [24.01.18](./replay/takeMineral.js)   |
 | 97  | [석유 시추](./oil.js)                            | 24.01.24 |     X     |
-| 98  | [당구 연습](./billiard.js)                       | 24.01.26 |     X     |
+| 98  | [당구 연습](./billiard.js)                       | 24.01.26 |     X     |    [24.03.13](./replay/billiard.js)     |
 | 99  | [순위 검색](./search.js)                         | 24.01.27 |     X     |
 | 100 | [혼자서 하는 틱택토](./alone.js)                 | 24.02.07 |     X     |
 | 101 | [테이블 해시 함수](./tableHash.js)               | 24.03.08 |     X     |       [24.03.12](./tableHash.js)        |
