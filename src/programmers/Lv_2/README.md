@@ -91,7 +91,7 @@
 | 87  | [우박수열 정적분](./math.js)                     | 23.12.14 |     X     |      [23.12.18](./replay/math.js)       |
 | 88  | [더 맵게](./spicy.js)                            | 23.12.22 |     X     |      [24.03.07](./replay/spicy.js)      |
 | 89  | [이모티콘 할인 행사](./emoji.js)                 | 23.12.31 |     X     |
-| 90  | [숫자 블록](./numsBlock.js)                      | 24.01.01 |     X     |
+| 90  | [숫자 블록](./numsBlock.js)                      | 24.01.01 |     X     |    [24.03.15](./replay/numsBlock.js)    |
 | 91  | [택배 배달과 수거하기](./deliveryPick.js)        | 24.01.02 |     X     |
 | 92  | [과제 진행하기](./assignment.js)                 | 24.01.03 |     X     |       [24.01.12](./assignment.js)       |
 | 93  | [3xn 타일링](./3xn.js)                           | 24.01.04 |     X     |       [24.01.31](./replay/3xn.js)       |
