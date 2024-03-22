@@ -65,7 +65,7 @@
 | 61  | [행렬 테두리 회전하기](./matrixTurn.js)          | 22.12.27 |     X     |
 | 62  | [롤케이크 자르기](./cutRollcake.js)              | 23.03.03 |     △     |
 | 63  | [뒤에 있는 큰 수 찾기](./findBehindNums.js)      | 23.03.04 |     △     |
-| 64  | [숫자 변환하기](./changetheNum.js)               | 23.03.06 |     O     |
+| 64  | [숫자 변환하기](./changetheNum.js)               | 23.03.06 |     O     |  [24.03.23](./replay/changetheNum.js)   |
 | 65  | [줄 서는 방법](./howtoLine.js)                   | 23.03.06 |     X     |
 | 66  | [택배 상자](./parcelBox.js)                      | 23.03.07 |     △     |    [23.10.27](./replay/parcelBox.js)    |
 | 67  | [가장 큰 정사각형 찾기](./findSquare.js)         | 23.03.25 |     X     |   [23.03.27](./replay/findSquare.js)    |
