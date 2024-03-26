@@ -28,3 +28,34 @@ function solution(number) {
   dfs(0, 0);
   return answer;
 }
+
+/**
+ * 24.03.24 오랜만에 복습!
+ * - 위의 코드에서는 L===3일때 sum을 계산해주었지만, 이번에 코드를 설계할 때에는 sum에 바로바로 학생의 number를 더했다 뺐다로 구현했다.
+ */
+const solution = (number) => {
+  let answer = 0;
+  // ✅ 백트래킹의 핵심은 방문여부를 알아야 하며, 현재 idx를 알고 해당 idx부터 연산을 진행한다는 것이다.
+  const visited = Array.from({ length: number.length - 1 }, () => false);
+
+  // L: 학생 수
+  // sum: 학생들의 숫자를 더한 값
+  // idx: 현재 학생의 index 번호
+  const dfs = (L, sum, idx) => {
+    if (L === 3) {
+      if (sum === 0) answer++;
+      return;
+    }
+
+    for (let i = idx; i < number.length; i++) {
+      if (visited[i]) continue;
+      visited[i] = true;
+      sum += number[i];
+      dfs(L + 1, sum, i);
+      sum -= number[i];
+      visited[i] = false;
+    }
+  };
+  dfs(0, 0, 0);
+  return answer;
+};
