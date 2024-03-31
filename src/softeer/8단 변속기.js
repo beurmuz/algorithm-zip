@@ -11,19 +11,17 @@ const arr = require("fs")
   .map((v) => +v);
 
 const solution = (arr) => {
-  let chkAscending = 0;
-  let chkDescending = 0;
+  let upCnt = 0;
+  let downCnt = 0;
+
   for (let i = 0; i < arr.length - 1; i++) {
-    if (arr[i] < arr[i + 1]) chkAscending += 1;
-    if (arr[i] > arr[i + 1]) chkDescending += 1;
+    if (arr[i] < arr[i + 1]) upCnt++;
+    else if (arr[i] > arr[i + 1]) downCnt++;
   }
-  if (chkAscending === 7) {
-    return "ascending";
-  } else if (chkDescending === 7) {
-    return "descending";
-  } else {
-    return "mixed";
-  }
+
+  if (upCnt === 7) return "ascending";
+  else if (downCnt === 7) return "descending";
+  else return "mixed";
 };
 
 console.log(solution(arr));
