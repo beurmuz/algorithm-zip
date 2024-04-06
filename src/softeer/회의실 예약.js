@@ -1,15 +1,16 @@
 /**
  * [구현]
- * - 처리해주어야할 것들이 너무 많아서 ..
+ * - 문자열과 배열, 반복문을 적절히 이용해 풀면 된다.
  */
 
+// 못풀어서 답 좀 찾아봤슴다
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
   .trim()
   .split("\n");
 
-const solution = (inputs) => {
+const solution_a = (inputs) => {
   const [N, M] = inputs[0].split(" ").map((v) => +v);
   const roomsName = [];
   const rooms = {};
@@ -72,6 +73,74 @@ const solution = (inputs) => {
 
     // 3) 구분선 출력
     if (num !== N - 1) console.log("-----");
+  }
+};
+
+solution_a(inputs);
+
+// 답지 없이 다시 풀어보기!
+const solution = (inputs) => {
+  const [N, M] = inputs[0].split(" ").map((v) => +v);
+  const roomsName = [];
+  const rooms = {};
+
+  // 룸 별 시간을 기록할 Array 저장하기
+  for (let i = 1; i <= N; i++) {
+    roomsName.push(inputs[i]);
+    rooms[inputs[i]] = Array.from({ length: 9 }, () => 0);
+    // [9, 10, 11, 12, 13, 14, 15, 16, 17]; (time-9)로 계산한다.
+  }
+
+  // 룸 이름으로 오름차순 정렬하기
+  roomsName.sort();
+
+  // 룸 별 사용하고 있는 시간 기록하기
+  for (let i = N; i < inputs.length; i++) {
+    let [room, start, end] = inputs[i].split(" ");
+    for (let time = +start - 9; time < +end - 9; time++) {
+      // 시작 시각이 9시이므로, 9시가 index 0에 올 수 있도록 맞춰준다.
+      rooms[room][time] += 1;
+    }
+  }
+
+  // -------------------
+  // 출력하기 시작!
+  for (let room = 0; room < roomsName.length; room++) {
+    let roomName = roomsName[room];
+    // 룸 이름 출력
+    console.log(`Room ${roomName}:`);
+
+    // 예약 가능한 시간대 개수와 예약 가능한 시간대 출력하기
+    let timeTable = [];
+    let start = -1; // 시작 시간 저장하기
+
+    // 예약 가능한 시간을 찾는다.
+    for (let time = 0; time < 9; time++) {
+      // 만약 빈 시간(예약되지 않은 시간)이고, 시간이 0(9)시 이거나 이전 시간이 예약되어 있다면
+      if (
+        rooms[roomName][time] === 0 &&
+        (time === 0 || rooms[roomName][time - 1] === 1)
+      )
+        start = time + 9; // 9시부터 시작이므로
+
+      // 만약 현재가 예약된 시간이고 start가 -1이 아니라면, 예약 가능한 시간은 여기까지인 것
+      if (rooms[roomName][time] === 1 && start !== -1) {
+        timeTable.push(`${start === 9 ? "09" : start}-${time + 9}`);
+        start = -1;
+      }
+    }
+    // 배열의 마지막 원소가 0인 경우
+    if (start !== -1) {
+      timeTable.push(`${start === 9 ? "09" : start}-18`);
+    }
+
+    // 예약 가능한 시간이 없다면
+    if (!timeTable.length) console.log("Not available");
+    else {
+      console.log(`${timeTable.length} available:`);
+      console.log(timeTable.join("\n"));
+    }
+    if (room !== N - 1) console.log("-----");
   }
 };
 
