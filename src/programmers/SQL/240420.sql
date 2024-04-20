@@ -1,0 +1,8 @@
+-- 노선별 평균 역 사이 거리 조회하기 | O | Lv.2
+-- ✅ ORDER BY 절에서 사용된 집계 함수는 SELECT 문에서 정의된 그룹의 집계 함수와 동일한 범위에서 수행됨
+SELECT ROUTE, CONCAT(ROUND(SUM(D_BETWEEN_DIST), 1), 'km') AS TOTAL_DISTANCE,
+       CONCAT(ROUND((SUM(D_BETWEEN_DIST)/COUNT(D_BETWEEN_DIST)), 2), 'km') AS AVERAGE_DISTANCE
+FROM SUBWAY_DISTANCE
+GROUP BY ROUTE
+ORDER BY SUM(D_BETWEEN_DIST) DESC;
+-- ✅ DISTANCE를 문자열 형태로 만들었기 때문에 'ORDER BY TOTAL_DISTANCE'를 하면 정렬이 적용되지 않음
