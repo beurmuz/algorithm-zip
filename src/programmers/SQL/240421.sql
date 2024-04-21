@@ -1,5 +1,8 @@
+-- 조건에 맞는 개발자 찾기 | △ | Lv.2
+-- ✅ 비트연산자를 이용해서 푸는 문제
+-- SKILL_CODE가 400 (=b'110010000')이라면, 이는 SKILLCODES 테이블에서 CODE가 256 (=b'100000000'), 128 (=b'10000000'), 16 (=b'10000') 에 해당하는 스킬을 가졌다는 것을 의미함
 SELECT DISTINCT ID, EMAIL, FIRST_NAME, LAST_NAME
 FROM DEVELOPERS D JOIN SKILLCODES S
 ON S.CODE & D.SKILL_CODE = S.CODE
 WHERE S.NAME IN ('Python', 'C#')
-ORDER BY ID;
+ORDER BY ID ASC;
