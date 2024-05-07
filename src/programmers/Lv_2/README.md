@@ -44,7 +44,7 @@
 | 40  | [k진수에서 소수 개수 구하기](./findPrimeNums.js) | 22.09.17 |     O     |                 한번더                  |
 | 41  | [주차 요금 계산](./parkingFee.js)                | 22.09.18 |     X     |                  다시                   |
 | 42  | [3차: 압축](./compression.js)                    | 22.09.19 |     X     |                  다시                   |
-| 43  | [스킬 트리](./skilltree.js)                      | 22.09.19 |     O     |                  다시                   |
+| 43  | [스킬 트리](./skilltree.js)                      | 22.09.19 |     O     |    [24.05.07](./replay/skilltree.js     |
 | 44  | [1차: 프렌즈 4블록](./friendsBlock.js)           | 22.09.20 |     X     |                  다시                   |
 | 45  | [땅따먹기](./landwin.js)                         | 22.09.21 |     X     |                DP그만~!                 |
 | 46  | [3차: n진수 게임](./nthGame.js)                  | 22.09.22 |     △     |                  다시                   |
