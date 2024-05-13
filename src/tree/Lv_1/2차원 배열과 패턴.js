@@ -72,7 +72,33 @@ solution(N, M);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 대각선으로 숫자 채우기 | O | 24.05.11 🔍
+ * 🔍 대각선으로 숫자 채우기 | X | 24.05.13 🔍
  *
  * [구현]
  */
+const [N, M] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map((v) => +v);
+
+const solution = (N, M) => {
+  let num = 1;
+  let answer = Array.from({ length: N }, () => Array(M).fill(0));
+  for (let k = 0; k < N + M; k++) {
+    for (let i = 0; i < N; i++) {
+      for (let j = 0; j < M; j++) {
+        if (k === i + j) {
+          answer[i][j] = num;
+          num += 1;
+        }
+      }
+    }
+  }
+  for (let i = 0; i < N; i++) {
+    console.log(answer[i].join(" "));
+  }
+};
+
+solution(N, M);
