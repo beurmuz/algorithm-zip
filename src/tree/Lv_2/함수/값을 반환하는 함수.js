@@ -115,3 +115,88 @@ for (let i = a; i <= b; i++) {
 }
 
 console.log(sum);
+
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 함수를 이용한 윤년 판별 | O | 24.05.16 🔍
+ *
+ * [함수]
+ */
+const y = require("fs").readFileSync("/dev/stdin").toString().trim();
+
+function isFourYear(n) {
+    if(n % 4 !== 0 || n % 100 === 0 && n % 400 !== 0) {
+        return false;
+    }
+    return true;
+}
+
+isFourYear(y) ? console.log("true") : console.log("false");
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 두 수의 거듭제곱 | O | 24.05.16 🔍
+ *
+ * [함수]
+ */
+const [a, b] = require("fs").readFileSync("/dev/stdin").toString().trim().split(" ").map((v) => +v);
+
+function calculate(a, b) {
+    return a ** b;
+}
+
+console.log(calculate(a, b));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 사칙연산 함수 | O | 24.05.16 🔍
+ *
+ * [함수]
+ */
+const arr = require("fs").readFileSync("/dev/stdin").toString().trim().split(" ");
+
+function calculates(arr) {
+    let [a, o, c] = arr;
+    a = Number(a);
+    c = Number(c);
+    switch(o) {
+        case '+':
+            console.log(`${a} ${o} ${c} = ${a + c}`);
+            break;
+        case '-':
+            console.log(`${a} ${o} ${c} = ${a - c}`);
+            break;
+        case '*':
+            console.log(`${a} ${o} ${c} = ${a * c}`);
+            break;
+        case '/':
+            console.log(`${a} ${o} ${c} = ${Math.floor(a / c)}`);
+            break;
+        default:
+            console.log('False');
+    }
+}
+
+calculates(arr);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 함수를 이용한 온전수 판별 | O | 24.05.16 🔍
+ *
+ * [함수]
+ */
+const [a, b] = require("fs").readFileSync("/dev/stdin").toString().trim().split(" ").map((v) => +v);
+
+function isOnjeonsu (n) {
+    if (n % 2 === 0) return false;
+    if (n % 10 === 5) return false;
+    if (n % 3 === 0 && n % 9 !== 0) return false;
+    return true;
+}
+
+let answer = 0;
+for(let i = a; i <= b; i++) {
+    if(isOnjeonsu(i)) answer++;
+}
+console.log(answer);
