@@ -279,3 +279,96 @@ function checkSeq(a, b) {
 }
 
 console.log(checkSeq(aSeq, bSeq) ? "Yes" : "No");
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 2021 날짜의 유무 | O | 24.05.18 🔍
+ *
+ * [함수]
+ */
+const [M, D] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map((v) => +v);
+
+function isMonth(m) {
+  if (m > 12) return false;
+  return true;
+}
+
+function isDay(m, d) {
+  if (m === 2) {
+    if (d >= 29) return false;
+    else return true;
+  } else if (m === 4 || m === 6 || m === 9 || m === 11) {
+    if (d >= 31) return false;
+    else return true;
+  } else {
+    // 1, 3, 5, 7, 8, 10, 12
+    if (d >= 32) return false;
+    else return true;
+  }
+}
+
+console.log(isMonth(M) && isDay(M, D) ? "Yes" : "No");
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️그 계절, 그 날⭐️ | O | 24.05.18 🔍
+ *
+ * [함수]
+ * - 윤년 판별 함수 ⭐️
+ */
+const [Y, M, D] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map((v) => +v);
+
+// 존재하는 날짜인지 검사하는 함수
+function isExist(y, m, d) {
+  // year, month는 가능한 범위 내로 주어지므로, m에 따른 d만 검사하면 된다.
+  if (m === 2) {
+    if (isFourYear(y)) {
+      // 윤년인 경우
+      if (d >= 30) return false;
+      else return true;
+    } else {
+      // 윤년이 아닌 경우
+      if (d >= 29) return false;
+      else return true;
+    }
+  } else if (m === 4 || m === 6 || m === 9 || m === 11) {
+    if (d >= 31) return false;
+    else return true;
+  } else {
+    // 1, 3, 5, 7, 8, 10, 12
+    if (d >= 32) return false;
+    else return true;
+  }
+}
+
+// 윤년을 검사하는 함수
+function isFourYear(n) {
+  if (n % 4 !== 0 || (n % 100 === 0 && n % 400 !== 0)) {
+    return false;
+  }
+  return true;
+}
+
+// 계절을 판단하는 함수
+function checkSeason(m) {
+  if (m >= 3 && m <= 5) return "Spring";
+  else if (m >= 6 && m <= 8) return "Summer";
+  else if (m >= 9 && m <= 11) return "Fall";
+  else return "Winter";
+}
+
+if (isExist(Y, M, D)) {
+  console.log(checkSeason(M));
+} else {
+  console.log(-1);
+}
