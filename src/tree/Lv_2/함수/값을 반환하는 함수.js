@@ -116,7 +116,6 @@ for (let i = a; i <= b; i++) {
 
 console.log(sum);
 
-
 // ----------------------------------------------------------------------
 /**
  * 🔍 함수를 이용한 윤년 판별 | O | 24.05.16 🔍
@@ -126,10 +125,10 @@ console.log(sum);
 const y = require("fs").readFileSync("/dev/stdin").toString().trim();
 
 function isFourYear(n) {
-    if(n % 4 !== 0 || n % 100 === 0 && n % 400 !== 0) {
-        return false;
-    }
-    return true;
+  if (n % 4 !== 0 || (n % 100 === 0 && n % 400 !== 0)) {
+    return false;
+  }
+  return true;
 }
 
 isFourYear(y) ? console.log("true") : console.log("false");
@@ -140,10 +139,15 @@ isFourYear(y) ? console.log("true") : console.log("false");
  *
  * [함수]
  */
-const [a, b] = require("fs").readFileSync("/dev/stdin").toString().trim().split(" ").map((v) => +v);
+const [a, b] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map((v) => +v);
 
 function calculate(a, b) {
-    return a ** b;
+  return a ** b;
 }
 
 console.log(calculate(a, b));
@@ -154,28 +158,32 @@ console.log(calculate(a, b));
  *
  * [함수]
  */
-const arr = require("fs").readFileSync("/dev/stdin").toString().trim().split(" ");
+const arr = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ");
 
 function calculates(arr) {
-    let [a, o, c] = arr;
-    a = Number(a);
-    c = Number(c);
-    switch(o) {
-        case '+':
-            console.log(`${a} ${o} ${c} = ${a + c}`);
-            break;
-        case '-':
-            console.log(`${a} ${o} ${c} = ${a - c}`);
-            break;
-        case '*':
-            console.log(`${a} ${o} ${c} = ${a * c}`);
-            break;
-        case '/':
-            console.log(`${a} ${o} ${c} = ${Math.floor(a / c)}`);
-            break;
-        default:
-            console.log('False');
-    }
+  let [a, o, c] = arr;
+  a = Number(a);
+  c = Number(c);
+  switch (o) {
+    case "+":
+      console.log(`${a} ${o} ${c} = ${a + c}`);
+      break;
+    case "-":
+      console.log(`${a} ${o} ${c} = ${a - c}`);
+      break;
+    case "*":
+      console.log(`${a} ${o} ${c} = ${a * c}`);
+      break;
+    case "/":
+      console.log(`${a} ${o} ${c} = ${Math.floor(a / c)}`);
+      break;
+    default:
+      console.log("False");
+  }
 }
 
 calculates(arr);
@@ -186,17 +194,88 @@ calculates(arr);
  *
  * [함수]
  */
-const [a, b] = require("fs").readFileSync("/dev/stdin").toString().trim().split(" ").map((v) => +v);
+const [a, b] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map((v) => +v);
 
-function isOnjeonsu (n) {
-    if (n % 2 === 0) return false;
-    if (n % 10 === 5) return false;
-    if (n % 3 === 0 && n % 9 !== 0) return false;
-    return true;
+function isOnjeonsu(n) {
+  if (n % 2 === 0) return false;
+  if (n % 10 === 5) return false;
+  if (n % 3 === 0 && n % 9 !== 0) return false;
+  return true;
 }
 
 let answer = 0;
-for(let i = a; i <= b; i++) {
-    if(isOnjeonsu(i)) answer++;
+for (let i = a; i <= b; i++) {
+  if (isOnjeonsu(i)) answer++;
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 함수를 이용한 합과 소수 판별 | O | 24.05.17 🔍
+ *
+ * [함수]
+ */
+const [a, b] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map((v) => +v);
+
+function isPrime(n) {
+  if (n === 1) return false;
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) return false;
+  }
+  return true;
+}
+
+function isEven(n) {
+  let sum = String(n)
+    .split("")
+    .reduce((acc, v) => acc + Number(v), 0);
+  return sum % 2 === 0 ? true : false;
+}
+
+let answer = 0;
+for (let i = a; i <= b; i++) {
+  if (isPrime(i) && isEven(i)) answer++;
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 함수를 이용한 연속부분수열 여부 판단하기 | O | 24.05.17 🔍
+ *
+ * [함수]
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+
+const [n1, n2] = inputs[0].split(" ").map((v) => +v);
+const aSeq = inputs[1].split(" ").map((v) => +v);
+const bSeq = inputs[2].split(" ").map((v) => +v);
+
+function checkSeq(a, b) {
+  let coinNum = 0; // 일치 횟수
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] === b[0]) {
+      for (let j = 0; j < b.length; j++) {
+        if (a[i + j] === b[j]) coinNum += 1;
+      }
+      if (coinNum === b.length) return true;
+      coinNum = 0;
+    }
+  }
+  return false;
+}
+
+console.log(checkSeq(aSeq, bSeq) ? "Yes" : "No");
