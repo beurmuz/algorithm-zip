@@ -20,7 +20,23 @@ console.log(n, m);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 제목 | O | 24.05.18 🔍
+ * 🔍 짝수만 2로 나누기 | O | 24.05.19 🔍
  *
  * [함수]
  */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const arr = inputs[1].split(" ").map((v) => +v);
+
+function changeValue(arr) {
+  for (let i = 0; i < N; i++) {
+    if (arr[i] % 2 === 0) arr[i] = Math.floor(arr[i] / 2);
+  }
+}
+
+changeValue(arr);
+console.log(arr.join(" "));
