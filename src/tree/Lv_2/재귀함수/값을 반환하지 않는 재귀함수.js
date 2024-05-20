@@ -2,7 +2,7 @@
 /**
  * 🔍 반복 출력하기2 | O | 24.05.20 🔍
  *
- * [함수]
+ * [재귀함수]
  */
 const N = Number(require("fs").readFileSync("/dev/stdin").toString().trim());
 
@@ -18,7 +18,7 @@ recursive(N);
 /**
  * 🔍 숫자 차례로 출력하기 | O | 24.05.20 🔍
  *
- * [함수]
+ * [재귀함수]
  */
 const N = Number(require("fs").readFileSync("/dev/stdin").toString().trim());
 
@@ -42,7 +42,7 @@ desc(N);
 /**
  * 🔍 재귀함수를 이용한 별 출력 | O | 24.05.20 🔍
  *
- * [함수]
+ * [재귀함수]
  */
 const N = Number(require("fs").readFileSync("/dev/stdin").toString().trim());
 
@@ -61,7 +61,7 @@ recursive(N);
 /**
  * 🔍 재귀함수의 꽃 | O | 24.05.20 🔍
  *
- * [함수]
+ * [재귀함수]
  */
 const N = Number(require("fs").readFileSync("/dev/stdin").toString().trim());
 
@@ -78,9 +78,9 @@ console.log(answer);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 재귀함수를 이용한 별 출력 | O | 24.05.20 🔍
+ * 🔍 재귀함수를 이용한 별 출력2 | O | 24.05.20 🔍
  *
- * [함수]
+ * [재귀함수]
  */
 const N = Number(require("fs").readFileSync("/dev/stdin").toString().trim());
 
