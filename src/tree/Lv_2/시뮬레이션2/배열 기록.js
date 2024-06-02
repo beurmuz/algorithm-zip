@@ -80,11 +80,11 @@ console.log(answer);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️선두를 지켜라⭐️ | X | 24.05.30 🔍
+ * 🔍 ⭐️선두를 지켜라⭐️ | X | 24.05.30, 24.06.02 🔍
  *
  * [시뮬레이션2 - 배열 기록]
  */
-// 내가 푼 풀이
+// 처음에 푼 풀이 (틀림)
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -126,37 +126,50 @@ for (let i = 1; i < aArr.length; i++) {
 }
 console.log(answer);
 
-// 다른 풀이
-const [[n, m], ...inputs] = `${require("fs").readFileSync(0)}`.trim().split`
-`.map((row) => row.trim().split` `.map(Number));
-const [a, b] = [inputs.slice(0, n), inputs.slice(n)];
-const SIZE = 1001;
-const time1 = Array.from({ length: SIZE }, () => 0);
-const time2 = Array.from({ length: SIZE }, () => 0);
-let offset = 0;
-for (const [v, t] of a) {
-  for (let i = 1; i <= t; i++) {
-    time1[offset + i] = time1[offset + i - 1] + v;
+// 24.06.02 다시 푼 풀이
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M] = inputs[0].split(" ").map((v) => +v);
+const a = inputs.slice(1, N + 1);
+const b = inputs.slice(N + 1);
+
+function timeLog(logs) {
+  let arr = [];
+
+  // 어떤 속도로 몇시간동안 이동했는지
+  for (let i = 0; i < logs.length; i++) {
+    let [v, t] = logs[i].split(" ").map((v) => +v);
+
+    // 거리 = 속력 x 시간, 거리는 1씩 증가
+    for (let j = 1; j <= t; j++) {
+      // 1~t초 동안 1씩 이동
+      if (arr.length) arr.push(arr[arr.length - 1] + v);
+      // 마지막 지점에서 현재 속도를 더한다.
+      else arr.push(v);
+    }
   }
-  offset += t;
+  return arr;
 }
-offset = 0;
-for (const [v, t] of b) {
-  for (let i = 1; i <= t; i++) {
-    time2[offset + i] = time2[offset + i - 1] + v;
+
+let aLog = timeLog(a);
+let bLog = timeLog(b);
+
+// 선두가 바뀌는 지점을 찾는다.
+let winner = "";
+let answer = 0;
+for (let i = 0; i < aLog.length; i++) {
+  if (aLog[i] > bLog[i]) {
+    if (winner === "B") answer += 1;
+    winner = "A";
+  } else if (aLog[i] < bLog[i]) {
+    if (winner === "A") answer += 1;
+    winner = "B";
   }
-  offset += t;
 }
-let prevSign = Math.sign(time1[1] - time2[1]);
-let cnt = 0;
-for (let i = 1; i <= offset; i++) {
-  const curSign = Math.sign(time1[i] - time2[i]);
-  if (curSign && prevSign !== curSign) {
-    prevSign = curSign;
-    cnt++;
-  }
-}
-console.log(cnt);
+console.log(answer);
 
 // ----------------------------------------------------------------------
 /**
