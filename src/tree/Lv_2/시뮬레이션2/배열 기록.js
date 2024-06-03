@@ -235,7 +235,88 @@ console.log(answer);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 악수와 전염병의 상관관계2 | O | 24.06.03 🔍
+ * 🔍 ⭐️악수와 전염병의 상관관계2⭐️ | △ | 24.06.03 🔍
+ *
+ * [시뮬레이션2 - 배열 기록]
+ * - 시간이 주어져서 시간에 따라 1차원 배열에 변화를 기록해야하나 했으나 그럴 필요가 전혀 없었다.
+ */
+// 테스트케이스 17번에서 틀렸다.
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, K, P, T] = inputs[0].split(" ").map((v) => +v);
+const timeLine = inputs
+  .slice(1)
+  .map((line) => line.split(" ").map((v) => Number(v)))
+  .sort((a, b) => a[0] - b[0]);
+
+// 1. 전염병 여부를 기록하는 answer 배열과 한 사람당 전염 횟수를 기록하는 배열 생성
+let answer = Array.from({ length: N + 1 }, () => 0);
+let counts = Array.from({ length: N + 1 }, () => 0);
+answer[P] = 1;
+
+// 2. T만큼 감염 정보를 순회하며 전염병 감염 여부를 찾는다.
+for (let i = 0; i < T; i++) {
+  if (answer[timeLine[i][1]] === 1 && answer[timeLine[i][2]] === 0) {
+    // x가 y를 감염시킴
+    if (counts[timeLine[i][1]] < K) {
+      counts[timeLine[i][1]] += 1;
+      answer[timeLine[i][2]] = 1;
+    }
+  } else if (answer[timeLine[i][1]] === 0 && answer[timeLine[i][2]] === 1) {
+    // y가 x를 감염시킴
+    if (counts[timeLine[i][2]] < K) {
+      counts[timeLine[i][2]] += 1;
+      answer[timeLine[i][1]] = 1;
+    }
+  }
+}
+
+answer.shift();
+console.log(answer.join(""));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 선두를 지켜라 3 | O | 24.06.03 🔍
  *
  * [시뮬레이션2 - 배열 기록]
  */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+
+const [N, M] = inputs[0].split(" ").map((v) => +v);
+const a = inputs.slice(1, N + 1);
+const b = inputs.slice(N + 1);
+
+function makeLog(logs) {
+  let arr = [];
+
+  for (let i = 0; i < logs.length; i++) {
+    let [v, t] = logs[i].split(" ").map((v) => +v);
+    //
+    for (let i = 0; i < t; i++) {
+      if (arr.length) arr.push(arr[arr.length - 1] + v);
+      else arr.push(v);
+    }
+  }
+  return arr;
+}
+
+let aArr = makeLog(a);
+let bArr = makeLog(b);
+
+let answer = [];
+for (let i = 0; i < aArr.length; i++) {
+  if (aArr[i] === bArr[i] && answer[answer.length - 1] !== "AB")
+    answer.push("AB");
+  else if (aArr[i] > bArr[i] && answer[answer.length - 1] !== "A")
+    answer.push("A");
+  else if (aArr[i] < bArr[i] && answer[answer.length - 1] !== "B")
+    answer.push("B");
+}
+console.log(answer.length);
