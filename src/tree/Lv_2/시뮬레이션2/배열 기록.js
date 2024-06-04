@@ -235,12 +235,12 @@ console.log(answer);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️악수와 전염병의 상관관계2⭐️ | △ | 24.06.03 🔍
+ * 🔍 ⭐️악수와 전염병의 상관관계2⭐️ | △ | 24.06.03, 24.06.04 🔍
  *
  * [시뮬레이션2 - 배열 기록]
  * - 시간이 주어져서 시간에 따라 1차원 배열에 변화를 기록해야하나 했으나 그럴 필요가 전혀 없었다.
  */
-// 테스트케이스 17번에서 틀렸다.
+// 처음에 푼 풀이 - 테스트케이스 17번에서 틀렸다.
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -272,6 +272,43 @@ for (let i = 0; i < T; i++) {
       answer[timeLine[i][1]] = 1;
     }
   }
+}
+
+answer.shift();
+console.log(answer.join(""));
+
+// 다시 풀어서 맞춘 풀이
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, K, P, T] = inputs[0].split(" ").map((v) => +v);
+const timeLine = inputs
+  .slice(1)
+  .map((line) => line.split(" ").map((v) => Number(v)))
+  .sort((a, b) => a[0] - b[0]);
+
+// 1. 전염병 여부를 기록하는 answer 배열과 한 사람당 전염 횟수를 기록하는 배열 생성
+let answer = Array.from({ length: N + 1 }, () => 0);
+let counts = Array.from({ length: N + 1 }, () => 0);
+answer[P] = 1;
+
+// 2. T만큼 감염 정보를 순회하며 전염병 감염 여부를 찾는다.
+//   - 둘중 하나만 감염일 경우가 아닌, 둘다 감염일 경우가 있을 것. 그러니 각각의 감염 여부에 따라 악수 횟수를 증가시키고, 전염시키도록 구현하면 된다.
+for (let i = 0; i < T; i++) {
+  let p1 = timeLine[i][1];
+  let p2 = timeLine[i][2];
+
+  // 감염되어 있을 경우 악수 횟수를 증가시킨다.
+  if (answer[p1]) counts[p1] += 1;
+  if (answer[p2]) counts[p2] += 1;
+
+  // p1이 감염되어있고, 아직 K번 이하로 악수했다면 p2를 전염시킨다.
+  if (answer[p1] && counts[p1] <= K) answer[p2] = 1;
+
+  // p2가 감염되어있고, 아직 K번 이하로 악수했다면 p1을 전염시킨다.
+  if (answer[p2] && counts[p2] <= K) answer[p1] = 1;
 }
 
 answer.shift();
