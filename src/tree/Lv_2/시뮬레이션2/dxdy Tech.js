@@ -59,3 +59,43 @@ for (let i = 0; i < input.length; i++) {
   }
 }
 console.log(x, y);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 1이 3개이상 있는 위치 | O | 24.06.04 🔍
+ *
+ * [시뮬레이션2 - dxdy Tech]
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const arr = inputs.slice(1).map((line) => line.split(" ").map((v) => +v));
+
+let dx = [-1, 0, 1, 0];
+let dy = [0, 1, 0, -1];
+
+function inRange(x, y) {
+  return x >= 0 && y >= 0 && x < N && y < N;
+}
+
+function countNum(x, y) {
+  let count = 0;
+  for (let k = 0; k < 4; k++) {
+    let nx = x + dx[k];
+    let ny = y + dy[k];
+
+    if (inRange(nx, ny) && arr[nx][ny] === 1) count += 1;
+  }
+  return count > 2 ? true : false;
+}
+
+let answer = 0;
+for (let i = 0; i < N; i++) {
+  for (let j = 0; j < N; j++) {
+    if (countNum(i, j)) answer += 1;
+  }
+}
+console.log(answer);
