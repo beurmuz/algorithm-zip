@@ -99,3 +99,173 @@ for (let i = 0; i < N; i++) {
   }
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️작은 구슬의 이동⭐️ | O | 24.06.05 🔍
+ *
+ * [시뮬레이션2 - dxdy Tech]
+ * - 풀긴 했지만 다시한번 풀어보면 좋을 것 같다.
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [n, t] = inputs[0].split(" ").map((v) => +v);
+const [r, c, d] = inputs[1].split(" ");
+const pos = {
+  D: 0,
+  R: 1,
+  L: 2,
+  U: 3,
+};
+const dx = [1, 0, 0, -1];
+const dy = [0, 1, -1, 0];
+
+let time = t;
+let [x, y] = [+r, +c];
+let now = pos[d];
+
+while (time > 0) {
+  let nx = x + dx[now];
+  let ny = y + dy[now];
+
+  if (nx < 1 || ny < 1 || nx > n || ny > n) {
+    // 방향 회전이 1초를 소모하니 time을 바꿔주고 위치 이동 작업은 건너뛰어야한다.
+    now = 3 - now;
+    time -= 1;
+    continue;
+  }
+  x = x + dx[now];
+  y = y + dy[now];
+  time -= 1;
+}
+console.log(x, y);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️빙빙 돌며 숫자 사각형 채우기 (달팽이 문제)⭐️ | O | 24.06.05 🔍
+ *
+ * [시뮬레이션2 - dxdy Tech]
+ */
+const [N, M] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map((v) => +v);
+
+const arr = Array.from({ length: N }, () => Array(M).fill(0));
+// 오른쪽, 아래, 왼쪽, 위
+const dx = [0, 1, 0, -1];
+const dy = [1, 0, -1, 0];
+let dir = 0;
+let num = 1;
+let [x, y] = [0, 0];
+arr[x][y] = num++;
+
+function inRange(x, y) {
+  return x >= 0 && y >= 0 && x < N && y < M;
+}
+
+for (let i = 1; i < N * M; i++) {
+  let nx = x + dx[dir];
+  let ny = y + dy[dir];
+
+  if (!inRange(nx, ny) || arr[nx][ny] !== 0) {
+    dir = (dir + 1) % 4;
+  }
+  x += dx[dir];
+  y += dy[dir];
+  arr[x][y] = num++;
+}
+
+// 출력
+for (let i = 0; i < N; i++) {
+  console.log(arr[i].join(" "));
+}
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️되돌아오기⭐️ | O | 24.06.05 🔍
+ *
+ * [시뮬레이션2 - dxdy Tech]
+ * - 잘 풀었지만 한번 더 풀어보면 좋을듯 하다.
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = +inputs[0];
+
+// 서W, 남S, 북N, 동E
+const dx = [0, 1, -1, 0];
+const dy = [1, 0, 0, -1];
+let [x, y] = [0, 0];
+let time = 0;
+
+// function inRange(x, y) {
+//     return x >= 0 && y >= 0 && x < N && y < N;
+// }
+let flag = false;
+for (let i = 1; i <= N; i++) {
+  let [d, c] = inputs[i].split(" ");
+  c = +c;
+  let dir = "";
+
+  if (d === "W") dir = 0;
+  else if (d === "S") dir = 1;
+  else if (d === "N") dir = 2;
+  else if (d === "E") dir = 3;
+
+  for (let j = 0; j < c; j++) {
+    let nx = (x += dx[dir]);
+    let ny = (y += dy[dir]);
+    time += 1;
+
+    if (nx === 0 && ny === 0) {
+      flag = true;
+      break;
+    }
+  }
+  if (flag) break;
+}
+
+console.log(!flag ? -1 : time);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️되돌아오기 2⭐️ | O | 24.06.06 🔍
+ *
+ * [시뮬레이션2 - dxdy Tech]
+ * - 계속 틀렸던 이유는 x와 y가 0이어야 할 조건에 i === 0인 조건도 추가해주었기 때문이다. i === 0 조건을 빼고, x,y검사를 뒤로 이동하니 맞았다.
+ */
+const orders = require("fs").readFileSync("/dev/stdin").toString().trim();
+
+// 좌표평면이라서 동, 남, 서, 북으로 풀어야 한다.
+const dx = [1, 0, -1, 0];
+const dy = [0, -1, 0, 1];
+let dir = 0;
+let [x, y] = [0, 0];
+
+let flag = 0;
+for (let i = 0; i < orders.length; i++) {
+  if (orders[i] === "F") {
+    x = x + dx[dir];
+    y = y + dy[dir];
+  } else if (orders[i] === "L") {
+    dir = (dir - 1 + 4) % 4;
+  } else if (orders[i] === "R") {
+    dir = (dir + 1 + 4) % 4;
+  }
+
+  if (x === 0 && y === 0) {
+    flag = true;
+    console.log(i + 1);
+    break;
+  }
+}
+
+if (!flag) console.log(-1);
