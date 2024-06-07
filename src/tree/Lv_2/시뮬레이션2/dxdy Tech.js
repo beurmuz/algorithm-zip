@@ -269,3 +269,86 @@ for (let i = 0; i < orders.length; i++) {
 }
 
 if (!flag) console.log(-1);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 격자 위의 편안한 상태 | O | 24.06.07 🔍
+ *
+ * [시뮬레이션2 - dxdy Tech]
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M] = inputs[0].split(" ").map((v) => +v);
+const arr = Array.from({ length: N }, () => Array(M).fill(0));
+const dx = [-1, 0, 1, 0];
+const dy = [0, 1, 0, -1];
+
+// 상하좌우 4방향을 탐색하는 함수
+function findComfortable(x, y) {
+  let count = 0;
+  for (let k = 0; k < 4; k++) {
+    let nx = x + dx[k];
+    let ny = y + dy[k];
+
+    if (nx >= 0 && ny >= 0 && nx < N && ny < M && arr[nx][ny] > 0) {
+      count += 1;
+    }
+  }
+  return count === 3 ? 1 : 0;
+}
+
+// 칸 색칠하기
+for (let i = 1; i <= M; i++) {
+  let [r, c] = inputs[i].split(" ").map((v) => +v - 1);
+  arr[r][c] = 1;
+  console.log(findComfortable(r, c));
+}
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ? | O | 24.06.07 🔍
+ *
+ * [시뮬레이션2 - dxdy Tech]
+ */
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 빙빙 돌며 숫자 사각형 채우기2 | O | 24.06.07 🔍
+ *
+ * [시뮬레이션2 - dxdy Tech]
+ */
+const [N, M] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map((v) => +v);
+const arr = Array.from({ length: N }, () => Array(M).fill(0));
+
+// 아래, 오른쪽, 위, 왼쪽
+const dx = [1, 0, -1, 0];
+const dy = [0, 1, 0, -1];
+let dir = 0;
+let [x, y] = [0, 0];
+arr[x][y] = 1;
+
+for (let i = 1; i < N * M; i++) {
+  let nx = x + dx[dir];
+  let ny = y + dy[dir];
+
+  // 범위 이내가 아니거나 값이 있는 경우 방향을 바꿔주어야 한다.
+  if (nx < 0 || ny < 0 || nx >= N || ny >= M || arr[nx][ny] !== 0) {
+    dir = (dir + 1) % 4;
+  }
+
+  x = x + dx[dir];
+  y = y + dy[dir];
+  arr[x][y] = i + 1;
+}
+
+for (let i = 0; i < N; i++) {
+  console.log(arr[i].join(" "));
+}
