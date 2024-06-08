@@ -403,3 +403,41 @@ for (i = 1; i < N * M; i++) {
 for (let i = 0; i < N; i++) {
   console.log(arr[i].join(" "));
 }
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 가운데에서 시작하여 빙빙 돌기 | O | 24.06.09 🔍
+ *
+ * [시뮬레이션2 - dxdy Tech]
+ */
+const N = Number(
+  require("fs").readFileSync("/dev/stdin").toString().trim().split(" ")
+);
+const arr = Array.from({ length: N }, () => Array(N).fill(0));
+
+// 왼쪽, 위, 오른쪽, 아래
+const dx = [0, -1, 0, 1];
+const dy = [-1, 0, 1, 0];
+let dir = 0;
+let [x, y] = [N - 1, N - 1];
+arr[x][y] = N * N;
+
+for (let i = N * N - 1; i > 0; i--) {
+  let nx = x + dx[dir];
+  let ny = y + dy[dir];
+
+  if (nx >= 0 && ny >= 0 && nx < N && ny < N && arr[nx][ny] === 0) {
+    x = nx;
+    y = ny;
+    arr[x][y] = i;
+  } else {
+    dir = (dir + 1) % 4;
+    x = x + dx[dir];
+    y = y + dy[dir];
+    arr[x][y] = i;
+  }
+}
+
+for (let i = 0; i < N; i++) {
+  console.log(arr[i].join(" "));
+}
