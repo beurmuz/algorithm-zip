@@ -352,3 +352,54 @@ for (let i = 1; i < N * M; i++) {
 for (let i = 0; i < N; i++) {
   console.log(arr[i].join(" "));
 }
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️빙빙 돌며 사각형 채우기⭐️ | △ | 24.06.08 🔍
+ *
+ * [시뮬레이션2 - dxdy Tech]
+ * - 4번 테케에서 실패했고, 답을 보고 다시 풀었다.
+ * - 다른 점이 있다면 방문 배열을 만들지 않았던 점과 charCodeAt 대신 모든 알파벳을 따로 저장해서 index값을 조정해가며 푼 점이다.
+ */
+const [N, M] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map((v) => +v);
+const arr = Array.from({ length: N }, () => Array(M).fill(0));
+const visited = Array.from({ length: N }, () => Array(M).fill(false));
+
+// 오른쪽, 아래, 왼쪽, 위
+const dx = [0, 1, 0, -1];
+const dy = [1, 0, -1, 0];
+let dir = 0;
+let [x, y] = [0, 0];
+arr[x][y] = "A";
+visited[x][y] = true;
+
+function inRange(nx, ny) {
+  return nx >= 0 && ny >= 0 && nx < N && ny < M && !visited[nx][ny];
+}
+
+for (i = 1; i < N * M; i++) {
+  while (true) {
+    let nx = x + dx[dir];
+    let ny = y + dy[dir];
+
+    if (inRange(nx, ny)) {
+      x = nx;
+      y = ny;
+      visited[x][y] = true;
+      arr[x][y] = String.fromCharCode((i % 26) + "A".charCodeAt(0));
+      break;
+    } else {
+      dir = (dir + 1) % 4;
+    }
+  }
+}
+
+//출력
+for (let i = 0; i < N; i++) {
+  console.log(arr[i].join(" "));
+}
