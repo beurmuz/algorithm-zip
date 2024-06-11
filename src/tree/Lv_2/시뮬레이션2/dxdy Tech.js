@@ -309,10 +309,63 @@ for (let i = 1; i <= M; i++) {
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ? | O | 24.06.07 🔍
+ * 🔍 ⭐️거울에 레이저 쏘기2⭐️ | X | 24.06.11 🔍
  *
  * [시뮬레이션2 - dxdy Tech]
+ * - 비트연산자를 써서 구해야하는 문제
+ * - 어렵..
  */
+const input = require("fs").readFileSync(0).toString().trim().split("\n");
+
+// 변수 선언 및 입력
+const N = Number(input[0]);
+const arr = input.slice(1, N + 1);
+const startNum = Number(input[N + 1]);
+
+// 주어진 숫자에 따라 시작 위치와 방향 구하기
+function findPos(num) {
+  if (num <= N) return [0, num - 1, 0]; // 아래
+  else if (num <= 2 * N) return [num - N - 1, N - 1, 1]; // 왼쪽
+  else if (num <= 3 * N) return [N - 1, N - (num - 2 * N), 2]; // 위
+  else return [N - (num - 3 * N), 0, 3]; // 오른쪽
+}
+
+function inRange(x, y) {
+  return x >= 0 && y >= 0 && x < N && y < N;
+}
+
+// (x, y)에서 시작하여 nextDir 방향으로 이동한 이후의 위치를 반환함
+function move(x, y, nextDir) {
+  const dx = [1, 0, -1, 0];
+  const dy = [0, -1, 0, 1];
+
+  const nx = x + dx[nextDir],
+    ny = y + dy[nextDir];
+  return [nx, ny, nextDir];
+}
+
+function simulate(x, y, moveDir) {
+  let moveNum = 0; // 튕겨나간 횟수
+  while (inRange(x, y)) {
+    // 0 <-> 1 / 2 <-> 3
+    if (arr[x][y] === "/") {
+      [x, y, moveDir] = move(x, y, moveDir ^ 1);
+      // 0 <-> 3 / 1 <-> 2
+    } else {
+      [x, y, moveDir] = move(x, y, 3 - moveDir);
+    }
+    moveNum += 1;
+  }
+
+  return moveNum;
+}
+
+// 시작 위치와 방향 구하기
+let [x, y, moveDir] = findPos(startNum);
+
+// (x, y)에서 moveDir 방향으로 시작하여 시뮬레이션을 진행
+const moveNum = simulate(x, y, moveDir);
+console.log(moveNum);
 
 // ----------------------------------------------------------------------
 /**
@@ -444,7 +497,53 @@ for (let i = 0; i < N; i++) {
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 이동경로상에 있는 모든 숫자 더하기 | O | 24.06.10 🔍
+ * 🔍 ⭐️이동경로상에 있는 모든 숫자 더하기⭐️ | △ | 24.06.11 🔍
  *
  * [시뮬레이션2 - dxdy Tech]
+ * - 좌표와 행렬에서의 dx, dy 설정을 유의하자!
  */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, T] = inputs[0].split(" ").map((v) => +v);
+const orders = inputs[1].split("");
+let arr = [];
+
+for (let i = 2; i < inputs.length; i++) {
+  arr.push(inputs[i].split(" ").map((v) => +v));
+}
+
+// 북, 동, 남, 서
+const dx = [-1, 0, 1, 0];
+const dy = [0, 1, 0, -1];
+let dir = 0; // 북쪽을 향한 상태로 시작
+let [x, y] = [Math.floor(N / 2), Math.floor(N / 2)]; // 가운데 위치에서 시작
+
+let answer = 0;
+answer += arr[x][y];
+
+for (let i = 0; i < T; i++) {
+  let od = orders[i];
+
+  if (od === "R") {
+    dir = (dir + 1) % 4;
+  } else if (od === "L") {
+    dir = (dir + 3) % 4;
+  } else if (od === "F") {
+    // 위치를 이동할 때에만 해당 칸에 적혀있는 수를 더한다.
+    let nx = x + dx[dir];
+    let ny = y + dy[dir];
+
+    // 단, 격자의 범위 내에 있는 경우에만 칸에 적혀있는 수를 더한다.
+    if (nx >= 0 && ny >= 0 && nx < N && ny < N) {
+      answer += arr[nx][ny];
+      x = nx;
+      y = ny;
+    } else {
+      continue;
+    }
+  }
+}
+console.log(answer);
