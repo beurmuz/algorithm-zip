@@ -100,7 +100,7 @@ console.log(answer);
  * 🔍 ⭐️체크판 위에서2⭐️ | O | 24.06.12 🔍
  *
  * [완전탐색1 - 자리 수 단위로 완전탐색]
- * - 시작점과 종료지점이 정해져있음을 인지하지 못하고 있어서 더 오래걸렸다.
+ * - 시작점과 종료지점이 정해져있음을 알지못해 더 오래걸렸다.
  * - 일부러 각 칸의 색이 다른 경우에만 for문을 돌게끔 했는데, 그냥 모두 돌고 if문으로 찾는거랑 실행시간이 같아서 살짝..
  * - 어쨌든 다시 한번 풀어보면 좋을 듯하다.
  */
@@ -118,6 +118,7 @@ const arr = inputs.slice(1).map((line) => line.split(" "));
 //    도달한 위치가 정확히 2곳 뿐이어야 함
 let answer = 0;
 
+// ✏️ 내가 푼 풀이
 // 시작점은 항상 (0,0)
 // 마지막점은 항상 (R-1, C-1)
 for (let x1 = 1; x1 < R; x1++) {
@@ -138,7 +139,7 @@ for (let x1 = 1; x1 < R; x1++) {
   }
 }
 
-// 또다른 for문
+// ✏️ 해설
 // for (let x1 = 1; x1 < R; x1++) {
 //   for (let y1 = 1; y1 < C; y1++) {
 //     for (let x2 = x1 + 1; x2 < R - 1; x2++) {
@@ -153,5 +154,126 @@ for (let x1 = 1; x1 < R; x1++) {
 //     }
 //   }
 // }
+
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 이상한 진수 | O | 24.06.13 🔍
+ *
+ * [완전탐색1 - 자리 수 단위로 완전탐색]
+ * - 다시 한번 풀어보면 좋을듯 하다.
+ */
+const binary = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("")
+  .map((v) => +v);
+
+// 2진수를 10진수로 변환
+function twoToTen(two) {
+  let ten = 0;
+  for (let i = 0; i < two.length; i++) {
+    ten = ten * 2 + two[i];
+  }
+  return ten;
+}
+
+let answer = Number.MIN_SAFE_INTEGER;
+for (let i = 0; i < binary.length; i++) {
+  binary[i] = !binary[i]; // NOT연산자를 이용해 0 -> 1, 1 -> 0으로 변환한다.
+  answer = Math.max(answer, twoToTen(binary));
+  binary[i] = !binary[i]; // 다시 원래대로 되돌려준다.
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 마라톤 중간에 택시타기 2 | O | 24.06.13 🔍
+ *
+ * [완전탐색1 - 자리 수 단위로 완전탐색]
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+let poses = inputs.slice(1).map((line) => line.split(" ").map((v) => +v));
+
+// 두 점 사이의 거리를 계산하는 함수
+function calculateDistance(x1, y1, x2, y2) {
+  return Math.abs(x1 - x2) + Math.abs(y1 - y2);
+}
+
+let answer = Number.MAX_SAFE_INTEGER;
+let checked = Array.from({ length: N }, () => true);
+
+// 시작, 끝점은 고정이다.
+for (let i = 0; i < N; i++) {
+  if (i === 0 || i === N - 1) continue;
+
+  // checked[i]가 true인 값만 arr에 push한다.
+  let arr = [];
+  checked[i] = false;
+  for (let j = 0; j < N; j++) {
+    if (checked[j]) arr.push(poses[j]);
+  }
+
+  // arr를 순회하면서 총 거리합을 구한다.
+  let total = 0;
+  for (let j = 0; j < arr.length - 1; j++) {
+    total += calculateDistance(...arr[j], ...arr[j + 1]);
+  }
+
+  answer = Math.min(answer, total);
+  checked[i] = true;
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 마라톤 중간에 택시타기 2 | O | 24.06.13 🔍
+ *
+ * [완전탐색1 - 자리 수 단위로 완전탐색]
+ * - 나는 shift()와 push()로 시작점을 옮겨가면서 풀었지만, 해설은 index를 이용해 풀었다.
+ * - 예시를 보니 시계방향으로 풀어도 무방했다.
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n")
+  .map((v) => +v);
+const N = inputs[0];
+let peoples = inputs.slice(1);
+let answer = Number.MAX_SAFE_INTEGER;
+
+// ✏️ 내가 푼 풀이
+// shift와 push를 이용해 시작점을 계속 바꿔준다.
+for (let i = 0; i < N; i++) {
+  let sumDistance = 0;
+
+  for (let j = 0; j < N; j++) {
+    sumDistance += j * peoples[j];
+  }
+  answer = Math.min(answer, sumDistance);
+
+  let frontValue = peoples.shift();
+  peoples.push(frontValue);
+}
+
+// ✏️ 해설지
+// 각 지점을 (j + N - i) % N으로 구해준다. (반시계 방향)
+for (let i = 0; i < N; i++) {
+  let sumDistance = 0;
+
+  for (let j = 0; j < N; j++) {
+    sumDistance += ((j + N - i) % N) * peoples[j];
+  }
+
+  answer = Math.min(answer, sumDistance);
+}
 
 console.log(answer);
