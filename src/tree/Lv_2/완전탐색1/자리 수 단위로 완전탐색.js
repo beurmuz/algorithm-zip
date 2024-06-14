@@ -277,3 +277,125 @@ for (let i = 0; i < N; i++) {
 }
 
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 괄호 쌍 만들어주기 2 | O | 24.06.14 🔍
+ *
+ * [완전탐색1 - 자리 수 단위로 완전탐색]
+ */
+let input = require("fs").readFileSync("/dev/stdin").toString().trim();
+let N = input.length;
+
+let answer = 0;
+for (let i = 0; i < N - 1; i++) {
+  for (let j = i + 1; j < N - 1; j++) {
+    if (
+      input[i] === "(" &&
+      input[i + 1] === "(" &&
+      input[j] === ")" &&
+      input[j + 1] === ")"
+    )
+      answer += 1;
+  }
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 인접하지 않은 2개의 숫자 | O | 24.06.14 🔍
+ *
+ * [완전탐색1 - 자리 수 단위로 완전탐색]
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const arr = inputs[1]
+  .trim()
+  .split(" ")
+  .map((v) => +v);
+
+let answer = Number.MIN_SAFE_INTEGER;
+
+for (let i = 0; i < N; i++) {
+  for (let j = i + 2; j < N; j++) {
+    answer = Math.max(answer, arr[i] + arr[j]);
+  }
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️씨 오 더블유 2⭐️ | O | 24.06.14 🔍
+ *
+ * [완전탐색1 - 자리 수 단위로 완전탐색]
+ * - 순서! 순서가 중요하고, 완탐이 가능한 경우에는 그냥 for문과 if문을 적절히 사용해서 풀 수 있다.
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const arr = inputs[1].trim().split("");
+
+let answer = 0;
+
+for (let i = 0; i < N - 2; i++) {
+  for (let j = i + 1; j < N - 1; j++) {
+    for (let k = j + 1; k < N; k++) {
+      if (arr[i] === "C" && arr[j] === "O" && arr[k] === "W") answer += 1;
+    }
+  }
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 Carry 피하기 2 | O | 24.06.14 🔍
+ *
+ * [완전탐색1 - 자리 수 단위로 완전탐색]
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const nums = inputs.slice(1);
+
+// carry를 체크하는 함수
+function checkedCarry(s1, s2, s3) {
+  // 길이가 가장 긴 수를 찾는다.
+  let len = Math.max(s1.length, s2.length, s3.length);
+
+  // 자릿수를 맞춘다.
+  s1 = s1.padStart(len, "0");
+  s2 = s2.padStart(len, "0");
+  s3 = s3.padStart(len, "0");
+
+  for (let i = 0; i < len; i++) {
+    let carray = 0;
+    if (Number(s1[i]) + Number(s2[i]) + Number(s3[i]) >= 10) return false;
+  }
+  return true;
+}
+
+let answer = -1; // carry가 발생하지 않으면서 나올 수 있는 숫자 합의 최댓값
+
+for (let i = 0; i < N - 2; i++) {
+  for (let j = i + 1; j < N - 1; j++) {
+    for (let k = j + 1; k < N; k++) {
+      if (checkedCarry(nums[i], nums[j], nums[k])) {
+        answer = Math.max(
+          answer,
+          Number(nums[i]) + Number(nums[j]) + Number(nums[k])
+        );
+      }
+    }
+  }
+}
+console.log(answer);
