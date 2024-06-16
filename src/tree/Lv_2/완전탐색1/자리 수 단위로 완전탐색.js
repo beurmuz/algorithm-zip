@@ -399,3 +399,68 @@ for (let i = 0; i < N - 2; i++) {
   }
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 오목 | O | 24.06.16 🔍
+ *
+ * [완전탐색1 - 자리 수 단위로 완전탐색]
+ * - 특정 지점의 값이 0보다 크면 해당 지점에서 대각선, 오른쪽, 아래로 탐색하는 각각의 함수를 만드려다가 8방향에 대한 dx,dy를 생성해 문제를 해결했다.
+ */
+const board = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n")
+  .map((line) => line.split(" ").map((v) => +v));
+
+// 무승부는 없음
+// 둘중 하나가 이기거나, 승부가 결정되지 않았는지를 판단하는 프로그램 작성.
+function inRange(x, y) {
+  return x >= 0 && y >= 0 && x < 19 && y < 19;
+}
+
+// 현재 위치를 기점으로 8방향 탐색
+const dx = [-1, -1, 0, 1, 1, 1, 0, -1];
+const dy = [0, 1, 1, 1, 0, -1, -1, -1];
+
+let answer = 0;
+let [row, col] = [0, 0];
+let flag = true;
+for (let i = 0; i < 19; i++) {
+  for (let j = 0; j < 19; j++) {
+    if (board[i][j] === 0) continue;
+
+    // 8방향을 탐색하여 같은 숫자가 있는지 찾는다.
+    for (let k = 0; k < 8; k++) {
+      let colorCount = 1;
+      let x = i;
+      let y = j;
+
+      while (true) {
+        let nx = x + dx[k];
+        let ny = y + dy[k];
+        if (!inRange(nx, ny)) break;
+        if (board[nx][ny] !== board[i][j]) break;
+
+        colorCount += 1;
+        x = nx;
+        y = ny;
+      }
+
+      // 같은 색의 바둑알이 연속적으로 6번 이상 주어지는 경우는 없다고 문제에 명시되어있다.
+      if (colorCount === 5) {
+        answer = board[i][j];
+        row = i + 2 * dx[k] + 1;
+        col = j + 2 * dy[k] + 1;
+        let flag = false;
+        break;
+      }
+    }
+    if (!flag) break;
+  }
+  if (!flag) break;
+}
+
+console.log(answer);
+if (answer !== 0) console.log(row, col);
