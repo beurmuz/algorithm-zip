@@ -402,38 +402,37 @@ console.log(answer);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 오목 | O | 24.06.16 🔍
+ * 🔍 ⭐️오목⭐️ | △ | 24.06.16, 06.17 🔍
  *
  * [완전탐색1 - 자리 수 단위로 완전탐색]
  * - 특정 지점의 값이 0보다 크면 해당 지점에서 대각선, 오른쪽, 아래로 탐색하는 각각의 함수를 만드려다가 8방향에 대한 dx,dy를 생성해 문제를 해결했다.
  */
-const board = require("fs")
+const arr = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
   .trim()
   .split("\n")
   .map((line) => line.split(" ").map((v) => +v));
 
-// 무승부는 없음
-// 둘중 하나가 이기거나, 승부가 결정되지 않았는지를 판단하는 프로그램 작성.
+// 범위를 검사하는 함수
 function inRange(x, y) {
   return x >= 0 && y >= 0 && x < 19 && y < 19;
 }
 
-// 현재 위치를 기점으로 8방향 탐색
 const dx = [-1, -1, 0, 1, 1, 1, 0, -1];
 const dy = [0, 1, 1, 1, 0, -1, -1, -1];
 
 let answer = 0;
 let [row, col] = [0, 0];
 let flag = true;
+
 for (let i = 0; i < 19; i++) {
   for (let j = 0; j < 19; j++) {
-    if (board[i][j] === 0) continue;
+    if (arr[i][j] === 0) continue;
 
     // 8방향을 탐색하여 같은 숫자가 있는지 찾는다.
     for (let k = 0; k < 8; k++) {
-      let colorCount = 1;
+      let cnt = 1;
       let x = i;
       let y = j;
 
@@ -441,16 +440,16 @@ for (let i = 0; i < 19; i++) {
         let nx = x + dx[k];
         let ny = y + dy[k];
         if (!inRange(nx, ny)) break;
-        if (board[nx][ny] !== board[i][j]) break;
+        if (arr[nx][ny] !== arr[i][j]) break;
 
-        colorCount += 1;
+        cnt += 1;
         x = nx;
         y = ny;
       }
 
-      // 같은 색의 바둑알이 연속적으로 6번 이상 주어지는 경우는 없다고 문제에 명시되어있다.
-      if (colorCount === 5) {
-        answer = board[i][j];
+      // 같은 색의 오목이 총 5개 연속해 놓여있다면
+      if (cnt === 5) {
+        answer = arr[i][j];
         row = i + 2 * dx[k] + 1;
         col = j + 2 * dy[k] + 1;
         let flag = false;
@@ -464,3 +463,114 @@ for (let i = 0; i < 19; i++) {
 
 console.log(answer);
 if (answer !== 0) console.log(row, col);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 숨은 단어 찾기 2 | O | 24.06.17 🔍
+ *
+ * [완전탐색1 - 자리 수 단위로 완전탐색]
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M] = inputs[0].split(" ").map((v) => +v);
+const arr = inputs.slice(1).map((line) => line.split(""));
+
+function inRange(x, y) {
+  return x >= 0 && y >= 0 && x < N && y < M;
+}
+
+const dx = [-1, -1, 0, 1, 1, 1, 0, -1];
+const dy = [0, 1, 1, 1, 0, -1, -1, -1];
+let answer = 0; // LEE 개수
+
+for (let i = 0; i < N; i++) {
+  for (let j = 0; j < M; j++) {
+    if (arr[i][j] !== "L") continue;
+
+    // L인 경우
+    for (let k = 0; k < 8; k++) {
+      let x = i;
+      let y = j;
+      let cnt = 1;
+
+      for (let l = 0; l < 2; l++) {
+        let nx = x + dx[k];
+        let ny = y + dy[k];
+
+        if (!inRange(nx, ny)) break;
+        if (arr[nx][ny] !== "E") break;
+
+        x = nx;
+        y = ny;
+        cnt += 1;
+      }
+      if (cnt === 3) answer += 1;
+    }
+  }
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️최고의 13 위치 2⭐️ | △ | 24.06.17 🔍
+ *
+ * [완전탐색1 - 자리 수 단위로 완전탐색]
+ */
+\const inputs = require('fs').readFileSync('/dev/stdin').toString().trim().split("\n");
+const N = Number(inputs[0]);
+const arr = inputs.slice(1).map(line => line.split(" ").map((v) => +v));
+
+function inRange(x, y) {
+    return x >= 0 && y >= 0 && x < N && y < N;
+}
+
+// 격자 돌리기!
+let answer = 0;
+for(let i = 0; i < N; i++) { // i, j 첫번째 격자
+    for(let j = 0; j < N - 2; j++) { 
+        for(let k = 0; k < N; k++) { // 두번째 격자
+            for(let l = 0; l < N - 2; l++) {
+                if(i === k && Math.abs(j - l) <= 2) continue;
+
+                // 두 격자가 겹치지 않는 경우에 동전 수를 세어 갱신한다.
+                const coin1 = arr[i][j] + arr[i][j + 1] + arr[i][j + 2];
+                const coin2 = arr[k][l] + arr[k][l + 1] + arr[k][l + 2];
+                answer = Math.max(answer, coin1 + coin2);
+            }
+        }
+    }
+}
+console.log(answer); 
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 특정 수와 근접한 합 | O | 24.06.17 🔍
+ *
+ * [완전탐색1 - 자리 수 단위로 완전탐색]
+ */
+const inputs = require('fs').readFileSync('/dev/stdin').toString().trim().split("\n");
+const [N, S] = inputs[0].split(" ").map((v) => +v);
+const arr = inputs[1].split(" ").map((v) => +v);
+
+function jumpTwoValue(n1, n2) {
+    let sum = 0;
+    for(let i = 0; i < N; i++) {
+        if(i === n1) continue;
+        if(i === n2) continue;
+        sum += arr[i];
+    }
+    return sum;
+}
+
+let minDiff = Number.MAX_SAFE_INTEGER;
+
+for(let i = 0; i < N - 1; i++) {
+    for(let j = i + 1; j < N; j++) {
+        let diff = Math.abs(S - jumpTwoValue(i, j));
+        minDiff = Math.min(minDiff, diff);
+    }
+}
+console.log(minDiff);
