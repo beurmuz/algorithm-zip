@@ -213,7 +213,45 @@ console.log(maxSize);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 밭의 높이를 고르게 하기 | O | 24.06.19 🔍
+ * 🔍 밭의 높이를 고르게 하기 | O | 24.06.20
  *
  * [완전탐색1 - 구간 단위로 완전탐색]
  */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, H, T] = inputs[0].split(" ").map((v) => +v);
+const arr = inputs[1].split(" ").map((v) => +v);
+
+let answer = Number.MAX_SAFE_INTEGER; // 최소 비용 구하기
+
+// lt: 시작점
+for (let lt = 0; lt <= N - T; lt++) {
+  // rt: 끝점
+  for (let rt = lt + T - 1; rt < N; rt++) {
+    // 시작점과 끝점 사이를 순회하며 높이로 나오게끔 한다.
+    let fee = 0; // 비용
+    for (let k = lt; k <= rt; k++) {
+      if (arr[k] === H) continue;
+      else if (arr[k] < H) {
+        let now = arr[k];
+        while (true) {
+          now += 1;
+          fee += 1;
+          if (now === H) break;
+        }
+      } else if (arr[k] > H) {
+        let now = arr[k];
+        while (true) {
+          now -= 1;
+          fee += 1;
+          if (now === H) break;
+        }
+      }
+    }
+    answer = Math.min(answer, fee);
+  }
+}
+console.log(answer);
