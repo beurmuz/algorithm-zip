@@ -161,3 +161,106 @@ for (let i = 1; i <= 9; i++) {
   }
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️개발자의 능력 2⭐️ | △ | 24.06.21
+ *
+ * [완전탐색1 - 자리마다 숫자를 정하는 완전탐색]
+ * - 완탐이 아닌 정렬로 풀었다. 완탐으로는 첫번째 팀 & 두번째 팀에 들어갈 인원을 고르고 계산하는 방식으로 풀었는데, 오답이 나와 해설지를 참고했다.
+ */
+// 정렬로 푸는 방법
+const arr = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map((v) => +v)
+  .sort((a, b) => a - b);
+let a = arr[0] + arr[5];
+let b = arr[1] + arr[4];
+let c = arr[2] + arr[3];
+
+console.log(Math.max(a, b, c) - Math.min(a, b, c));
+
+// 완전탐색으로 푸는 방법
+const arr = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map((v) => +v);
+const N = 6;
+let total = arr.reduce((acc, v) => acc + v, 0);
+
+function diff(a1, a2, b1, b2) {
+  const a = arr[a1] + arr[a2];
+  const b = arr[b1] + arr[b2];
+  const c = total - a - b;
+
+  let maxDiff = Math.max(a, b, c) - Math.min(a, b, c);
+  return maxDiff;
+}
+
+let answer = Number.MAX_SAFE_INTEGER;
+for (let a1 = 0; a1 < N; a1++) {
+  // 첫번째 팀원 구성
+  for (let a2 = a1 + 1; a2 < N; a2++) {
+    for (let b1 = 0; b1 < N; b1++) {
+      // 두번째 팀원 구성
+      for (let b2 = b1 + 1; b2 < N; b2++) {
+        // 첫 번째 팀원과 두 번째 팀원이 겹치면 건너뛴다.
+        if (b1 === a1 || b1 === a2 || b2 === a1 || b2 === a2) continue;
+        answer = Math.min(answer, diff(a1, a2, b1, b2));
+      }
+    }
+  }
+}
+
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️개발 팀의 능력⭐️ | △ | 24.06.21
+ *
+ * [완전탐색1 - 자리마다 숫자를 정하는 완전탐색]
+ * - -1이 되는 조건을 어떻게 설정해주어야할지 몰라서 오래 걸렸다. 그치만 풀었지롱!
+ */
+const arr = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map((v) => +v);
+const N = arr.length;
+let total = arr.reduce((acc, v) => acc + v, 0);
+
+function diff(a1, a2, b1, b2) {
+  let A = arr[a1] + arr[a2];
+  let B = arr[b1] + arr[b2];
+  let C = total - A - B;
+
+  if (A !== B && A !== C && B !== C)
+    return Math.max(A, B, C) - Math.min(A, B, C);
+  else return -1;
+}
+
+let answer = Number.MAX_SAFE_INTEGER;
+let flag = false;
+for (let a1 = 0; a1 < N; a1++) {
+  for (let a2 = a1 + 1; a2 < N; a2++) {
+    for (let b1 = 0; b1 < N; b1++) {
+      for (let b2 = b1 + 1; b2 < N; b2++) {
+        if (a1 === b1 || a1 === b2 || a2 === b1 || a2 === b2) continue;
+        let minDiff = diff(a1, a2, b1, b2);
+        if (minDiff !== -1) {
+          answer = Math.min(answer, minDiff);
+          flag = true;
+        }
+      }
+    }
+  }
+}
+
+if (!flag) console.log(-1);
+else console.log(answer);
