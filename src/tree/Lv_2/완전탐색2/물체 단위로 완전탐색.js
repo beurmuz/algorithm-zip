@@ -1,40 +1,37 @@
 // ----------------------------------------------------------------------
 /**
- * 🔍 좌표평면 위의 특정 구역 | X | 24.06.23, 06.24
+ * 🔍 좌표평면 위의 특정 구역 | X | 24.06.23, 06.24, 06.27
  *
  * [완전탐색2 - 물체 단위로 완전탐색]
  */
-const input = require("fs").readFileSync(0).toString().trim().split("\n");
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+let N = Number(inputs[0]);
+let points = inputs.slice(1).map((line) => line.split(" ").map((v) => +v));
 
-const intMax = Number.MAX_SAFE_INTEGER;
+let answer = Number.MAX_SAFE_INTEGER;
 
-// 변수 선언 및 입력
-const N = Number(input.shift());
-const points = input.slice(0, N).map((line) => line.split(" ").map(Number));
-
-let answer = intMax;
-
+// 하나의 점(i번 점) 빼기
 for (let i = 0; i < N; i++) {
-  let minX = intMax,
-    maxX = 1;
-  let minY = intMax,
-    maxY = 1;
+  // 직사각형의 최소 넓이를 구하려면 최소 x&y, 최대 x&y값을 구해야한다.
+  let [minX, maxX] = [Number.MAX_SAFE_INTEGER, 1];
+  let [minY, maxY] = [Number.MAX_SAFE_INTEGER, 1];
+
   for (let j = 0; j < N; j++) {
-    // i번째 점은 제외합니다.
-    if (j === i) {
-      continue;
-    }
-    const [x, y] = points[j];
+    if (j === i) continue; // i번째 점은 건너뛴다.
+
+    let [x, y] = points[j];
 
     minX = Math.min(minX, x);
     maxX = Math.max(maxX, x);
     minY = Math.min(minY, y);
     maxY = Math.max(maxY, y);
   }
-
   answer = Math.min(answer, (maxX - minX) * (maxY - minY));
 }
-
 console.log(answer);
 
 // ----------------------------------------------------------------------
