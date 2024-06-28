@@ -36,15 +36,15 @@ console.log(answer);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 가장 가까운 두 점 사이의 거리 | X | 24.06.22, 06.25
+ * 🔍 가장 가까운 두 점 사이의 거리 | X | 24.06.22, 06.25, 06.28
  *
  * [완전탐색2 - 물체 단위로 완전탐색]
  */
-const input = require("fs").readFileSync(0).toString().trim().split("\n");
-const N = Number(input[0]);
-const points = input.slice(1, 1 + N).map((line) => line.split(" ").map(Number));
+const inputs = require("fs").readFileSync(0).toString().trim().split("\n");
+const N = Number(inputs[0]);
+const points = inputs.slice(1).map((line) => line.split(" ").map(Number));
 
-function dist(i, j) {
+function getDistance(i, j) {
   const [x1, y1] = points[i];
   const [x2, y2] = points[j];
   return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
@@ -53,7 +53,7 @@ function dist(i, j) {
 let answer = Number.MAX_SAFE_INTEGER;
 for (let i = 0; i < N; i++) {
   for (let j = i + 1; j < N; j++) {
-    answer = Math.min(answer, dist(i, j));
+    answer = Math.min(answer, getDistance(i, j));
   }
 }
 
