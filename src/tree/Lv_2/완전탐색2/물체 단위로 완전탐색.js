@@ -275,3 +275,190 @@ for (let i = 0; i < N; i++) {
   answer = Math.max(answer, peopleCount);
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️상해버린 치즈⭐️ | X | 24.07.03
+ *
+ * [완전탐색2 - 물체 단위로 완전탐색]
+ * - 사람이 치즈를 먹지 않았거나, 아프기 시작한 순간이 치즈를 먹은 순간보다 빠르다면 모순이 발생한다는 것에 유의해야 한다.
+ */
+class EatInfo {
+  constructor(p, m, t) {
+    this.p = p;
+    this.m = m;
+    this.t = t;
+  }
+}
+
+class SickInfo {
+  constructor(p, t) {
+    this.p = p;
+    this.t = t;
+  }
+}
+
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M, D, S] = inputs[0].split(" ").map(Number);
+
+// 몇번째 사람(p)이 몇번째 치즈(m)를 언제 먹었는지(t)
+let eatInfo = [];
+for (let i = 1; i <= D; i++) {
+  const [p, m, t] = inputs[i].split(" ").map(Number);
+  eatInfo.push(new EatInfo(p, m, t));
+}
+
+// 몇번째 사람(p)이 언제 확실히 아팠는지(t)
+let sickInfo = [];
+for (let i = D + 1; i <= D + S; i++) {
+  const [p, t] = inputs[i].split(" ").map(Number);
+  sickInfo.push(new SickInfo(p, t));
+}
+
+let answer = 0;
+
+// 하나의 치즈가 상했을 때 필요한 최대 약의 개수를 구한다.
+//  => 해당 치즈가 몇명에게 영향을 주는지를 파악해야 함
+for (let i = 1; i <= M; i++) {
+  // 치즈의 개수만큼 순회하면서, i번째 치즈가 상했다고 가정하고 모순이 발생하는지 확인한다.
+  // 각 사람이 언제 치즈를 먹었는지에 대한 정보를 저장
+  const whenEatTime = Array.from({ length: N + 1 }, () => 0);
+
+  // console.log(`${i}번째 치즈를 먹자! 🧀`)
+  // i번째 치즈를 먹은 정보를 순회한다.
+  eatInfo.forEach((info) => {
+    if (info.m !== i) return;
+
+    // 사람(p)가 i번째 치즈를 처음 먹었거나, 이전보다 더 빨리 먹게 된 경우 whenEatTime 배열을 갱신한다.
+    const { p, t } = info;
+    if (whenEatTime[p] === 0 || t < whenEatTime[p]) whenEatTime[p] = t;
+  });
+
+  // console.log(`${i}번째 치즈를 먹은 사람들이 언제 먹었는지에 대한 정보를 저장했다!`);
+  // console.log(whenEatTime);
+
+  // i번째 치즈가 상했을 가능성을 저장하는 변수 (가능성이 있다면 true이다.)
+  let possible = true;
+
+  // sickInfo는 단서가 된다. whenEatTime과 이를 기반으로 모순이 있는지 확인한다.
+  //   모순이 발생하는 경우 1) 단서로 주어진 아픈 사람이 치즈를 먹은 기록이 없는 경우
+  //   모순이 발생하는 경우 2) 단서로 주어진 아픈 사람이 아프기 시작한 시간 <= 그 사람이 치즈를 먹은 시간
+  sickInfo.forEach((info) => {
+    const { p, t } = info;
+    if (whenEatTime[p] === 0 || t <= whenEatTime[p]) possible = false;
+  });
+
+  // if(!possible) console.log(`모순이 발생했다! 💨`);
+
+  // i번째 치즈가 상했을 가능성이 있다면, 필요한 약의 개수를 확인한다.
+  let pill = 0;
+  if (possible) {
+    // 한번이라도 i번째 치즈를 먹었다면, 약이 필요하다.
+    for (let n = 1; n <= N; n++) {
+      if (whenEatTime[n] > 0) pill += 1;
+    }
+  }
+  answer = Math.max(answer, pill);
+  // console.log('\n')
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 개발자의 순위 | O | 24.07.03
+ *
+ * [완전탐색2 - 물체 단위로 완전탐색]
+ */
+// ✏️ 내가 푼 방법 - 시간복잡도는 K*N + records[0]*K이다.
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [K, N] = inputs[0].split(" ").map(Number);
+const matchs = inputs.slice(1).map((line) => line.split(" ").map(Number));
+
+// 가능한 모든 경우를 찾아 records에 기록한다.
+let records = [];
+for (let k = 0; k < K; k++) {
+  let match = [];
+
+  for (let i = 0; i < N - 1; i++) {
+    for (let j = i + 1; j < N; j++) {
+      match.push(`(${matchs[k][i]},${matchs[k][j]})`);
+    }
+  }
+  records.push(match);
+}
+
+// match[0]을 기준으로 다른 경기에도 같은 쌍이 존재하는지 검사한다.
+let answer = 0;
+for (let i = 0; i < records[0].length; i++) {
+  let notIn = false;
+  for (let j = 1; j < K; j++) {
+    if (!records[j].includes(records[0][i])) notIn = true;
+    if (notIn) break;
+  }
+  if (!notIn) answer += 1;
+}
+console.log(answer);
+
+// ✏️ 풀이 방법
+// 모든 개발자에 대해 2명의 개발자를 정하고, 해당 개발자의 순위 비교가 각 경기마다 바뀌지 않는지 찾는다.
+// -> 2차원 배열이라 생각하고, 두 번호에 대해 하나의 열 번호가 2차원 배열의 모든 행에서 낮은 순서쌍의 개수를 찾으면 된다.
+let answer = 0;
+
+// 모든 쌍에 대해서 불변의 순위인 쌍을 찾는다.
+for (let i = 1; i <= N; i++) {
+  // K, N, matchs
+  for (let j = 1; j <= N; j++) {
+    // i 개발자가 j 개발자보다 항상 높은 순위인지 여부를 확인한다.
+    // i와 j가 같은 경우 건너뛴다.
+    if (i === j) continue;
+
+    // correct: i번 개발자가 j번 개발자보다 항상 높은 순위일때 true
+    let correct = true;
+
+    matchs.forEach((list) => {
+      const idxI = list.indexOf(i);
+      const idxJ = list.indexOf(j);
+
+      if (idxI > idxJ) correct = false; // idxI의 index가 더 크다는 건 idxJ보다 뒤에 있다는 뜻
+    });
+
+    if (correct) answer += 1;
+  }
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 이상한 폭탄 | O | 24.07.03
+ *
+ * [완전탐색2 - 물체 단위로 완전탐색]
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, K] = inputs[0].split(" ").map(Number);
+const arr = inputs.slice(1).map(Number);
+
+let answer = [];
+for (let i = 0; i < N - K + 1; i++) {
+  // N === K인 경우를 고려하여 i가 N-K+1 직전까지 순회할 수 있도록 한다.
+  let partNums = [];
+  for (let j = i; j < i + K + 1; j++) {
+    if (partNums.includes(arr[j])) answer.push(arr[j]);
+    partNums.push(arr[j]);
+  }
+}
+
+if (answer.length) {
+  console.log(Math.max(...answer));
+} else console.log("-1");
