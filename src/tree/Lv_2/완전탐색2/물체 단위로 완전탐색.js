@@ -170,3 +170,75 @@ for (let i = 0; i < N; i++) {
   }
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 운행되고 있는 시간 | O | 24.07.02
+ *
+ * [완전탐색2 - 물체 단위로 완전탐색]
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const timelines = inputs.slice(1).map((line) => line.split(" ").map(Number));
+
+let answer = 0;
+for (let i = 0; i < N; i++) {
+  // i는 해고할 번호
+  let arr = Array(1001).fill(0);
+  for (let j = 0; j < N; j++) {
+    if (i === j) continue;
+    let [x1, x2] = timelines[j];
+
+    for (let x = x1; x < x2; x++) {
+      arr[x] = 1;
+    }
+  }
+  let totalTime = arr.reduce((acc, v) => acc + v, 0);
+  answer = Math.max(answer, totalTime);
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 겹치지 않는 선분2 | X | 24.07.02
+ *
+ * [완전탐색2 - 물체 단위로 완전탐색]
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const lines = inputs.slice(1).map((line) => line.split(" ").map(Number));
+
+// 선분이 겹치는 경우 1) 지정한 하나의 선분이 비교할 선분보다 x1이 크고, x2가 작은 경우
+// 선분이 겹치는 경우 2) 지정한 하나의 선분이 비교할 선분보다 x1이 작고, x2가 큰 경우
+// => 즉, 지정한 하나의 선분 안에 비교할 선분이 속해있거나,
+//       지정한 하나의 선분이 비교할 선분에 속해있는 경우
+
+let answer = 0;
+for (let i = 0; i < N; i++) {
+  // i번째 선분이 다른 선분과 겹치지 않는지 확인하기
+  let meet = false;
+  for (let j = 0; j < N; j++) {
+    if (j === i) continue;
+
+    // 겹치는지 검사한다.
+    if (
+      (lines[i][0] <= lines[j][0] && lines[i][1] >= lines[j][1]) ||
+      (lines[i][0] >= lines[j][0] && lines[i][1] <= lines[j][1])
+    ) {
+      meet = true; // 겹치는 경우 바로 반복문을 종료한다.
+      break;
+    }
+  }
+
+  // 겹치지 않은 경우 answer++
+  if (!meet) answer += 1;
+}
+console.log(answer);
