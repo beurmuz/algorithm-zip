@@ -462,3 +462,91 @@ for (let i = 0; i < N - K + 1; i++) {
 if (answer.length) {
   console.log(Math.max(...answer));
 } else console.log("-1");
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 선분 3개 지우기 | O | 24.07.04
+ *
+ * [완전탐색2 - 물체 단위로 완전탐색]
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const points = inputs.slice(1).map((line) => line.split(" ").map(Number));
+
+let answer = 0; // 남은 선분들이 모두 겹치지 않도록 하는 서로 다른 가짓수 구하기
+
+// 지울 3개의 선분을 선택 (순서 상관없음)
+for (let i = 0; i < N; i++) {
+  for (let j = i + 1; j < N; j++) {
+    for (let k = j + 1; k < N; k++) {
+      let arr = Array(101).fill(0);
+
+      // 3개의 선분을 지우고 남은 선분들을 배열에 기록한다.
+      for (let point = 0; point < N; point++) {
+        if (point === i || point === j || point === k) continue;
+        let [x1, x2] = points[point];
+
+        for (let x = x1; x <= x2; x++) {
+          arr[x] += 1;
+        }
+      }
+
+      // 1 이상인 곳이 있는지 검사한다.
+      let findMoreNums = false;
+      for (let x = 0; x < 101; x++) {
+        if (arr[x] > 1) {
+          findMoreNums = true;
+          break;
+        }
+      }
+
+      // findMoreNums가 false면 answer + 1해주기
+      if (!findMoreNums) answer += 1;
+    }
+  }
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️스승의 은혜 3⭐️ | O | 24.07.04
+ *
+ * [완전탐색2 - 물체 단위로 완전탐색]
+ * - 맞았지만 다시한번 더 풀어볼것!
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, B] = inputs[0].split(" ").map(Number);
+let gifts = [];
+
+for (let i = 1; i <= N; i++) {
+  let [price, fee] = inputs[i].split(" ").map(Number);
+  gifts.push([price, fee, price + fee]);
+}
+
+let answer = 0;
+// i번째 학생의 선물은 반값이다.
+for (let i = 0; i < N; i++) {
+  let nowTotalFee = gifts[i][0] / 2 + gifts[i][1];
+  let nowTotalStudents = 1;
+
+  // 새 배열을 만들고 (선물값 + 배송비)가 작은 순서대로 정렬한다.
+  let newGifts = gifts.slice(0, i).concat(gifts.slice(i + 1));
+  newGifts.sort((a, b) => a[2] - b[2]);
+
+  for (let j = 0; j < newGifts.length; j++) {
+    nowTotalFee += newGifts[j][0] + newGifts[j][1];
+    if (nowTotalFee > B) break;
+    nowTotalStudents += 1;
+  }
+
+  answer = Math.max(answer, nowTotalStudents);
+}
+console.log(answer);
