@@ -108,3 +108,41 @@ for (let t = 0; t <= MAX_VALUE; t++) {
   answer = Math.max(answer, performance(t));
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 흥미로운 숫자2 | O | 24.07.06
+ *
+ * [완전탐색2 - 값을 기준으로 완전탐색]
+ */
+let [x, y] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map(Number);
+
+// 흥미로운 숫자인지 아닌지 검사하는 함수
+function checkInterestNum(n) {
+  let setN = new Set(n.split("").map(Number));
+  if (setN.size > 2 || setN.size === 1) return false;
+
+  // setN.size가 2인 경우만 판단
+  let [n1, n2] = [...setN];
+  let cnt1 = 0;
+  let cnt2 = 0;
+
+  for (let k = 0; k < n.length; k++) {
+    if (Number(n[k]) === n1) cnt1 += 1;
+    else cnt2 += 1;
+  }
+
+  if (cnt1 === 1 || cnt2 === 1) return true;
+  else return false;
+}
+
+let answer = 0;
+for (let i = x; i <= y; i++) {
+  if (checkInterestNum(String(i))) answer += 1;
+}
+console.log(answer);
