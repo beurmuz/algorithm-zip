@@ -146,3 +146,38 @@ for (let i = x; i <= y; i++) {
   if (checkInterestNum(String(i))) answer += 1;
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 등차수열 | X | 24.07.07
+ *
+ * [완전탐색2 - 값을 기준으로 완전탐색]
+ */
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 등차수열 | X | 24.07.07
+ *
+ * [완전탐색2 - 값을 기준으로 완전탐색]
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const arr = inputs[1].split(" ").map(Number);
+const MAX_V = 101;
+
+let answer = 0;
+for (let k = 1; k < MAX_V; k++) {
+  let cnt = 0;
+  for (let i = 0; i < N; i++) {
+    for (let j = i + 1; j < N; j++) {
+      if (arr[i] + arr[j] === 2 * k) cnt += 1;
+    }
+  }
+  answer = Math.max(answer, cnt);
+}
+
+console.log(answer);
