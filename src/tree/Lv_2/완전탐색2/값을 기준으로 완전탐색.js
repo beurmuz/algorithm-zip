@@ -149,16 +149,40 @@ console.log(answer);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 등차수열 | X | 24.07.07
+ * 🔍 정보에 따른 숫자 2 | O | 24.07.08
  *
  * [완전탐색2 - 값을 기준으로 완전탐색]
  */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [T, A, B] = inputs[0].split(" ").map(Number);
+let spots = inputs.slice(1).map((line) => line.split(" "));
+
+let answer = 0;
+for (let x = A; x <= B; x++) {
+  let d1 = Number.MAX_SAFE_INTEGER; // x ~ S까지의 거리
+  let d2 = Number.MAX_SAFE_INTEGER; // x ~ N까지의 거리
+
+  for (let t = 0; t < T; t++) {
+    if (spots[t][0] === "S")
+      d1 = Math.min(d1, Math.abs(Number(spots[t][1]) - x));
+    else d2 = Math.min(d2, Math.abs(spots[t][1] - x));
+  }
+  if (d1 <= d2) answer += 1;
+}
+console.log(answer);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 등차수열 | X | 24.07.07
+ * 🔍 등차수열 | X | 24.07.07, 07.08
  *
  * [완전탐색2 - 값을 기준으로 완전탐색]
+ * - j <= N이므로 k의 최댓값을 100으로 잡으면 된다.
+ * - k를 먼저 정한 후, 선택한 두 수 사이에 k를 넣어 등차수열을 구하는 것.
+ *    => 그러므로 k별로 만들 수 있는 등차수열의 개수를 구하면 된다.
  */
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
@@ -171,13 +195,13 @@ const MAX_V = 101;
 
 let answer = 0;
 for (let k = 1; k < MAX_V; k++) {
-  let cnt = 0;
+  let count = 0;
   for (let i = 0; i < N; i++) {
     for (let j = i + 1; j < N; j++) {
-      if (arr[i] + arr[j] === 2 * k) cnt += 1;
+      if (arr[i] + arr[j] === k * 2) count += 1;
     }
   }
-  answer = Math.max(answer, cnt);
+  answer = Math.max(answer, count);
 }
 
 console.log(answer);
