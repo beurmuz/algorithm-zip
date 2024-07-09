@@ -205,3 +205,54 @@ for (let k = 1; k < MAX_V; k++) {
 }
 
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️빙산의 일각 2⭐️ | △ | 24.07.09
+ *
+ * [완전탐색2 - 값을 기준으로 완전탐색]
+ * - 맨 앞에 빙산이 있는 경우를 따로 예외처리 해주어야 한다.
+ * - 블록의 높이가 지정한 해수면의 높이보다 같거나 작은 경우는 빙산이 아니다.
+ * - 바로 앞 블록이 <= 해수면 && 자신의 블록 > 해수면인 경우 빙산이 하나 존재하는 것.
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n")
+  .map(Number);
+const N = inputs[0];
+const mountains = inputs.slice(1);
+const MAX_V = Math.max(...mountains);
+
+let answer = 0;
+for (let height = 1; height < MAX_V; height++) {
+  let count = 0;
+
+  if (mountains[0] > height) count += 1;
+
+  for (let i = 1; i < N; i++) {
+    if (mountains[i] > height && mountains[i - 1] <= height) count += 1;
+  }
+  answer = Math.max(answer, count);
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 팰린드롬 수 찾기 | O | 24.07.09
+ *
+ * [완전탐색2 - 값을 기준으로 완전탐색]
+ */
+const [X, Y] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map(Number);
+
+let answer = 0;
+for (let num = X; num <= Y; num++) {
+  if (String(num) === String(num).split("").reverse().join("")) answer += 1;
+}
+console.log(answer);
