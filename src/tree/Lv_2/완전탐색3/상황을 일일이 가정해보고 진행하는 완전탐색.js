@@ -88,39 +88,64 @@ for (let square = 0; square < N; square++) {
 }
 console.log(answer);
 
-
-
-
 // ----------------------------------------------------------------------
 /**
  * 🔍 숫자 2배 후 하나 제거하기 | O | 24.07.10
  *
  * [완전탐색3 - 상황을 일일이 가정해보고 진행하는 완전탐색]
  */
-const inputs = require('fs').readFileSync('/dev/stdin').toString().trim().split("\n");
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
 const N = Number(inputs[0]);
 let arr = inputs[1].split(" ").map(Number);
 
 let answer = Number.MAX_SAFE_INTEGER;
 
 // square: 2배 할 숫자
-for(let square = 0; square < N; square++) {
-    arr[square] *= 2;
-    
-    // excep: 제외할 숫자
-    for(let excep = 0; excep < N; excep++) {
-        let tmp = [];
-        for(let i = 0; i < N; i++) {
-            if(i === excep) continue;
-            tmp.push(arr[i]);
-        }
+for (let square = 0; square < N; square++) {
+  arr[square] *= 2;
 
-        let sumDiff = 0;
-        for(let i = 0; i < N - 2; i++) {
-           sumDiff += Math.abs(tmp[i] - tmp[i + 1]);
-        }
-        answer = Math.min(answer, sumDiff);
+  // excep: 제외할 숫자
+  for (let excep = 0; excep < N; excep++) {
+    let tmp = [];
+    for (let i = 0; i < N; i++) {
+      if (i === excep) continue;
+      tmp.push(arr[i]);
     }
-    arr[square] /= 2;
+
+    let sumDiff = 0;
+    for (let i = 0; i < N - 2; i++) {
+      sumDiff += Math.abs(tmp[i] - tmp[i + 1]);
+    }
+    answer = Math.min(answer, sumDiff);
+  }
+  arr[square] /= 2;
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 수를 여러번 사용하여 특정 수 만들기 | O | 24.07.11
+ *
+ * [완전탐색3 - 상황을 일일이 가정해보고 진행하는 완전탐색]
+ */
+const [A, B, C] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map(Number);
+
+let answer = 0;
+for (let a = 0; a < 1000; a++) {
+  let maxValue = 0;
+  for (let b = 0; b < 1000; b++) {
+    let nowTerm = A * a + B * b;
+    if (nowTerm > C) break;
+    if (nowTerm <= C && answer < nowTerm) answer = nowTerm;
+  }
 }
 console.log(answer);
