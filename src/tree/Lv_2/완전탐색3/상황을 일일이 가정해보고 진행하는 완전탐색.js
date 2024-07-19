@@ -252,3 +252,52 @@ for (let x = 2; x <= MAX_V; x += 2) {
   }
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 팀으로 하는 틱택토 2 | O | 24.07.19
+ * - 가로, 세로, 대각선의 모든 경우를 따져본다.
+ * - 내 풀이도 복잡하지만 실제 답안은 더 복잡한 듯 하다.
+ */
+const results = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n")
+  .map((line) => line.split("").map(Number));
+const ableTeam = new Set();
+
+// 가로 & 세로 검사
+for (let i = 0; i < 3; i++) {
+  // 가로줄 검사
+  let rowMembers = new Set(results[i]);
+  if (rowMembers.size === 2) {
+    let a = results[i][0];
+    let b = results[i][1] === a ? results[i][2] : results[i][1];
+    ableTeam.add(`(${Math.min(a, b)}, ${Math.max(a, b)})`);
+  }
+
+  // 세로줄 검사
+  let colMembers = new Set([results[0][i], results[1][i], results[2][i]]);
+  if (colMembers.size === 2) {
+    let a = results[0][i];
+    let b = results[1][i] === a ? results[2][i] : results[1][i];
+    ableTeam.add(`(${Math.min(a, b)}, ${Math.max(a, b)})`);
+  }
+}
+
+// 대각선 두 방향 검사
+let goToRight = new Set([results[0][0], results[1][1], results[2][2]]);
+if (goToRight.size === 2) {
+  let a = results[0][0];
+  let b = results[1][1] === a ? results[2][2] : results[1][1];
+  ableTeam.add(`(${Math.min(a, b)}, ${Math.max(a, b)})`);
+}
+let goToLeft = new Set([results[2][0], results[1][1], results[0][2]]);
+if (goToLeft.size === 2) {
+  let a = results[0][0];
+  let b = results[1][1] === a ? results[2][2] : results[1][1];
+  ableTeam.add(`(${Math.min(a, b)}, ${Math.max(a, b)})`);
+}
+
+console.log(ableTeam.size);
