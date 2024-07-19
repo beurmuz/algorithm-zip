@@ -152,7 +152,7 @@ console.log(answer);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️3개의 선 2⭐️ | X | 24.07.14
+ * 🔍 ⭐️3개의 선 2⭐️ | X | 24.07.14, 07.19
  *
  * [완전탐색3 - 상황을 일일이 가정해보고 진행하는 완전탐색]
  * - N개의 점을 지나는 x축 or y축에 평행한 3개의 직선의 경우의 수는 매우 많다.
@@ -165,54 +165,90 @@ const inputs = require("fs")
   .split("\n");
 const N = Number(inputs[0]);
 const points = inputs.slice(1).map((line) => line.split(" ").map(Number));
-const max_V = 10;
+const MAX_V = 10;
 
 let answer = 0;
 
-// 모든 직선에 대해 전부 시도해본다.
-for (let l1 = 0; l1 <= max_V; l1++) {
-  for (let l2 = 0; l2 <= max_V; l2++) {
-    for (let l3 = 0; l3 <= max_V; l3++) {
-      // flag: 직선 3개로 모든 점을 지나게 할 수 있으면 true
-      let flag = true;
+// 3개의 선분을 정한다.
+for (let l1 = 0; l1 <= MAX_V; l1++) {
+  for (let l2 = 0; l2 <= MAX_V; l2++) {
+    for (let l3 = 0; l3 <= MAX_V; l3++) {
+      // 각각의 경우를 모두 탐색한다.
+      /**
+       * 1. l1, l2, l3 모두 x축에 평행한 선분인 경우
+       * 2. l1, l2는 x축에, l3는 y축에 평행한 선분인 경우
+       * 3. l1은 x축에, l2, l3는 y축에 평행한 선분인 경우
+       * 4. l1, l2, l3 모두 y축에 평행한 선분인 경우
+       *
+       * 어차피 모든 선분이 0~10의 값을 갖는것이므로 l1~l3에 x, y가 순서없이 배정되어도 된다.
+       */
 
-      // case1) x축에 평행한 직선 3개로 모든 점을 지나게 할 수 있는 경우
+      let pass = true; // 직선 3개로 모두 지나갈 수 있는 경우
+      // 1. 1번의 경우
       points.forEach(([x, y]) => {
-        // 해당 점이 직선에 닿으면 넘어간다.
         if (x === l1 || x === l2 || x === l3) return;
-
-        flag = false;
+        pass = false;
       });
-      if (flag) answer = 1;
+      if (pass) answer = 1;
 
-      // case2) x축에 평행한 직선 2개와 y축에 평행한 직선 1개로 모든 점을 지나게 할 수 있는 경우
-      flag = true;
+      // 2. 2번의 경우
+      pass = true;
       points.forEach(([x, y]) => {
         if (x === l1 || x === l2 || y === l3) return;
-
-        flag = false;
+        pass = false;
       });
-      if (flag) answer = 1;
+      if (pass) answer = 1;
 
-      // case3) x축에 평행한 직선 1개와 y축에 평행한 직선 2개로 모든 점을 지나게 할 수 있는 경우
-      flag = true;
+      // 3. 3번의 경우
+      pass = true;
       points.forEach(([x, y]) => {
         if (x === l1 || y === l2 || y === l3) return;
-
-        flag = false;
+        pass = false;
       });
-      if (flag) answer = 1;
+      if (pass) answer = 1;
 
-      // case4) y축에 평행한 직선 3개로 모든 점을 지나게 할 수 있는 경우
-      flag = true;
+      // 4. 4번의 경우
+      pass = true;
       points.forEach(([x, y]) => {
         if (y === l1 || y === l2 || y === l3) return;
-
-        flag = false;
+        pass = false;
       });
-      if (flag) answer = 1;
+      if (pass) answer = 1;
     }
   }
 }
+console.log(answer);
 
+// ----------------------------------------------------------------------
+/**
+ * 🔍 좌표평면 위의 균형 2 | O | 24.07.19
+ * - x, y축을 구해서 (x, y)를 중심점으로 두고 각 사분면에 찍힌 점의 개수를 구한다.
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const points = inputs.slice(1).map((line) => line.split(" ").map(Number));
+const MAX_V = 100;
+
+// x에 1개, y에 1개 평행한 직선 긋기
+let answer = Number.MAX_SAFE_INTEGER;
+
+for (let x = 2; x <= MAX_V; x += 2) {
+  for (let y = 2; y <= MAX_V; y += 2) {
+    // (x, y)가 중심점이고 1: (x~, y~), 2: (0~x, y~), 3: (0~x, 0~y), 4: (x~, 0~y)
+    let fourSpace = [0, 0, 0, 0];
+
+    points.forEach(([px, py]) => {
+      if (px > x && py > y) fourSpace[0] += 1;
+      else if (px > 0 && px < x && py > y) fourSpace[1] += 1;
+      else if (px > 0 && px < x && py > 0 && py < y) fourSpace[2] += 1;
+      else if (px > x && py > 0 && py < y) fourSpace[3] += 1;
+    });
+
+    answer = Math.min(answer, Math.max(...fourSpace));
+  }
+}
 console.log(answer);
