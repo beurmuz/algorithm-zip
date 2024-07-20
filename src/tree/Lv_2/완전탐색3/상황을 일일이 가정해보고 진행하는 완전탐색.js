@@ -301,3 +301,44 @@ if (goToLeft.size === 2) {
 }
 
 console.log(ableTeam.size);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️등장하지 않는 문자열의 길이⭐️ | X | 24.07.20
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const str = inputs[1];
+
+let answer = 1;
+for (let i = 1; i < N; i++) {
+  // 모든 길이가 i인 부분 문자열에 대해 쌍을 짓고, 둘이 완전히 같은지 확인한다.
+
+  let twice = false;
+  for (let w1 = 0; w1 < N - i + 1; w1++) {
+    for (let w2 = w1 + 1; w2 < N - i + 1; w2++) {
+      // same: j~i길이의 부분 문자열과 k~i길이의 부분 문자열이 완전히 같으면 true
+      let same = true;
+
+      for (let k = 0; k < i; k++) {
+        if (str[w1 + k] !== str[w2 + k]) {
+          same = false;
+          break;
+        }
+      }
+
+      if (same) {
+        twice = true;
+        break;
+      }
+    }
+    if (twice) break;
+  }
+  if (twice) answer = i + 1;
+  else break;
+}
+console.log(answer);
