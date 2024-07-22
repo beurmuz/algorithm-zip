@@ -342,3 +342,30 @@ for (let i = 1; i < N; i++) {
   else break;
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 원소 값들의 최대 합 | O | 24.07.22
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M] = inputs[0].split(" ").map(Number);
+const arr = inputs[1].split(" ").map(Number);
+
+let answer = 0;
+
+// 시작위치 정하기
+for (let start = 0; start < N; start++) {
+  let nowTerm = 0;
+  let now = start;
+  for (let count = 0; count < M; count++) {
+    nowTerm += arr[now];
+    now = arr[now] - 1;
+  }
+  answer = Math.max(answer, nowTerm);
+}
+
+console.log(answer);
