@@ -182,3 +182,113 @@ for (let a = 1; a < 10; a++) {
   answer = Math.min(answer, cost);
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 숫자들의 최대 차 | O | 24.07.24
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, K] = inputs[0].split(" ").map(Number);
+const arr = inputs
+  .slice(1)
+  .map(Number)
+  .sort((a, b) => a - b);
+
+let answer = 0; // 뽑을 수 있는 원소의 최대 개수
+for (let lt = 0; lt < N; lt++) {
+  let count = 1;
+  for (let rt = lt + 1; rt < N; rt++) {
+    if (arr[rt] - arr[lt] <= K) count += 1;
+  }
+  answer = Math.max(answer, count);
+}
+console.log(answer);
+
+// 해설
+const MAX_NUM = 10000;
+// 사용할 숫자가 존재하는 구간: [l, r]
+// 사이에 들어있는 숫자 개수를 반환합니다.
+function countNum(l, r) {
+  let cnt = 0;
+  arr.forEach((elem) => {
+    if (l <= elem && elem <= r) {
+      cnt += 1;
+    }
+  });
+  return cnt;
+}
+
+let answer = 0;
+// 크기가 K인 모든 구간을 잡아, 해당 구간 안에 들어오는 숫자의 개수를 세서 그 중 최댓값을 계산
+for (let i = 1; i <= MAX_NUM; i++) {
+  // 구간 [i, i + k] 사이에 들어있는 숫자를 세어 최댓값을 계산
+  answer = Math.max(answer, countNum(i, i + K));
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️값을 일일이 가정해보는 완전탐색⭐️ | X | 24.07.24
+ */
+const N = 5;
+const arr = [4, 3, 1, 2, 5];
+
+function isPossible(minValue) {
+  const canGoStones = [];
+  arr.forEach((v, i) => {
+    if (v >= minValue) canGoStones.push(i); // 최솟값, 즉 a값보다 큰 값들의 index를 canGoStones에 push한다.
+  });
+
+  const arrSize = canGoStones.length;
+  for (let i = 1; i < arrSize; i++) {
+    const dist = canGoStones[i] - canGoStones[i - 1]; // 위치 차이를 계산한다.
+    if (dist > 2) return false; // 위치 차이가 3이상이면 false를 반환한다. (= 거리 2이내로 점프해야 하므로)
+  }
+  return true;
+}
+
+let answer = 0;
+for (let a = 1; a <= Math.min(arr[0], arr[arr.length - 1]); a++) {
+  // 1번에서 5번으로 도착해야하므로 둘중 작은 수까지만 순회한다.
+  if (isPossible(a)) answer = Math.max(answer, a);
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️훌륭한 점프⭐️ | X | 24.07.24
+ * - 밟으며 지나간 숫자들 중 최댓값을 가정하면, 최댓값보다 같거나 작은 숫자들이 적혀있는 돌은 항상 다 밟고 지나가는 것이 좋다.
+ *   => 즉, 돌을 다 밟고 지나간다는 가정 하에 인접한 돌 사이의 거리가 전부 K 이내인지 살펴보면 가능한 값인지 알 수 있음
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, K] = inputs[0].split(" ").map(Number);
+const arr = inputs[1].split(" ").map(Number);
+const MAX_NUM = 100;
+
+function isPossible(limit) {
+  let lastIdx = 0;
+  for (let i = 1; i < N; i++) {
+    if (arr[i] <= limit) {
+      if (i - lastIdx > K) return false; // 거리 차가 K보다 크면 건널 수 없게 된다.
+      lastIdx = i;
+    }
+  }
+  return true;
+}
+
+// 밟고 지나가는 숫자들 중, 최댓값이 이미 i로 정해져있다고 가정했을 때,
+// 실제 거리 K 이내의 돌만 밟고 지나가는 게 가능한지 판단하면 된다.
+for (let i = Math.max(arr[0], arr[N - 1]); i <= MAX_NUM; i++) {
+  if (isPossible(i)) {
+    console.log(i);
+    break;
+  }
+}
