@@ -292,3 +292,51 @@ for (let i = Math.max(arr[0], arr[N - 1]); i <= MAX_NUM; i++) {
     break;
   }
 }
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️A, B, C, D 찾기 2⭐️ | X | 24.07.25
+ * - 완전탐색을 이용해 MAX_V까지 모두 순회하며 a, b, c, d를 찾는 것은 알았지만, 정렬로 비교해 정답을 찾으면 되는줄은 몰랐다.
+ */
+const arr = require("fs")
+  .readFileSync(0)
+  .toString()
+  .trim()
+  .split(" ")
+  .map(Number)
+  .sort((a, b) => a - b)
+  .join(",");
+const MAX_V = 40;
+
+// 모든 a,b,c,d를 확인해서 이 합들이 arr과 같은지 여부를 확인한다.
+for (let a = 1; a <= MAX_V; a++) {
+  for (let b = a; b <= MAX_V; b++) {
+    for (let c = b; c <= MAX_V; c++) {
+      for (let d = c; d <= MAX_V; d++) {
+        let arr2 = [
+          a,
+          b,
+          c,
+          d,
+          a + b,
+          b + c,
+          c + d,
+          d + a,
+          a + c,
+          b + d,
+          a + b + c,
+          a + b + d,
+          a + c + d,
+          b + c + d,
+          a + b + c + d,
+        ];
+
+        let sortedArr2 = arr2.sort((x, y) => x - y).join(",");
+
+        if (arr === sortedArr2) {
+          console.log(a, b, c, d);
+        }
+      }
+    }
+  }
+}
