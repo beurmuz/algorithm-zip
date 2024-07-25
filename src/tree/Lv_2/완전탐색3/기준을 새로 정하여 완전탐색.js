@@ -340,3 +340,45 @@ for (let a = 1; a <= MAX_V; a++) {
     }
   }
 }
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️독서실의 거리두기 4⭐️ | △ | 24.07.25
+ * - 거리두기 5랑 똑같이 푸는 문제이다. 단, 해당 문제는 2명을 배치한다는 점이 다르다.
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+let seats = inputs[1].split("");
+
+function getDist() {
+  let dist = N;
+
+  // 둘다 1인 곳에 대해 모든 쌍을 조사하여, 그 중 가장 가까운 거리를 구한다.
+  for (let i = 0; i < N; i++) {
+    for (let j = i + 1; j < N; j++) {
+      if (seats[i] === "1" && seats[j] === "1") dist = Math.min(dist, j - i);
+    }
+  }
+  return dist;
+}
+
+let answer = 0;
+for (let p1 = 0; p1 < N; p1++) {
+  for (let p2 = p1 + 1; p2 < N; p2++) {
+    if (seats[p1] === "0" && seats[p2] === "0") {
+      // 빈자리에 인원을 배치한다.
+      seats[p1] = "1";
+      seats[p2] = "1";
+
+      // 가장 가까운 사람간의 거리를 구해 최댓값을 갱신한다.
+      answer = Math.max(answer, getDist());
+      seats[p1] = "0";
+      seats[p2] = "0";
+    }
+  }
+}
+console.log(answer);
