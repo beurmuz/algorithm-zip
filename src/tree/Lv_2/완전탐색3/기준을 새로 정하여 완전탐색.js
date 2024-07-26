@@ -382,3 +382,144 @@ for (let p1 = 0; p1 < N; p1++) {
   }
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️초기 수열 복원하기⭐️ | △ | 24.07.26
+ * - 완전탐색에 약한듯하네
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const A = inputs[1].split(" ").map(Number);
+
+// 수열에는 1부터 N까지 딱 한번씩만 사용되어야 함
+const MAX_V = 1000;
+const arr = Array(N).fill(0);
+
+// 수열의 첫번째 수만 결정한다면, 그 뒤의 숫자들은 자동으로 값이 하나로 결정됨
+for (let i = 1; i < N; i++) {
+  // 수열의 첫번째 수가 i일 때
+  arr[0] = i;
+
+  for (let j = 1; j < N; j++) {
+    // a[j-1]은 arr[j] + arr[j-1]로 구할 수 있다.
+    // => 즉, arr[0]에서 arr[1]을, arr[1]에서 arr[2]를 유추 가능함
+    arr[j] = A[j - 1] - arr[j - 1];
+  }
+
+  // arr 수열에 1부터 N까지의 값이 한 번씩 이용된는지 확인
+  // able: arr 수열에 1부터 N까지의 값이 한번씩 이용될 경우 true
+  // visited: 한 번 만이라도 해당 숫자가 arr 수열에서 쓰였다면 true
+  let able = true;
+  const visited = Array(MAX_V + 1).fill(false);
+  for (let j = 0; j < N; j++) {
+    if (arr[j] <= 0 || arr[j] > N) {
+      able = false;
+      break;
+    } else {
+      if (visited[arr[j]]) {
+        able = false;
+        break;
+      }
+      visited[arr[j]] = true;
+    }
+  }
+
+  if (able) {
+    console.log(arr.join(" "));
+    process.exit();
+  }
+}
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 이상한 폭탄3 | O | 24.07.26
+ * - 완탐과 set, map으로 풀었는데 정답을 정리하는 과정이 좀 긴듯 하다.
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, K] = inputs[0].split(" ").map(Number);
+const bombs = inputs.slice(1).map(Number);
+
+let bombList = new Set();
+for (let i = 0; i < N; i++) {
+  let nowNum = bombs[i];
+  for (let j = i + 1; j < i + 1 + K; j++) {
+    if (nowNum === bombs[j]) {
+      bombList.add(`${nowNum} ${i}`);
+      bombList.add(`${bombs[j]} ${j}`);
+    }
+  }
+}
+
+// 정답 찾기
+let arr = Array.from(bombList);
+let rank = new Map();
+for (let info of arr) {
+  let [num, idx] = info.split(" ").map(Number);
+  if (rank.has(num)) rank.set(num, rank.get(num) + 1);
+  else rank.set(num, 1);
+}
+
+let answerArr = [];
+for (let [key, value] of rank) {
+  answerArr.push([key, value]);
+}
+answerArr.sort((a, b) => b[1] - a[1]);
+
+if (answerArr.length === 0) console.log(0);
+else console.log(answerArr[0][0]);
+
+// 해설
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, K] = inputs[0].split(" ").map(Number);
+const num = inputs.slice(1).map(Number);
+
+const MAX_V = 1000000;
+const bomb = Array(MAX_V + 1).fill(0);
+const explode = Array(MAX_V).fill(false);
+
+let maxCount = 1;
+let maxIndex = 0;
+
+for (let i = 0; i < N; i++) {
+  for (let j = i + 1; j < i + 1 + K; j++) {
+    // 거리가 K를 초과하는 경우 넘어간다.
+    if (j - i > K) break;
+
+    // 두 폭탄의 번호가 다를 경우 터지지 않는다.
+    if (num[i] !== num[j]) continue;
+
+    // 두 폭탄의 번호가 같으면 터진다.
+    // 해당 폭탄이 이미 터졌는지 확인하고, 아직 터지지 않았다면 폭탄의 개수를 갱신한다.
+    if (!explode[i]) {
+      bomb[num[i]] += 1;
+      explode[i] = true; // 터짐 표시
+    }
+
+    if (!explode[j]) {
+      bomb[num[j]] += 1;
+      explode[j] = true;
+    }
+  }
+}
+
+// 정답 찾기
+for (let i = 0; i < MAX_V + 1; i++) {
+  if (maxCount <= bomb[i]) {
+    maxCount = bomb[i];
+    maxIndex = i;
+  }
+}
+console.log(maxIndex);
