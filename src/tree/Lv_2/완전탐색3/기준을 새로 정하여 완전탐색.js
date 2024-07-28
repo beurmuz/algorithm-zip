@@ -523,3 +523,36 @@ for (let i = 0; i < MAX_V + 1; i++) {
   }
 }
 console.log(maxIndex);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️언덕 깎기⭐️ | X | 24.07.28
+ * - 가장 높은 언덕과 가장 낮은 언덕의 높이 차가 17이 되어야 하므로,
+ * - 크기가 17인 가능한 모든 구간에 대해 모든 언덕을 깎는 비용을 구해야 함.
+ *   => 각 구간의 시작점을 찾는 완전탐색 진행하기
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n")
+  .map(Number);
+const N = inputs[0];
+const slope = inputs.slice(1);
+const MAX_H = 100;
+const diff = 17;
+
+let answer = Number.MAX_SAFE_INTEGER;
+// 크기가 K인 모든 구간을 잡아 해당 구간 안에 들어오게 언덕을 깎고, 그 비용 중 최솟값을 계산한다.
+for (let h = 0; h < MAX_H; h++) {
+  // 구간 [h, h + diff]에서의 언덕을 깎는 비용을 계산한다.
+  // h + diff보다 높은 언덕은 높이가 h+k가 되게 깎고, 낮은 언덕은 높이가 h가 되게 쌓으면 된다.
+  let cost = 0;
+  for (let now = 0; now < N; now++) {
+    if (slope[now] < h) cost += (slope[now] - h) * (slope[now] - h);
+    else if (slope[now] > h + diff)
+      cost += (slope[now] - h - diff) * (slope[now] - h - diff);
+  }
+  answer = Math.min(answer, cost);
+}
+console.log(answer);
