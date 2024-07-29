@@ -556,3 +556,50 @@ for (let h = 0; h < MAX_H; h++) {
   answer = Math.min(answer, cost);
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️구간 잘 나누기⭐️ | X | 24.07.29
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M] = inputs[0].split(" ").map(Number);
+const arr = inputs[1].split(" ").map(Number);
+const MAX_V = 10000;
+
+// 구간합의 최댓값을 임의로 정한 뒤, 그 최댓값에 맞게 구간이 m개로 나누어지는지 판단하고,
+// 나누어지는 최댓값 중 가장 작은 갑을 구하면 된다.
+let answer = MAX_V;
+
+// 주어진 숫자를 순서대로 탐색하며, 현재 숫자에 바로 전 숫자를 더했을 때 설정한 최댓값보다 크면,
+// 해당 숫자로부터 시작하는 새로운 구간이 있다는 뜻
+// 단, 만약 숫자 하나가 설정한 최댓값보다 크다면 구간을 나눌 수 없다.
+for (let maxValue = 1; maxValue <= MAX_V; maxValue++) {
+  // 구간 합의 최댓값이 maxValue일 때
+  let canDivide = true; // 구간을 나눌 수 있는 여부
+  let section = 1;
+
+  let count = 0;
+  for (let idx = 0; idx < N; idx++) {
+    if (arr[idx] > maxValue) {
+      // 숫자 하나가 maxValue보다 크면 구간을 나눌 수 없다.
+      canDivide = false;
+      break;
+    }
+
+    // idx번째 숫자가 들어갔을 때 maxValue보다 커지면
+    // idx번째 숫자부터 다음 구간으로 만든다.
+    if (count + arr[idx] > maxValue) {
+      count = 0;
+      section += 1;
+    }
+
+    // 이번 구간에 idx번째 숫자를 넣음
+    count += arr[idx];
+  }
+  if (canDivide && section <= M) answer = Math.min(answer, maxValue);
+}
+console.log(answer);
