@@ -603,3 +603,85 @@ for (let maxValue = 1; maxValue <= MAX_V; maxValue++) {
   if (canDivide && section <= M) answer = Math.min(answer, maxValue);
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️최대 H 점수 2⭐️ | X | 24.08.07
+ * - H 점수를 가정하여 해당 H점수가 성립될 수 있는지 알아보기
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, L] = inputs[0].split(" ").map(Number);
+const arr = inputs[1].trim().split(" ").map(Number);
+
+// H 이상인 숫자의 수가 H개 이상인 것을 만족하는 H중 최댓값
+
+// H점수가 성립될 수 있는지 확인해보는 방법
+// - n개의 숫자 중 H점수보다 크거나 같은 숫자의 개수를 세보면 됨
+// - L개의 숫자는 1씩 더할 수 있으므로, 크기가 h - 1인 숫자를 L개까지 포함하여 세면 됨
+let answer = 0;
+for (let h = 1; h <= N + 1; h++) {
+  // 정답이 h일 때 가능한지 판단한다.
+  // h - 1인 값은 최대 L까지 h로 올릴 수 있음
+  // cnt: h이상인 숫자의 개수 (h - 1인 숫자는 L개까지 카운트)
+  // cntL: 지금까지 1 증가시킨 숫자의 개수
+  let cnt = 0;
+  let cntL = 0;
+
+  for (let i = 0; i < N; i++) {
+    if (arr[i] >= h) cnt += 1;
+    else if (arr[i] === h - 1) {
+      if (cntL < L) {
+        cntL += 1;
+        cnt += 1;
+      }
+    }
+  }
+
+  if (cnt >= h) answer = h;
+}
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️최대 최소간의 차⭐️ | X | 24.08.07
+ */
+const inputs = require("fs").readFileSync(0).toString().trim().split("\n");
+
+const INT_MAX = Number.MAX_SAFE_INTEGER;
+const MAX_K = 10000;
+
+// 변수 선언 및 입력
+const [N, K] = inputs[0].split(" ").map(Number);
+const arr = inputs[1].trim().split(" ").map(Number);
+
+function getCost(low, high) {
+  let cost = 0;
+  // 각 수에 대해 low ~ high 사이로 바꾸는데 드는 cost를 계산해 줍니다.
+  arr.forEach((elem) => {
+    // low보다 작은 경우 low로 만들어 주는 게 최소 cost입니다.
+    if (elem < low) {
+      cost += low - elem;
+    }
+    // high보다 큰 경우 high로 만들어 주는게 최소 cost입니다.
+    if (elem > high) {
+      cost += elem - high;
+    }
+    // 그 외의 경우 이미 구간 안에 있기 때문에 cost가 필요하지 않습니다.
+  });
+
+  return cost;
+}
+
+let ans = INT_MAX;
+// 모든 구간 쌍 (num, num + k)를 잡아보며
+// 그 구간으로 만들기 위한 비용을 계산하여
+// 그 중 최솟값을 계산합니다.
+for (let num = 1; num <= MAX_K; num++) {
+  ans = Math.min(ans, getCost(num, num + K));
+}
+
+console.log(ans);
