@@ -54,7 +54,7 @@ console.log(selection_sort(arr).join(" "));
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 삽입 정렬 구현 | O | 24.08.08, 08.11 복습 🔍
+ * 🔍 ⭐️삽입 정렬 구현⭐️ | △ | 24.08.08, 08.11 복습 🔍
  *
  * [정렬 - Insertion Sort]
  */
@@ -85,7 +85,7 @@ console.log(insertion_sort(arr).join(" "));
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 기수 정렬 구현 | X | 24.08.08, 08.11 복습 🔍
+ * 🔍 ⭐️기수 정렬 구현⭐️ | X | 24.08.08, 08.11 복습 🔍
  *
  * [정렬 - Radix Sort]
  */
@@ -121,7 +121,67 @@ console.log(arr.join(" "));
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 병합 정렬 구현 | X | 24.08.11 🔍
+ * 🔍 ⭐️병합 정렬 구현⭐️ | △ | 24.08.11 🔍
  *
  * [정렬 - Merge Sort]
  */
+const inputs = require("fs").readFileSync(0).toString().trim().split("\n");
+
+const N = Number(inputs[0]);
+const arr = inputs[1].trim().split(" ").map(Number);
+const mergedArr = Array(N).fill(0);
+
+function merge_sort(low, high) {
+  if (low < high) {
+    const mid = Math.floor((low + high) / 2);
+    merge_sort(low, mid); // mid를 기준으로 왼쪽 원소들 병합 정렬
+    merge_sort(mid + 1, high); // mid를 기준으로 오르쪽 원소를 병합 정렬
+    merge(low, mid, high); // 정렬된 두 리스트를 하나로 병합
+  }
+}
+
+// 정렬된 두 구간 [low, mid], [mid + 1, high]을 하나의 리스트로 합치는 함수
+function merge(low, mid, high) {
+  let aIdx = low; // [low, mid] 리스트 내의 가장 첫번째 원소 위치 저장
+  let bIdx = mid + 1; // [mid + 1, high] 리스트 내의 가장 첫번째 원소 위치 저장
+
+  let pos = low; // 병합 시 원소를 담을 위치
+
+  while (aIdx <= mid && bIdx <= high) {
+    // 두 리스트 모두 원소가 남아있다면
+    if (arr[aIdx] <= arr[bIdx]) {
+      // 왼쪽 리스트 원소값이 더 작다면 왼쪽 값부터 넣어준다.
+      mergedArr[pos] = arr[aIdx];
+      aIdx += 1;
+      pos += 1;
+    } else {
+      mergedArr[pos] = arr[bIdx];
+      bIdx += 1;
+      pos += 1;
+    }
+  }
+
+  // 둘중 하나의 리스트에만 값이 남은 경우
+  while (aIdx <= mid) {
+    mergedArr[pos] = arr[aIdx];
+    pos += 1;
+    aIdx += 1;
+  }
+
+  while (bIdx <= high) {
+    mergedArr[pos] = arr[bIdx];
+    pos += 1;
+    bIdx += 1;
+  }
+
+  // 병합된 리스트를 원본 리스트로 옮겨준다.
+  for (let i = low; i <= high; i++) {
+    arr[i] = mergedArr[i];
+  }
+  return arr;
+}
+
+merge_sort(0, N - 1);
+
+// 출력
+console.log(arr.join(" "));
