@@ -54,7 +54,7 @@ console.log(selection_sort(arr).join(" "));
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 삽입 정렬 구현 | O | 24.08.08 🔍
+ * 🔍 삽입 정렬 구현 | O | 24.08.08, 08.11 복습 🔍
  *
  * [정렬 - Insertion Sort]
  */
@@ -66,20 +66,26 @@ const inputs = require("fs")
 const N = Number(inputs[0]);
 const arr = inputs[1].trim().split(" ").map(Number);
 
-function Insertion_sort(arr) {
+function insertion_sort(arr) {
   for (let i = 1; i < N; i++) {
-    for (let j = i - 1; j >= 0; j--) {
-      if (arr[j] < arr[j - 1]) [arr[j], arr[j - 1]] = [arr[j - 1], arr[j]];
+    let now = arr[i];
+    let j = i - 1;
+
+    while (j >= 0 && now < arr[j]) {
+      // j는 현재 값(now)을 기준으로 앞에 있는 값들을 탐색해야 함
+      arr[j + 1] = arr[j]; // 한 칸씩 뒤로 밀고
+      j--;
     }
+    // while문을 빠져나왔다는 것은 앞을 순회하던 중 now값보다 큰 값을 찾았거나 j가 0이 된 경우
+    arr[j + 1] = now;
   }
   return arr;
 }
-
-console.log(Insertion_sort(arr).join(" "));
+console.log(insertion_sort(arr).join(" "));
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 기수 정렬 구현 | X | 24.08.08 🔍
+ * 🔍 기수 정렬 구현 | X | 24.08.08, 08.11 복습 🔍
  *
  * [정렬 - Radix Sort]
  */
@@ -87,28 +93,35 @@ const input = require("fs").readFileSync(0).toString().trim().split("\n");
 const N = Number(input[0]);
 let arr = input[1].split(" ").map(Number);
 
-const maxK = 6; // 100000, 10000, 1000, 100, 10, 1의 자리
+const maxK = 6;
 
-function radixSort() {
-  let p = 1; // p는 1, 10, 100, ...으로, 자릿수를 구하기 위해 나눠주는 값을 의미함
-  for (let pos = 0; pos < maxK; pos++) {
-    // pos: 자릿수
-    const newArr = Array(10).fill([]); // 0~9까지의 숫자정보를 저장할 배열 선언
-    arr.forEach((el) => {
-      const digit = Math.floor(el / p) % 10;
-      newArr[digit].push(el); // 자릿수에 있는 숫자를 기준으로 값을 분류
+function radix_sort() {
+  let digit = 1; // 현재 자릿수 (1, 10, 100, ...)
+
+  for (let cnt = 0; cnt < maxK; cnt++) {
+    // 각 자릿수에 해당하는 숫자들의 값을 저장할 배열 선언
+    const classifyArr = Array.from({ length: 10 }, () => []);
+    arr.forEach((num) => {
+      // 현재 자릿수로 한번 나누어준 값을 10으로 나눈 나머지값이 x자릿수의 값이 됨
+      const nowDigitNum = Math.floor(num / digit) % 10;
+      classifyArr[nowDigitNum].push(num); // 숫자에 맞춰 push
     });
 
     arr = [];
-    newArr.forEach((bucket) => {
-      bucket.forEach((num) => {
-        // 하나의 숫자에 여러 개의 값이 들어있기도 하니 각 숫자를 함께 순회해야 함
-        arr.push(num);
-      });
+    classifyArr.forEach((bucket) => {
+      bucket.forEach((num) => arr.push(num));
     });
-    p *= 10; // 다음 자릿수를 구해야하므로 p에 10을 곱해준다.
+    digit *= 10; // 그 다음 자릿수를 정렬해야하므로 *10
   }
 }
 
-radixSort();
+radix_sort();
+
 console.log(arr.join(" "));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 병합 정렬 구현 | X | 24.08.11 🔍
+ *
+ * [정렬 - Merge Sort]
+ */
