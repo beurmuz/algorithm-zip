@@ -185,3 +185,92 @@ merge_sort(0, N - 1);
 
 // 출력
 console.log(arr.join(" "));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️퀵 정렬 구현⭐️ | △ | 24.08.12 🔍
+ *
+ * [정렬 - Quick Sort]
+ */
+const inputs = require("fs").readFileSync(0).toString().trim().split("\n");
+
+const N = Number(inputs[0]);
+const arr = inputs[1].trim().split(" ").map(Number);
+
+function partition(low, high) {
+  let pivot = arr[high]; // pivot을 고른 후
+  let rt = low - 1; // pivot보다 크거나 같은 원소를 가리킴
+
+  for (let lt = low; lt < high; lt++) {
+    // lt는 pivot보다 작은 원소를 찾아다님
+    if (arr[lt] < pivot) {
+      // arr[lt]값이 pivot보다 작다면
+      rt += 1;
+      [arr[rt], arr[lt]] = [arr[lt], arr[rt]]; // 작은 값을 왼쪽으로 보내야하므로 swap
+    }
+  }
+  // 최종적으로 pivot은 구간의 마지막 위치에 있는 값과 교환해주어야 함
+  [arr[rt + 1], arr[high]] = [arr[high], arr[rt + 1]];
+  return rt + 1; // pivot의 최종 위치 반환
+}
+
+// pivot을 기준으로 크고 작은 구간을 나눈 후, 정렬을 진행해야 함
+function quick_sort(low, high) {
+  if (low < high) {
+    // 원소의 개수가 2개 이상인 경우에만 실행됨
+    let pos = partition(low, high); // pivot을 기준으로 좌우 분할. pivot의 위치를 pos에 대입.
+    quick_sort(low, pos - 1); // pivot 기준 왼쪽 구간을 정렬
+    quick_sort(pos + 1, high); // pivot 기준 오른쪽 구간을 정렬
+  }
+}
+
+quick_sort(0, N - 1);
+console.log(arr.join(" "));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 힙 정렬 구현 | O | 24.08.12 🔍
+ *
+ * [정렬 - Heap Sort]
+ */
+const inputs = require("fs").readFileSync(0).toString().trim().split("\n");
+
+const N = Number(inputs[0]);
+const arr = [0].concat(inputs[1].trim().split(" ").map(Number));
+
+function heapify(n, i) {
+  let largest = i; // i번째가 최댓값을 가진 노드라고 가정
+  let l = i * 2; // 왼쪽 자식 노드
+  let r = i * 2 + 1; // 오른쪽 자식 노드
+
+  // 더 큰 쪽으로 갱신
+  if (l <= n && arr[largest] < arr[l]) largest = l;
+  if (r <= n && arr[largest] < arr[r]) largest = r;
+
+  // largest가 현재 노드(i)가 아닌 자식들 중 하나라면
+  if (largest !== i) {
+    [arr[i], arr[largest]] = [arr[largest], arr[i]]; // 값을 교환
+    heapify(n, largest); // largest 지점에서 다시 max-heap 만들기
+  }
+}
+
+function heap_sort(n) {
+  // 힙 정렬은 중간 지점부터 1번 지점까지 진행
+  for (let i = Math.floor(n / 2); i > 0; i--) {
+    heapify(n, i);
+  }
+
+  // 맨 앞의 값과 n번째 자리의 값을 교환하고, heapify(1)을 실행하여 다시 max-heap으로 만든다.
+  for (let i = n; i > 1; i--) {
+    [arr[1], arr[i]] = [arr[i], arr[1]];
+    heapify(i - 1, 1);
+  }
+}
+
+heap_sort(N);
+
+let answer = [];
+for (let i = 1; i <= N; i++) {
+  answer.push(arr[i]);
+}
+console.log(answer.join(" "));
