@@ -62,7 +62,7 @@ FROM (SELECT EMP_NO,
             (CASE WHEN AVG(SCORE) >= 96 THEN 'S'
                   WHEN AVG(SCORE) >= 90 THEN 'A'
                   WHEN AVG(SCORE) >= 80 THEN 'B'
-                ELSE 'C'
+                  ELSE 'C'
             END) AS GRADE
      FROM HR_GRADE
      GROUP BY EMP_NO) AS TEMP
