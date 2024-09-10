@@ -32,3 +32,18 @@ for (let i = 1; i <= N; i++) {
   answer += 1;
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️특정 조건의 온전수 구하기⭐️| X | 24.09.10 🔍
+ */
+let n = Number(require("fs").readFileSync(0).toString().trim());
+
+let answer = [];
+for (let i = 1; i <= n; i++) {
+  if (i % 2 === 0 || i % 10 === 5 || (i % 3 === 0 && i % 9 !== 0)) {
+    continue;
+  }
+  answer.push(i);
+}
+console.log(answer.join(" "));
