@@ -163,3 +163,37 @@ for (let i = 1; i <= N - K + 1; i++) {
   answer = Math.min(answer, getSum(i, i + K - 1));
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️범위 내에 있는 점의 수 2⭐️ | △ | 24.09.10
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, Q] = inputs[0].trim().split(" ").map(Number);
+const dots = inputs[1].trim().split(" ").map(Number);
+const lines = inputs.slice(2).map((line) => line.trim().split(" ").map(Number));
+const MAX_NUM = 1000000;
+
+// 1. 점들의 위치에 1을 찍어준다.
+const arr = Array.from({ length: MAX_NUM + 1 }, () => 0);
+dots.forEach((dot) => (arr[dot] = 1));
+
+// 2. 1이 찍힌 arr를 이용해 누적합(1의 총 개수)을 구한다.
+const prefixSum = Array.from({ length: MAX_NUM + 1 }, () => 0);
+// arr[0]이 1일수도 있으므로 prefixSum[0]을 처리해준다.
+prefixSum[0] = arr[0];
+for (let i = 1; i <= MAX_NUM; i++) {
+  prefixSum[i] = prefixSum[i - 1] + arr[i];
+}
+
+// 구간 내 1의 개수를 return하는 함수
+function getSum(s, e) {
+  return prefixSum[e] - prefixSum[s] + arr[s];
+}
+
+// 3. 각 범위에 내에 속한 점들의 개수를 구한다.
+lines.forEach(([s, e]) => console.log(getSum(s, e)));
