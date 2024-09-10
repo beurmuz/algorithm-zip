@@ -128,3 +128,38 @@ for (let part = 1; part <= N; part++) {
   }
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️연속한 K개의 숫자⭐️ | X | 24.09.10
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, K, B] = inputs[0].split(" ").map(Number);
+const noNums = inputs.slice(1).map(Number);
+const arr = Array.from({ length: N + 1 }, () => 0);
+
+// 1. 비어있는 숫자들 자리를 1로 표시하기
+noNums.forEach((v) => (arr[v] = 1));
+
+// 2. 누적합 배열 만들기
+const prefixSum = Array.from({ length: N + 1 }, () => 0);
+for (let i = 1; i <= N; i++) {
+  prefixSum[i] = prefixSum[i - 1] + arr[i];
+}
+
+// [start, end] 구간의 원소 합을 return하는 함수
+function getSum(s, e) {
+  return prefixSum[e] - prefixSum[s - 1];
+}
+
+// 3. 모든 K구간의 합을 찾아, 그 중 최솟값 갱신하기
+let answer = Number.MAX_SAFE_INTEGER;
+for (let i = 1; i <= N - K + 1; i++) {
+  // 구간 내 모든 1을 더한 값이 1의 총 개수가 된다.
+  answer = Math.min(answer, getSum(i, i + K - 1));
+}
+console.log(answer);
