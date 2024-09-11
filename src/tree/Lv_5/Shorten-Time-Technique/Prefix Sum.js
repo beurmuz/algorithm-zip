@@ -197,3 +197,70 @@ function getSum(s, e) {
 
 // 3. 각 범위에 내에 속한 점들의 개수를 구한다.
 lines.forEach(([s, e]) => console.log(getSum(s, e)));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️최대 직사각형의 합⭐️ | △ | 24.09.11
+ * - x의 시작행과 끝 행은 정했지만 y 범위를 처리해주지 못해 해결하지 못했다.
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const arr = inputs.slice(1).map((line) => line.split(" ").map(Number));
+
+// 1. 누적합을 구한다.
+const prefixSum = Array.from({ length: N + 1 }, () => Array(N + 1).fill(0));
+for (let i = 1; i <= N; i++) {
+  for (let j = 1; j <= N; j++) {
+    prefixSum[i][j] =
+      arr[i - 1][j - 1] +
+      prefixSum[i - 1][j] +
+      prefixSum[i][j - 1] -
+      prefixSum[i - 1][j - 1];
+  }
+}
+
+// 구간 내 원소의 합을 반환하는 함수
+function getSum(x1, y1, x2, y2) {
+  return (
+    prefixSum[x2][y2] -
+    prefixSum[x1 - 1][y2] -
+    prefixSum[x2][y1 - 1] +
+    prefixSum[x1 - 1][y1 - 1]
+  );
+}
+
+// 시작행이 x1, 끝 행이 x2인 직사각형 중 가능한 최대 합을 반환하는 함수
+function getMaxArea(x1, x2) {
+  // 시작행과 끝 행이 x1, x2로 정해지면
+  // 각 열마다 x1~x2 행에 적혀있는 숫자들을 누적했을 때
+  // 마치 1차원에서 최대 연속 부분 수열의 합을 구하는 문제와 같아짐 -> 'dp' 문제
+  const dp = new Array(N + 1).fill(0);
+
+  for (let y = 1; y <= N; y++) {
+    // y열에 있는 숫자들의 합을 구한다.
+    const sum = getSum(x1, y, x2, y);
+    dp[y] = Math.max(sum, dp[y - 1] + sum);
+  }
+
+  // dp 값 중 최댓값이 원하는 값이 됨
+  let maxArea = Number.MIN_SAFE_INTEGER;
+  for (let y = 1; y <= N; y++) {
+    maxArea = Math.max(maxArea, dp[y]);
+  }
+  return maxArea;
+}
+
+// 2. 직사각형의 시작 행, 끝 행을 결정한다.
+//    각 쌍에 대해 가능한 직사각형 중 최대 합을 계산해 최댓값을 갱신한다.
+let answer = Number.MIN_SAFE_INTEGER;
+for (let x1 = 1; x1 <= N; x1++) {
+  for (let x2 = x1; x2 <= N; x2++) {
+    answer = Math.max(answer, getMaxArea(x1, x2));
+  }
+}
+
+console.log(answer);
