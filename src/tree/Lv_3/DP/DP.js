@@ -62,3 +62,40 @@ for (let i = 1; i < N; i++) {
 }
 
 console.log(dp[N - 1][N - 1]);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 가장 긴 증가하는 부분 수열 | O | 24.09.15 🔍
+ * - 조건에 맞게 선택적으로 전진하는 DP
+ */
+const arr = [20, 80, 10, 50, 55, 20, 60, 70, 5, 90];
+const N = arr.length;
+const dp = Array.from({ length: N }, () => 0);
+
+for (let i = 0; i < N; i++) {
+  let maxValue = 0;
+  for (let j = 0; j < i; j++) {
+    if (arr[j] < arr[i]) maxValue = Math.max(maxValue, dp[j]);
+  }
+  dp[i] = maxValue + 1;
+}
+console.log(Math.max(...dp));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 가장 긴 감소하는 부분 수열 | O | 24.09.15 🔍
+ * - 조건에 맞게 선택적으로 전진하는 DP
+ */
+const arr = [60, 65, 50, 70, 63, 55, 45, 51, 45, 48, 54, 70, 61];
+const N = arr.length;
+const dp = Array.from({ length: N }, () => 0);
+
+for (let i = 0; i < N; i++) {
+  let maxValue = 0;
+  for (let j = 0; j < i; j++) {
+    if (arr[j] > arr[i]) maxValue = Math.max(maxValue, dp[j]);
+  }
+  dp[i] = maxValue + 1;
+}
+ß;
+console.log(Math.max(...dp));
