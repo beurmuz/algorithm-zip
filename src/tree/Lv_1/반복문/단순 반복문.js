@@ -47,3 +47,19 @@ for (let i = 1; i <= n; i++) {
   answer.push(i);
 }
 console.log(answer.join(" "));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️완전수 판별기⭐️| O | 24.09.21 🔍
+ * - 완전수란 자기 자신을 제외한 약수의 합이 자신이 되는 수
+ */
+const n = Number(require("fs").readFileSync("/dev/stdin").toString().trim());
+
+let sumValue = 0;
+for (let i = 1; i < n; i++) {
+  if (n % i === 0) {
+    sumValue += i;
+  }
+}
+if (n === sumValue) console.log("P");
+else console.log("N");
