@@ -302,3 +302,46 @@ for (let i = 1; i <= A.length; i++) {
 // }
 
 console.log(dp[A.length][B.length]); // 이게 정답
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️ 두 문자열의 편집 거리 구하기 2 - LCS로 풀이법 ⭐️ | X | 24.09.22 🔍
+ * - 같은 문제를 LCS로도 풀 수 있음
+ *    -> 두 문자열의 길이의 합으로부터 LCS의 길이를 빼주면 정답!
+ *
+ * - A에서 삭제를 진행하여 B의 LCS를 만든 후, 삽입을 진행해 B를 만들면 됨
+ *    => 삭제 횟수 = A의 길이 - LCS 길이
+ *    => 삽입 횟수 = B의 길이 - LCS 길이
+ *    => 최종적으로 삭제 횟수 + 삽입 횟수를 하면 됨
+ */
+const A = "ABBBDAAA";
+const B = "BADABBDBA";
+const dp = Array.from({ length: A.length }, () => Array(B.length).fill(-1));
+
+// 첫 행, 첫 열 처리해주기
+if (A[0] === B[0]) dp[0][0] = 1;
+else dp[0][0] = 0;
+
+for (let i = 1; i < A.length; i++) {
+  if (A[i] === B[0]) dp[i][0] = 1;
+  else dp[i][0] = dp[i - 1][0];
+}
+
+for (let j = 1; j < B.length; j++) {
+  if (A[0] === B[j]) dp[0][j] = 1;
+  else dp[0][j] = dp[0][j - 1];
+}
+
+for (let i = 1; i < A.length; i++) {
+  for (let j = 1; j < B.length; j++) {
+    if (A[i] !== B[j]) {
+      dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+    } else dp[i][j] = dp[i - 1][j - 1] + 1;
+  }
+}
+
+console.log(
+  A.length -
+    dp[A.length - 1][B.length - 1] +
+    (B.length - dp[A.length - 1][B.length - 1])
+);
