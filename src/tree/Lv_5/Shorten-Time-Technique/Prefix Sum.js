@@ -264,3 +264,39 @@ for (let x1 = 1; x1 <= N; x1++) {
 }
 
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️구간에 속한 문자의 개수⭐️ | △ | 24.09.24
+ * -
+ */
+// 완전탐색으로 푼 풀이법 -> 단, 시간초과가 발생한다.
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M] = inputs[0].split(" ").map(Number);
+const rect = inputs.slice(1, N + 1).map((line) => line.split(""));
+const queries = inputs.slice(N + 1).map((line) => line.split(" ").map(Number));
+
+queries.forEach((query) => {
+  let [x1, y1, x2, y2] = query;
+  x1 = x1 - 1;
+  y1 = y1 - 1;
+  x2 = x2 - 1;
+  y2 = y2 - 1;
+
+  let answer = [0, 0, 0];
+  for (let x = x1; x <= x2; x++) {
+    for (let y = y1; y <= y2; y++) {
+      if (rect[x][y] === "a") answer[0]++;
+      else if (rect[x][y] === "b") answer[1]++;
+      else if (rect[x][y] === "c") answer[2]++;
+    }
+  }
+  console.log(...answer);
+});
+
+
+// 누적합을 이용한 풀이법
