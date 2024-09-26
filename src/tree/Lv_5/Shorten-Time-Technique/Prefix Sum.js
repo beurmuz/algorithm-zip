@@ -267,10 +267,10 @@ console.log(answer);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️구간에 속한 문자의 개수⭐️ | △ | 24.09.24
+ * 🔍 ⭐️구간에 속한 문자의 개수⭐️ | △ | 24.09.24, 09.26
  * -
  */
-// 완전탐색으로 푼 풀이법 -> 단, 시간초과가 발생한다.
+// ✅ 완전탐색으로 푼 풀이법 -> 단, 시간초과가 발생한다.
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -298,5 +298,63 @@ queries.forEach((query) => {
   console.log(...answer);
 });
 
+// ✅ 누적합을 이용한 풀이법
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M, K] = inputs[0].split(" ").map(Number);
+const rect = inputs.slice(1, N + 1).map((line) => line.split(""));
+const queries = inputs.slice(N + 1).map((line) => line.split(" ").map(Number));
 
-// 누적합을 이용한 풀이법
+// 1. 누적합 배열 선언
+const prefixSum = Array.from({ length: 4 }, () =>
+  Array.from({ length: N + 1 }, () => Array(M + 1).fill(0))
+);
+
+// 2. 편의를 위해 입력받은 문자 a,b,c를 1,2,3으로 변환
+for (let i = 0; i < N; i++) {
+  for (let j = 0; j < M; j++) {
+    if (rect[i][j] === "a") rect[i][j] = 1;
+    else if (rect[i][j] === "b") rect[i][j] = 2;
+    else rect[i][j] = 3;
+  }
+}
+
+// 3. 누적합시켜 누적합 배열 만들기
+//    -> prefixSum[num][i][j]: 숫자가 c인 경우에 대한 누적합을 저장한다.
+//    => 즉, abc 각각의 문자에 대한 누적합을 저장하는 것
+for (let num = 1; num <= 3; num++) {
+  for (let i = 1; i <= N; i++) {
+    for (let j = 1; j <= M; j++) {
+      let numPrefixSum = 0;
+      // rect[i][j]에 적혀있는 숫자가 num인 경우
+      if (rect[i - 1][j - 1] === num) numPrefixSum = 1;
+      prefixSum[num][i][j] =
+        prefixSum[num][i - 1][j] +
+        prefixSum[num][i][j - 1] -
+        prefixSum[num][i - 1][j - 1] +
+        numPrefixSum;
+    }
+  }
+}
+
+// 특정 숫자(1, 2, 3 중 하나) c에 대해 (x1, y1), (x2, y2) 직사각형 구간 내의 원소의 합을 반환하는 함수
+function getNumOfSum(num, x1, y1, x2, y2) {
+  return (
+    prefixSum[num][x2][y2] -
+    prefixSum[num][x1 - 1][y2] -
+    prefixSum[num][x2][y1 - 1] +
+    prefixSum[num][x1 - 1][y1 - 1]
+  );
+}
+
+// 4. K개의 직사각형 범위에 대해 각각의 abc 개수 출력하기
+queries.forEach((query) => {
+  let [x1, y1, x2, y2] = query;
+  let aCount = getNumOfSum(1, x1, y1, x2, y2);
+  let bCount = getNumOfSum(2, x1, y1, x2, y2);
+  let cCount = getNumOfSum(3, x1, y1, x2, y2);
+  console.log(aCount, bCount, cCount);
+});
