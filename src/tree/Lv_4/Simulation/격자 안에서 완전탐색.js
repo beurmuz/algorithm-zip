@@ -170,7 +170,7 @@ console.log(answer);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️금 채굴하기⭐️ | X | 24.09.27 🔍
+ * 🔍 ⭐️금 채굴하기⭐️ | X | 24.09.27, 09.28 🔍
  * - '마름모의 정의'를 이용해서 푸는 문제
  * - 마름모는 중심점을 기준으로 K번 이내에 인접한 곳으로 이동하는 걸 반복했을 때 갈 수 있는 영역
  *   -> 그러므로 '(중심점과 x거리의 차이) + (중심점과 y거리의 차이) <= K'여야 함
@@ -181,40 +181,45 @@ console.log(answer);
  *   -> 만약 N=2일 때 K=2라면 grid의 모든 영역을 커버할 수 있음
  *      => ✅ 이는 격자 내에서 잡을 수 있는 가장 거리가 먼 두 점인 좌측 상단, 우측 하단을 커버하려면 K=2*(N-1)까지 커져야 한다는 말과 같음
  */
-const fs = require("fs");
-const input = fs.readFileSync(0).toString().trim().split("\n");
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M] = inputs[0].split(" ").map(Number);
+const grid = inputs.slice(1).map((line) => line.split(" ").map(Number));
 
-// 변수 선언 및 입력
-const [n, m] = input[0].split(" ").map(Number);
-const grid = input.slice(1, n + 1).map((line) => line.split(" ").map(Number));
-
+// 주어진 k에 대해 해당 마름모를 이용한 채굴 비용을 구하는 함수
 function getArea(k) {
   return k * k + (k + 1) * (k + 1);
 }
-function getNumOfGold(row, col, k) {
-  let numOfGold = 0;
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n; j++) {
+
+// 주어진 k에 대하여 채굴 가능한 금의 개수를 반환하는 함수
+function getGoldCount(row, col, k) {
+  let counts = 0;
+  for (let i = 0; i < N; i++) {
+    for (let j = 0; j < N; j++) {
       if (Math.abs(row - i) + Math.abs(col - j) <= k) {
-        numOfGold += grid[i][j];
+        counts += grid[i][j];
       }
     }
   }
-  return numOfGold;
+  return counts;
 }
 
-let maxGold = 0;
+let answer = 0; // 손해보지 않으면서, 최대한 캘 수 있는 금의 개수
 
-for (let row = 0; row < n; row++) {
-  for (let col = 0; col < n; col++) {
-    for (let k = 0; k < 2 * (n - 1) + 1; k++) {
-      const numOfGold = getNumOfGold(row, col, k);
+// 각 위치를 마름모의 중앙으로 볼 때, 채굴 가능한 금의 개수를 구한다.
+for (let i = 0; i < N; i++) {
+  for (let j = 0; j < N; j++) {
+    for (let k = 0; k < 2 * (N - 1) + 1; k++) {
+      const goldCounts = getGoldCount(i, j, k);
 
-      if (numOfGold * m >= getArea(k)) {
-        maxGold = Math.max(maxGold, numOfGold);
+      if (goldCounts * M >= getArea(k)) {
+        answer = Math.max(answer, goldCounts);
       }
     }
   }
 }
 
-console.log(maxGold);
+console.log(answer);
