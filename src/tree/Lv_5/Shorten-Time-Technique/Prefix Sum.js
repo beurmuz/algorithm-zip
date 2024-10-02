@@ -358,3 +358,48 @@ queries.forEach((query) => {
   let cCount = getNumOfSum(3, x1, y1, x2, y2);
   console.log(aCount, bCount, cCount);
 });
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️별이 있는 숫자로만의 이동⭐️ | X | 24.10.02
+ */
+// ✅ 1. 누적합을 이용한 방법
+//      - 행 단위로 1차원 누적합 배열을 미리 만들어놓고,
+//        각 칸에 대해 시작점 B를 잡아 위 아래로 K개의 행을 보며 각 행마다의 유효 구간 내 수들의 합을 구하면 됨
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, K] = inputs[0].split(" ").map(Number);
+const arr = inputs.slice(1).map((line) => line.split(" ").map(Number));
+const prefixSum = Array.from({ length: N + 1 }, () => Array(N + 1).fill(0));
+
+// 행 단위로 1차원 누적합 구하기
+for (let i = 1; i <= N; i++) {
+  for (let j = 1; j <= N; j++) {
+    prefixSum[i][j] = prefixSum[i][j - 1] + arr[i - 1][j - 1];
+  }
+}
+
+let answer = 0;
+// 모든 중심에 대해 최댓값 구하기
+for (let i = 1; i <= N; i++) {
+  for (let j = 1; j <= N; j++) {
+    // (i, j)가 중심일 때 숫자합 구하기
+    let sumAll = 0;
+    for (let r = i - K; r <= i + K; r++) {
+      // r행일때 (j - c ~ j + c)열 까지의 부분합을 더하기
+      const c = K - Math.abs(i - r);
+
+      // r행이 범위 안에 있을 경우 부분합을 더하기
+      if (1 <= r && r <= N) {
+        sumAll +=
+          prefixSum[r][Math.min(j + c, N)] -
+          prefixSum[r][Math.max(j - c - 1, 0)];
+      }
+    }
+    answer = Math.max(answer, sumAll);
+  }
+}
+console.log(answer);
