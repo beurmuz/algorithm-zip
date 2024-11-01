@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------
 /**
- * 🔍 정수 n개의 합2 | O | 24.09.02
+ * 🔍 정수 n개의 합2 | O | 24.09.02, 24.11.01 복습
  */
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
@@ -11,10 +11,12 @@ const [N, K] = inputs[0].split(" ").map(Number);
 const arr = [0].concat(inputs[1].split(" ").map(Number));
 const prefixSum = Array.from({ length: N + 1 }, () => 0);
 
+// 누적합 구하기
 for (let i = 1; i <= N; i++) {
   prefixSum[i] = prefixSum[i - 1] + arr[i];
 }
 
+// 연속하는 k개의 합 중 가장 큰 값 구하기
 let answer = Number.MIN_SAFE_INTEGER;
 for (let i = 0; i <= N - K; i++) {
   answer = Math.max(answer, prefixSum[i + K] - prefixSum[i]);
