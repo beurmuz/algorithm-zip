@@ -81,3 +81,24 @@ while (n != 1) {
 }
 
 console.log(m);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ab 사이에 있는 c | O | 24.12.02 🔍
+ */
+const [a, b, c] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map(Number);
+
+let answer = "NO";
+
+for (let num = a; num <= b; num++) {
+  if (num % c === 0) {
+    answer = "YES";
+    break;
+  }
+}
+console.log(answer);
