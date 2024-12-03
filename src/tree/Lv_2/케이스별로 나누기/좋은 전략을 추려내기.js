@@ -48,8 +48,9 @@ else console.log(2);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️독서실의 거리두기 3⭐️ | △ | 24.08.28
+ * 🔍 ⭐️독서실의 거리두기 3⭐️ | △ | 24.08.28, 24.12.03
  */
+// ✏️ 처음에 푼 코드
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -93,6 +94,58 @@ for (let i = 0; i < N; i++) {
   }
 }
 
+console.log(answer);
+
+// ✏️ 24.12.03 복습 코드
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const seats = inputs[1].split("").map(Number);
+// console.log(seats.join(""));
+
+// 1. 가장 먼 1쌍 찾기
+let maxDist = 0;
+let [maxI, maxJ] = [-1, -1];
+
+for (let i = 0; i < N; i++) {
+  // i가 1일때, i를 시작점으로 두고 가장 가까이에 있는 또다른 1을 찾는다.
+  if (seats[i] === 1) {
+    for (let j = i + 1; j < N; j++) {
+      // 끝 점을 찾았다면
+      if (seats[j] === 1) {
+        // 만약 해당 구간의 값이 maxDist보다 크면 갱신해준다.
+        if (maxDist < j - i) {
+          maxDist = j - i;
+          maxI = i;
+          maxJ = j;
+        }
+        break; // 찾았으니 빠져나온다.
+      }
+    }
+  }
+}
+
+// 2. 최대 구간의 중간 지점에 새로운 한 명을 배치한다.
+const mid = maxI + Math.floor(maxDist / 2);
+seats[mid] = 1;
+// console.log(seats.join(""));
+
+// 3. 최대한의 거리두기를 실행한 간격을 구한다.
+let answer = N;
+for (let i = 0; i < N; i++) {
+  if (seats[i] === 1) {
+    for (let j = i + 1; j < N; j++) {
+      if (seats[j] === 1) {
+        // console.log('Dist: ', j - i)
+        answer = Math.min(answer, j - i);
+        break;
+      }
+    }
+  }
+}
 console.log(answer);
 
 // ----------------------------------------------------------------------
