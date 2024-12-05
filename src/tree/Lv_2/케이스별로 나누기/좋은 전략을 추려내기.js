@@ -240,7 +240,7 @@ console.log(Math.max(diff1, diff2) - 1);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️독서실의 거리두기 2⭐️ | △ | 24.12.04
+ * 🔍 ⭐️독서실의 거리두기 2⭐️ | △ | 24.12.04-05
  * - 문제3과 달리 양 끝점이 무조건 1로 되어있지 않아 따로 예외 처리를 해주어야 한다.
  *   - 인접한 1의 쌍 중 가장 거리가 먼 쌍의 가운데에 1을 놓는 케이스
  *   - 양쪽 끝자리가 빈 경우, 양 끝 자리 중 어느 한 쪽에 사람을 배치하는 케이스
@@ -251,7 +251,7 @@ console.log(Math.max(diff1, diff2) - 1);
  *  2) 맨 앞
  *  3) 맨 뒤
  */
-// 처음에 푼 풀이
+// 최종 풀이
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -261,7 +261,7 @@ const N = Number(inputs[0]);
 const seats = inputs[1].split("").map(Number);
 
 // 1. 최적의 위치 찾기
-//   1) 인접한 쌍들 중 가장 먼 1간의 쌍을 찾는다.
+// - 인접한 쌍들 중 가장 먼 1간의 쌍을 찾기
 let maxDist = 0;
 let [maxI, maxJ] = [-1, -1];
 
@@ -269,7 +269,7 @@ for (let i = 0; i < N; i++) {
   if (seats[i] === 1) {
     // i와 j의 거리를 구한다.
     for (let j = i + 1; j < N; j++) {
-      if (seats[j] === 1 || j === N - 1) {
+      if (seats[j] === 1) {
         if (maxDist < j - i) {
           maxDist = j - i;
           maxI = i;
@@ -281,16 +281,50 @@ for (let i = 0; i < N; i++) {
   }
 }
 
-// 앉힐 곳 찾기
-const mid = maxI + Math.floor(maxDist / 2);
-seats[mid] = 1;
+// 2. 예외 처리
+// - 맨 앞이나 맨 뒤가 비어있을 때 예외처리 해주기
+let maxDist2 = -1;
+let maxIdx = -1;
 
-// 정답 찾기
+//   1) 맨 앞이 비어있는 경우
+if (seats[0] === 0) {
+  let dist = 0;
+  for (let i = 0; i < N; i++) {
+    if (seats[i] === 1) break;
+    dist += 1; // 0을 세주고, 1과 만나면 반복문을 탈출한다.
+  }
+
+  if (dist > maxDist2) {
+    maxDist2 = dist;
+    maxIdx = 0; // 시작점으로 준다.
+  }
+}
+
+//   2) 맨 뒤가 비어있는 경우
+if (seats[N - 1] === 0) {
+  let dist = 0;
+  for (let i = N - 1; i >= 0; i--) {
+    if (seats[i] === 1) break;
+    dist += 1;
+  }
+
+  if (dist > maxDist2) {
+    maxDist2 = dist; // maxDist2보다 더 큰 값이면 maxDist2를 갱신
+    maxIdx = N - 1; // 맨 뒷 점으로 준다.
+  }
+}
+
+// 3. 최적의 위치에 1 놓기
+// maxDist2가 maxDist/2의 중간값보다 크면 끝에 1을 놔야 최적의 위치에 놓게 되는 것이다.
+if (maxDist2 >= maxDist / 2) seats[maxIdx] = 1;
+else seats[Math.floor((maxI + maxJ) / 2)] = 1;
+
+// 4. 정답 찾기
 let answer = N;
 for (let i = 0; i < N; i++) {
   if (seats[i] === 1) {
     for (let j = i + 1; j < N; j++) {
-      if (seats[j] === 1 || j === N - 1) {
+      if (seats[j] === 1) {
         answer = Math.min(answer, j - i);
         break;
       }
