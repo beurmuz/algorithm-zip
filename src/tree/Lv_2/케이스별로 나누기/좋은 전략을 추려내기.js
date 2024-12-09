@@ -332,3 +332,26 @@ for (let i = 0; i < N; i++) {
   }
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ABC 줄 세우기 | O | 24.12.09
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const line = inputs[1].split(" ");
+
+let answer = 0;
+for (let i = 0; i < N - 1; i++) {
+  for (let j = 0; j < N - 1; j++) {
+    if (line[j].charCodeAt() > line[j + 1].charCodeAt()) {
+      [line[j], line[j + 1]] = [line[j + 1], line[j]];
+      answer++;
+    }
+  }
+}
+console.log(answer);
