@@ -88,3 +88,116 @@ console.log(answer);
 /**
  * 🔍 순위 경쟁 | O | 24.12.10
  */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const logs = [];
+for (let i = 1; i <= N; i++) {
+  let [c, s] = inputs[i].split(" ");
+  logs.push([c, Number(s)]);
+}
+
+// 관련 변수 생성
+let aScore = 0;
+let bScore = 0;
+let cScore = 0;
+let winLog = "ABC"; // 동점에서 시작
+
+let answer = 0;
+for (let [c, s] of logs) {
+  // c에 따라 점수 증감하기
+  if (c === "A") aScore += s;
+  else if (c === "B") bScore += s;
+  else cScore += s;
+
+  // 현재 스코어를 바탕으로 현재 라운드에서의 승자 구하기
+  let nowWin = pickWinners(aScore, bScore, cScore);
+
+  if (winLog !== nowWin) {
+    answer += 1;
+    winLog = nowWin;
+  }
+}
+
+function pickWinners(a, b, c) {
+  let arr = [
+    [a, "A"],
+    [b, "B"],
+    [c, "C"],
+  ];
+
+  // 점수에 따라 정렬 후
+  arr.sort((a, b) => b[0] - a[0]);
+
+  let nowWins = arr[0][1];
+  for (let i = 1; i < 3; i++) {
+    // 만약 점수가 arr[0][1]의 점수와 같다면, 얘도 승자이다.
+    if (arr[i][0] === arr[0][0]) nowWins += arr[i][1];
+  }
+  return nowWins;
+}
+
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️L, R 그리고 B⭐️ | △ | 24.12.12
+ */
+// R의 위치가 아닌 L과 B의 위치를 중심으로 생각하면 된다.
+const arr = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n")
+  .map((line) => line.split(""));
+const dx = [-1, 1, 0, 0];
+const dy = [0, 0, -1, 1];
+
+let posL = [0, 0];
+let posB = [0, 0];
+let posR = [0, 0];
+
+// 각 지점의 위치정보 찾기
+for (let i = 0; i < 10; i++) {
+  for (let j = 0; j < 10; j++) {
+    if (arr[i][j] === "L") posL = [i, j];
+    else if (arr[i][j] === "B") posB = [i, j];
+    else if (arr[i][j] === "R") posR = [i, j];
+  }
+}
+
+// 가능한 모든 케이스 생각해보기
+// 1. L과 B가 일직선상에 없는 경우
+//   - 최단경로 중 R을 피해갈 수 있는 경로가 반드시 존재함
+if (posL[0] !== posB[0] && posL[1] !== posB[1]) {
+  console.log(Math.abs(posL[0] - posB[0]) + Math.abs(posL[1] - posB[1]) - 1);
+}
+
+// 2. L과 B가 세로 방향으로 일직선상(= col이 같은 경우)에 존재하는 경우
+//   - 최단경로에 R이 있다면 2칸만 돌아가면 되고, 아닌 경우 일직선으로 가면 됨
+else if (posL[1] === posB[1]) {
+  if (
+    posL[1] === posR[1] &&
+    Math.min(posL[0], posB[0]) <= posR[0] &&
+    posR[0] <= Math.max(posL[0], posB[0])
+  ) {
+    console.log(Math.abs(posL[0] - posB[0]) + Math.abs(posL[1] - posB[1]) + 1); // 2칸 돌아감
+  } else
+    console.log(Math.abs(posL[0] - posB[0]) + Math.abs(posL[1] - posB[1]) - 1); // 일직선으로 감
+}
+
+// 3. L과 B가 가로 방향으로 일직선상(= row가 같은 경우)에 존재하는 경우
+//   - 최단경로에 R이 있다면 2칸만 돌아가면 되고, 아닌 경우 일직선으로 가면 됨
+else if (posL[0] === posB[0]) {
+  if (
+    posL[0] === posR[0] &&
+    Math.min(posL[1], posB[1]) <= posR[1] &&
+    posR[1] <= Math.max(posL[1], posB[1])
+  ) {
+    console.log(Math.abs(posL[0] - posB[0]) + Math.abs(posL[1] - posB[1]) + 1);
+  } else
+    console.log(Math.abs(posL[0] - posB[0]) + Math.abs(posL[1] - posB[1]) - 1);
+}
