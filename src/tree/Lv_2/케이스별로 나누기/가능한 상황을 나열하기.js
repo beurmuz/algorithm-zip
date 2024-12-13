@@ -201,3 +201,50 @@ else if (posL[0] === posB[0]) {
   } else
     console.log(Math.abs(posL[0] - posB[0]) + Math.abs(posL[1] - posB[1]) - 1);
 }
+
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 세 수의 최대 곱 | △ | 24.12.13
+ */
+const inputs = require('fs').readFileSync('/dev/stdin').toString().trim().split("\n");
+const N = Number(inputs[0]);
+const nums = inputs[1].split(" ").map(Number);
+
+// let N = 3;
+// const nums = [1, 2, 3];
+
+// 1. n이 3개인 경우
+if(N === 3) {
+    // 1) n에 0이 포함되어 있다면
+    if(nums.includes(0)) console.log(0);
+    else {
+        console.log(nums.reduce((acc, v) => acc * v, 1));
+    }
+}
+
+// 2. n이 4개 이상인 경우
+else {
+    let answer = 0;
+    // 숫자 분리하기
+    let posNums = []; // 양
+    let negNums = []; // 음
+    let zero = false; // 0 유무
+    for(let num of nums) {
+        if(num > 0) posNums.push(num);
+        else if(num === 0) zero = true;
+        else if(num < 0) negNums.push(num);
+    }
+
+    // 분리한 숫자들 정렬하기
+    posNums.sort((a, b) => b - a);
+    negNums.sort((a, b) => a - b);
+    console.log(posNums);
+    console.log(negNums);
+
+    // 만약 음수 개수가 1개이고, 
+    // if()
+}
+
+    // 1. 양 * 양 * 양
+    // 2. 양 * 음 * 음
