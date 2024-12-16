@@ -202,49 +202,27 @@ else if (posL[0] === posB[0]) {
     console.log(Math.abs(posL[0] - posB[0]) + Math.abs(posL[1] - posB[1]) - 1);
 }
 
-
 // ----------------------------------------------------------------------
 /**
- * 🔍 세 수의 최대 곱 | △ | 24.12.13
+ * 🔍 세 수의 최대 곱 | △ | 24.12.13, 24.12.16
+ * - 세 수를 곱했을 때 가장 큰 값은 양수 > 0 > 음수 순서로 구할 수 있다.
+ * - 양수만 나오게끔 하려면 (양x양x양)이거나 (음x음x양)이면 된다.
+ *   => 이를 위해 수들을 정렬해서 큰 순서대로 양의 개수 3개를 곱한 것
+ *      or 수가 큰 음수 2개와 양수 1개를 곱한 것 중 더 큰 값을 정답에 넣어주면 된다.
  */
-const inputs = require('fs').readFileSync('/dev/stdin').toString().trim().split("\n");
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
 const N = Number(inputs[0]);
-const nums = inputs[1].split(" ").map(Number);
+const nums = inputs[1]
+  .split(" ")
+  .map(Number)
+  .sort((a, b) => a - b);
 
-// let N = 3;
-// const nums = [1, 2, 3];
-
-// 1. n이 3개인 경우
-if(N === 3) {
-    // 1) n에 0이 포함되어 있다면
-    if(nums.includes(0)) console.log(0);
-    else {
-        console.log(nums.reduce((acc, v) => acc * v, 1));
-    }
-}
-
-// 2. n이 4개 이상인 경우
-else {
-    let answer = 0;
-    // 숫자 분리하기
-    let posNums = []; // 양
-    let negNums = []; // 음
-    let zero = false; // 0 유무
-    for(let num of nums) {
-        if(num > 0) posNums.push(num);
-        else if(num === 0) zero = true;
-        else if(num < 0) negNums.push(num);
-    }
-
-    // 분리한 숫자들 정렬하기
-    posNums.sort((a, b) => b - a);
-    negNums.sort((a, b) => a - b);
-    console.log(posNums);
-    console.log(negNums);
-
-    // 만약 음수 개수가 1개이고, 
-    // if()
-}
-
-    // 1. 양 * 양 * 양
-    // 2. 양 * 음 * 음
+let answer = Math.max(
+  nums[0] * nums[1] * nums[N - 1], // 음 * 음 * 양
+  nums[N - 1] * nums[N - 2] * nums[N - 3] // 양 * 양 * 양
+);
+console.log(answer);
