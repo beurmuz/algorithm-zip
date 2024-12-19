@@ -96,3 +96,31 @@ while (true) {
 }
 
 console.log(count);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️수열의 순서 바꾸기⭐️ | X | 24.12.19
+ * - 삽입 정렬이라고 볼 수 있는 문제(?)인듯하다.
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const arr = inputs[1].split(" ").map(Number);
+
+// ✅ 제출한 풀이법
+let answer = 0;
+for (let i = 0; i < N; i++) {
+  let flag = false;
+
+  for (let j = i; j < N - 1; j++) {
+    if (arr[j] > arr[j + 1]) flag = true;
+  }
+  if (flag) answer += 1;
+}
+console.log(answer);
+
+
+// ✅ 해설지 풀이법
