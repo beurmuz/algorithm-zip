@@ -139,3 +139,26 @@ while (idx >= 0 && arr[idx] < arr[idx + 1]) {
   idx -= 1;
 }
 console.log(idx + 1);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 2개씩 그룹 짓기2 | O | 24.12.23
+ * - N만큼 떨어진 사람끼리 묶는 것이 최선의 방법이다.
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const arr = inputs[1]
+  .split(" ")
+  .map(Number)
+  .sort((a, b) => a - b);
+
+let answer = Number.MAX_SAFE_INTEGER;
+
+for (let i = 0; i < N; i++) {
+  answer = Math.min(answer, arr[N + i] - arr[i]);
+}
+console.log(answer);
