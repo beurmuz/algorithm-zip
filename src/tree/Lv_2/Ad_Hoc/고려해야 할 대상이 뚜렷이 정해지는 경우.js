@@ -30,3 +30,19 @@ for (let i = 0; i < inputs.length; i++) {
   }
   if (!flag) break;
 }
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 두 점으로 만드는 직사각형 | O | 24.12.23
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [x1, y1, x2, y2] = inputs[0].split(" ").map(Number);
+const [a1, b1, a2, b2] = inputs[1].split(" ").map(Number);
+
+const [rx1, rx2] = [Math.min(x1, x2, a1, a2), Math.max(x1, x2, a1, a2)];
+const [ry1, ry2] = [Math.min(y1, y2, b1, b2), Math.max(y1, y2, b1, b2)];
+console.log((rx2 - rx1) * (ry2 - ry1));
