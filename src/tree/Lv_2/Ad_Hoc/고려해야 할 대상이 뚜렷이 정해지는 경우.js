@@ -103,3 +103,39 @@ const y = Math.max(y1, y2, b1, b2) - Math.min(y1, y2, b1, b2);
 
 if (x >= y) console.log(x * x);
 else console.log(y * y);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 전부 포함하는 선분 | O | 24.12.24
+ */
+// ✅ 내 풀이 - 완전탐색을 이용한 방법
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const lines = [];
+for (let i = 1; i <= N; i++) {
+  lines.push(inputs[i].trim().split(" ").map(Number));
+}
+
+// 하나의 선분을 제거하고 각 선분 중 가장 최소, 최댓값을 구한다.
+let answer = Number.MAX_SAFE_INTEGER;
+for (let i = 0; i < N; i++) {
+  let minV = Number.MAX_SAFE_INTEGER;
+  let maxV = Number.MIN_SAFE_INTEGER;
+
+  for (let j = 0; j < N; j++) {
+    if (i === j) continue;
+    minV = Math.min(minV, lines[j][0]);
+    maxV = Math.max(maxV, lines[j][1]);
+  }
+
+  answer = Math.min(answer, maxV - minV);
+}
+
+console.log(answer);
+
+
+// ✅ 해설 - 필요한 값만 사용하는 방법
