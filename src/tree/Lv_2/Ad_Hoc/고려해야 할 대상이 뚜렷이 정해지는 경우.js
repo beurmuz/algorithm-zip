@@ -137,5 +137,62 @@ for (let i = 0; i < N; i++) {
 
 console.log(answer);
 
-
 // ✅ 해설 - 필요한 값만 사용하는 방법
+/**
+ * 남은 선분을 모두 포함하는 선분이 더 짧아지려면,
+ *  - 모든 선분 중 가장 왼쪽에 있는 x1을 지우거나
+ *  - 가장 오른쪽에 있는 x2를 지울 때에만 짧아질 수 있음
+ * => 가장 왼쪽 점이 있는 선분, 가장 오른쪽 점이 있는 선분 두개를 제거해보면 알 수 있음
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const x1 = [];
+const x2 = [];
+
+for (let i = 1; i <= N; i++) {
+  let [a, b] = inputs[i].trim().split(" ").map(Number);
+  x1.push(a);
+  x2.push(b);
+}
+
+// 시작점이 가장 작은 선분을 지우거나, 끝점이 가장 큰 선분을 지워본다.
+// 1. 시작점이 가장 작은 선분 찾기
+let skip = 0;
+for (let i = 0; i < N; i++) {
+  if (x1[skip] > x1[i]) skip = i;
+}
+
+let minX1 = Number.MAX_SAFE_INTEGER;
+let maxX2 = 0;
+for (let i = 0; i < N; i++) {
+  if (i === skip) continue; // 시작점이 가장 작은 선분은 건너뛰기
+
+  // 시작점 중 가장 앞에 있는 좌표, 끝점 중 가장 뒤에 있는 좌표 확인하기
+  minX1 = Math.min(minX1, x1[i]);
+  maxX2 = Math.max(maxX2, x2[i]);
+}
+
+let answer = maxX2 - minX1;
+
+// 2. 끝 점이 가장 큰 선분 찾기
+skip = 0;
+for (let i = 0; i < N; i++) {
+  if (x2[skip] < x2[i]) skip = i;
+}
+
+minX1 = Number.MAX_SAFE_INTEGER;
+maxX2 = 0;
+for (let i = 0; i < N; i++) {
+  if (i === skip) continue;
+
+  // 시작점 중 가장 앞에 있는 좌표, 끝점 중 가장 뒤에 있는 좌표 확인하기
+  minX1 = Math.min(minX1, x1[i]);
+  maxX2 = Math.max(maxX2, x2[i]);
+}
+
+answer = Math.min(answer, maxX2 - minX1);
+console.log(answer);
