@@ -119,3 +119,87 @@ while (queue.length) {
 }
 
 console.log(answer.join(" "));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 정수 명령 처리 2 | O | 25.01.01 🔍
+ */
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class Queue {
+  constructor() {
+    this.front = null;
+    this.tail = null;
+    this.length = 0;
+  }
+
+  push(value) {
+    const newNode = new Node(value);
+
+    if (this.length === 0) this.front = newNode;
+    else this.tail.next = newNode;
+
+    this.tail = newNode;
+    this.length += 1;
+  }
+
+  pop(value) {
+    if (!this.front) {
+      // 빈 큐
+      return null;
+    }
+
+    if (this.front === this.tail) {
+      // 원소가 한개인 경우
+      this.tail = null;
+    }
+
+    let popValue = this.front.value;
+    this.front = this.front.next;
+    this.length -= 1;
+    return popValue;
+  }
+
+  size() {
+    return this.length;
+  }
+
+  empty() {
+    return this.length === 0 ? 1 : 0;
+  }
+
+  getFront() {
+    return this.front.value;
+  }
+}
+
+let [N, ...inputs] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+N = Number(N);
+
+let queue = new Queue();
+
+for (let v of inputs) {
+  let [command, num] = v.split(" ");
+  num = Number(num);
+
+  if (command === "push") {
+    queue.push(num);
+  } else if (command === "pop") {
+    console.log(queue.pop());
+  } else if (command === "size") {
+    console.log(queue.size());
+  } else if (command === "empty") {
+    console.log(queue.empty());
+  } else {
+    console.log(queue.getFront());
+  }
+}
