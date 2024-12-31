@@ -77,3 +77,23 @@ for (let i = 1; i <= N; i++) {
     console.log(stack.top.value);
   }
 }
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 괄호 문자열의 적합성 판단 | O | 24.12.31 🔍
+ */
+let input = require("fs").readFileSync("/dev/stdin").toString().trim();
+let stack = [];
+
+for (let v of input) {
+  if (v === "(") stack.push("(");
+  else {
+    if (stack.length === 0) {
+      console.log("No");
+      return; // ✅ return이 호출되면 코드 실행이 즉시 중단되고, 이후의 코드는 실행되지 않음
+    }
+    stack.pop();
+  }
+}
+
+console.log(stack.length === 0 ? "Yes" : "No");
