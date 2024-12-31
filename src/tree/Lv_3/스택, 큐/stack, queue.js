@@ -97,3 +97,25 @@ for (let v of input) {
 }
 
 console.log(stack.length === 0 ? "Yes" : "No");
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 원형 순열에서의 인원 제거 | O | 24.12.31 🔍
+ */
+let [N, K] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map(Number);
+let queue = Array.from({ length: N }, (v, i) => ++i);
+let answer = [];
+
+while (queue.length) {
+  for (let i = 0; i < K - 1; i++) {
+    queue.push(queue.shift());
+  }
+  answer.push(queue.shift());
+}
+
+console.log(answer.join(" "));
