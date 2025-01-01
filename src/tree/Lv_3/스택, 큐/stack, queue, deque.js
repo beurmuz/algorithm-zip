@@ -203,3 +203,129 @@ for (let v of inputs) {
     console.log(queue.getFront());
   }
 }
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 정수 명령 처리 3 | O | 25.01.01 🔍
+ */
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.prev = null;
+    this.next = null;
+  }
+}
+
+class Deque {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+
+  push_front(value) {
+    const newNode = new Node(value);
+    if (this.length === 0) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      newNode.next = this.head;
+      this.head.prev = newNode;
+      this.head = newNode;
+    }
+    this.length += 1;
+  }
+
+  push_back(value) {
+    const newNode = new Node(value);
+    if (this.length === 0) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      newNode.prev = this.tail;
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
+    this.length += 1;
+  }
+
+  pop_front() {
+    if (this.length === 0) return null;
+
+    const popValue = this.head.value;
+
+    if (this.head === this.tail) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      this.head = this.head.next;
+      this.head.prev = null;
+    }
+    this.length -= 1;
+    return popValue;
+  }
+
+  pop_back() {
+    if (this.length === 0) return null;
+
+    const popValue = this.tail.value;
+
+    if (this.head === this.tail) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      this.tail = this.tail.prev;
+      this.tail.next = null;
+    }
+    this.length -= 1;
+    return popValue;
+  }
+
+  size() {
+    return this.length;
+  }
+
+  empty() {
+    return this.length === 0 ? 1 : 0;
+  }
+
+  getFront() {
+    return this.head.value;
+  }
+
+  getBack() {
+    return this.tail.value;
+  }
+}
+
+let [N, ...inputs] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+N = Number(N);
+
+let deque = new Deque();
+
+for (let v of inputs) {
+  let [command, num] = v.split(" ");
+  num = Number(num);
+
+  if (command === "push_front") {
+    deque.push_front(num);
+  } else if (command === "push_back") {
+    deque.push_back(num);
+  } else if (command === "pop_front") {
+    console.log(deque.pop_front());
+  } else if (command === "pop_back") {
+    console.log(deque.pop_back());
+  } else if (command === "size") {
+    console.log(deque.size());
+  } else if (command === "empty") {
+    console.log(deque.empty());
+  } else if (command === "front") {
+    console.log(deque.getFront());
+  } else {
+    console.log(deque.getBack());
+  }
+}
