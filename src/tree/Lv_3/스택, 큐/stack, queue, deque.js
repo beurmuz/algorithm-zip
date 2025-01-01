@@ -329,3 +329,26 @@ for (let v of inputs) {
     console.log(deque.getBack());
   }
 }
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 수열 조작 | △ | 25.01.01 🔍
+ */
+const N = Number(
+  require("fs").readFileSync("/dev/stdin").toString().trim().split("\n")
+);
+const arr = Array.from({ length: N }, (v, i) => ++i);
+
+let startIdx = 0;
+while (arr.length - 1 > startIdx) {
+  // 맨앞 원소 제거
+  startIdx += 1;
+
+  // 남은 수열 중 맨 앞 정수를 맨 뒤로 이동시킴 (추가시킴)
+  arr.push(arr[startIdx]);
+
+  // 하나를 또 보냈으니 시작점이 그 다음 지점으로 바뀜
+  startIdx += 1;
+}
+
+console.log(arr[startIdx]);
