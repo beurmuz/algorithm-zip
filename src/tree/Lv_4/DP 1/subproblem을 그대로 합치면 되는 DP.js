@@ -68,7 +68,7 @@ console.log(dp[N]);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 사각형 채우기 |  | 25.01.02 🔍
+ * 🔍 사각형 채우기 | O | 25.01.02 🔍
  */
 const N = Number(
   require("fs").readFileSync("/dev/stdin").toString().trim().split("\n")
@@ -82,6 +82,31 @@ dp[2] = 2;
 
 for (let i = 3; i <= N; i++) {
   dp[i] = (dp[i - 1] + dp[i - 2]) % MOD;
+}
+
+console.log(dp[N]);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️사각형 채우기 3⭐️ | X | 25.01.02 🔍
+ * - 머지? 중간까지밖에 이해하지 못했다
+ */
+const N = Number(
+  require("fs").readFileSync("/dev/stdin").toString().trim().split("\n")
+);
+const dp = Array.from({ length: N + 1 }, () => 0);
+
+const MOD = 1000000007;
+
+dp[0] = 1;
+dp[1] = 2;
+
+for (let i = 2; i <= N; i++) {
+  dp[i] = (dp[i - 1] * 2 + dp[i - 2] * 3) % MOD;
+
+  for (let j = i - 3; j >= 0; j--) {
+    dp[i] = (dp[i] + dp[j] * 2) % MOD;
+  }
 }
 
 console.log(dp[N]);
