@@ -34,3 +34,11 @@ function fibo(n) {
   return memo[n];
 }
 console.log(fibo(N));
+
+// ✅ 방법 3 - 백트래킹 방법. (단, 시간초과 발생)
+//    방법 2는 해당 풀이에서 memoization을 추가한 것이다.
+function fibo(n) {
+  if (n === 1 || n === 2) return 1;
+  return fibo(n - 1) + fibo(n - 2);
+}
+console.log(fibo(N));
