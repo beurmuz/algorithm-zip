@@ -134,3 +134,28 @@ for (let i = 2; i <= N; i++) {
 }
 
 console.log(dp[N]);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️서로 다른 BST 개수 세기⭐️ | X | 25.01.05 🔍
+ */
+const N = Number(
+  require("fs").readFileSync("/dev/stdin").toString().trim().split("\n")
+);
+const memo = Array.from({ length: N + 1 }, () => -1);
+
+function getBstNums(n) {
+  if (memo[n] !== -1) return memo[n];
+
+  if (n <= 1) return 1;
+
+  let ableNum = 0;
+  for (let i = 0; i < n; i++) {
+    ableNum += getBstNums(i) * getBstNums(n - i - 1);
+  }
+
+  memo[n] = ableNum;
+  return memo[n];
+}
+
+console.log(getBstNums(N));
