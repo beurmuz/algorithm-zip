@@ -139,6 +139,7 @@ console.log(dp[N]);
 /**
  * 🔍 ⭐️서로 다른 BST 개수 세기⭐️ | X | 25.01.05 🔍
  */
+// ✅ memoization
 const N = Number(
   require("fs").readFileSync("/dev/stdin").toString().trim().split("\n")
 );
@@ -159,3 +160,5 @@ function getBstNums(n) {
 }
 
 console.log(getBstNums(N));
+
+// ✅ Tabulation
