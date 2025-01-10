@@ -137,7 +137,7 @@ console.log(dp[N]);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️서로 다른 BST 개수 세기⭐️ | X | 25.01.05 🔍
+ * 🔍 ⭐️서로 다른 BST 개수 세기⭐️ | X | 25.01.05, 25.01.10 🔍
  */
 // ✅ memoization
 const N = Number(
@@ -145,20 +145,39 @@ const N = Number(
 );
 const memo = Array.from({ length: N + 1 }, () => -1);
 
-function getBstNums(n) {
+function getSumBst(n) {
   if (memo[n] !== -1) return memo[n];
+  if (n <= 1) return 0;
 
-  if (n <= 1) return 1;
-
-  let ableNum = 0;
+  let eachNum = 0;
   for (let i = 0; i < n; i++) {
-    ableNum += getBstNums(i) * getBstNums(n - i - 1);
+    eachNum += getSumBst(i) * getSumBst(n - i - 1);
   }
 
-  memo[n] = ableNum;
+  memo[n] = eachNum;
   return memo[n];
 }
-
 console.log(getBstNums(N));
 
 // ✅ Tabulation
+const N = Number(
+  require("fs").readFileSync("/dev/stdin").toString().trim().split("\n")
+);
+const dp = Array.from({ length: N + 1 }, () => 0);
+dp[0] = 1;
+dp[1] = 1;
+
+function getSumBst(num) {
+  let eachNums = 0;
+
+  for (let i = 0; i < num; i++) {
+    // 여기서 i를 root라고 보면 된다. 이 root를 기준으로 (왼쪽에 올 수 있는 자식의 수) * (오른쪽에 올 수 있는 자식의 수)
+    eachNums += dp[i] * dp[num - i - 1];
+  }
+  return eachNums;
+}
+
+for (let i = 2; i <= N; i++) {
+  dp[i] = getSumBst(i);
+}
+console.log(dp[N]);
