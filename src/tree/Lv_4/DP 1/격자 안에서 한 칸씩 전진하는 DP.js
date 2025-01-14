@@ -104,3 +104,41 @@ for (let i = 1; i < N; i++) {
   }
 }
 console.log(dp[N - 1][0]);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️정수 사각형 최솟값의 최대⭐️ | X | 25.01.14 🔍
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const arr = [];
+for (let i = 1; i <= N; i++) {
+  arr.push(inputs[i].split(" ").map(Number));
+}
+
+// ✅ Tabulation
+const dp = Array.from({ length: N }, () => Array(N).fill(0));
+dp[0][0] = arr[0][0];
+
+// 최상단 채우기
+for (let i = 1; i < N; i++) {
+  dp[0][i] = Math.min(dp[0][i - 1], arr[0][i]);
+}
+
+// 최좌측열 채우기
+for (let i = 1; i < N; i++) {
+  dp[i][0] = Math.min(dp[i - 1][0], arr[i][0]);
+}
+
+// 남은 칸들 점화식으로 채우기
+for (let i = 1; i < N; i++) {
+  for (let j = 1; j < N; j++) {
+    dp[i][j] = Math.min(Math.max(dp[i - 1][j], dp[i][j - 1]), arr[i][j]);
+  }
+}
+
+console.log(dp[N - 1][N - 1]);
