@@ -190,3 +190,46 @@ for (let i = 0; i < K; i++) {
 }
 
 console.log(answer.join(" "));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️원소의 합이 0⭐️ | X | 25.01.16
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+let N = Number(inputs[0]);
+
+const fs = require("fs");
+const input = fs.readFileSync(0).toString().trim().split("\n");
+
+const A = inputs[1].split(" ").map(Number);
+const B = inputs[2].split(" ").map(Number);
+const C = inputs[3].split(" ").map(Number);
+const D = inputs[4].split(" ").map(Number);
+
+const countMap = new Map();
+let answer = 0;
+
+// A 수열에서 숫자 하나, B 수열에서 숫자 하나를 골랐을 때, 나올 수 있는 두 숫자의 합들을 countMap에 기록
+for (let i = 0; i < N; i++) {
+  for (let j = 0; j < N; j++) {
+    const twoSum = A[i] + B[j];
+    if (countMap.has(twoSum)) countMap.set(twoSum, countMap.get(twoSum) + 1);
+    else countMap.set(twoSum, 1);
+  }
+}
+
+// C, D 수열을 순회하며 또 다른 쌍을 만든다.
+// 만약 CD의 합에 -를 붙인 값이 countMap에 있으면
+// (= AB의 합과 같은 값들이 있다면) 총합이 0이 되는 쌍의 개수를 구할 수 있다.
+for (let i = 0; i < N; i++) {
+  for (let j = 0; j < N; j++) {
+    const diff = -C[i] - D[j];
+
+    if (countMap.has(diff)) answer += countMap.get(diff);
+  }
+}
+console.log(answer);
