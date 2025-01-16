@@ -150,7 +150,7 @@ for (let i = 0; i < N; i++) {
   // -> 이를 위해 앞에서 이미 나온 적 있는 숫자는 -1로 바꿔줌으로써 이미 한번 사용함을 표시한다.
   if (!hashmap.has(arr[i])) hashmap.set(arr[i], -1); // 없으면 추가
   else hashmap.set(arr[i], hashmap.get(arr[i]) - 1); // 있으면 1개 뺀다
-  // 아예 삭제를 해버리면 원래 있었는데 이미 사용한 숫자인지, 아니면 없덛ㄴ 숫자인지 구분할 수가 없다. 
+  // 아예 삭제를 해버리면 원래 있었는데 이미 사용한 숫자인지, 아니면 없덛ㄴ 숫자인지 구분할 수가 없다.
 
   for (let j = 0; j < i; j++) {
     // 이미 순회한 적 있는 값은 hashmap에 없다.
@@ -160,3 +160,33 @@ for (let i = 0; i < N; i++) {
   }
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 자주 등장한 top k 숫자 | O | 25.01.16
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, K] = inputs[0].split(" ").map(Number);
+const arr = inputs[1].split(" ").map(Number);
+
+const hashMap = new Map();
+arr.forEach((num) => {
+  if (hashMap.has(num)) hashMap.set(num, hashMap.get(num) + 1);
+  else hashMap.set(num, 1);
+});
+
+let countArr = [...hashMap].sort((a, b) => {
+  if (b[1] === a[1]) return b[0] - a[0];
+  else return b[1] - a[1];
+});
+
+let answer = [];
+for (let i = 0; i < K; i++) {
+  answer.push(countArr[i][0]);
+}
+
+console.log(answer.join(" "));
