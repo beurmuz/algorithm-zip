@@ -256,3 +256,53 @@ for (let i = 1; i < inputs.length; i++) {
 
 const arr = [...hashMap].sort((a, b) => b[1] - a[1]);
 console.log(arr[0][1]);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 특별한 문자 | O | 25.01.17
+ */
+const input = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const stringMap = new Map();
+
+input[0].split("").forEach((str) => {
+  if (stringMap.has(str)) stringMap.set(str, stringMap.get(str) + 1);
+  else stringMap.set(str, 1);
+});
+
+const arr = [...stringMap].sort((a, b) => a[1] - b[1]);
+
+if (arr[0][1] === 1) console.log(arr[0][0]);
+else console.log("None");
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 낮은 지점들 | O | 25.01.17
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+
+const posMap = new Map();
+for (let i = 1; i < inputs.length; i++) {
+  let [x, y] = inputs[i].split(" ").map(Number);
+
+  if (posMap.has(x)) {
+    if (posMap.get(x) > y) {
+      posMap.set(x, y);
+    }
+  } else posMap.set(x, y);
+}
+
+const arr = [...posMap];
+let answer = 0;
+arr.forEach((v) => {
+  answer += v[1];
+});
+console.log(answer);
