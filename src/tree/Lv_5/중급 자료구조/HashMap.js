@@ -233,3 +233,26 @@ for (let i = 0; i < N; i++) {
   }
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 순서를 바꾸었을 때 같은 단어 그룹화하기 | O | 25.01.17
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const hashMap = new Map();
+
+for (let i = 1; i < inputs.length; i++) {
+  let sortedString = inputs[i].split("").sort().join("");
+
+  if (hashMap.has(sortedString))
+    hashMap.set(sortedString, hashMap.get(sortedString) + 1);
+  else hashMap.set(sortedString, 1);
+}
+
+const arr = [...hashMap].sort((a, b) => b[1] - a[1]);
+console.log(arr[0][1]);
