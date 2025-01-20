@@ -62,3 +62,26 @@ for (let [key, value] of sortedmap.entries()) {
   // 해당 문자열이 차지하는 비율을 백분율로 표현하기 (단, 소수점 4째자리까지 반올림할것)
   console.log(key, ((value / N) * 100).toFixed(4));
 }
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 처음 등장하는 위치 | O | 25.01.20
+ */
+const SortedMap = require("collections/sorted-map");
+
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const arr = inputs[1].split(" ").map(Number);
+const sortedmap = new SortedMap();
+
+arr.forEach((v, i) => {
+  if (!sortedmap.has(v)) sortedmap.set(v, i + 1);
+});
+
+for (let [key, value] of sortedmap.entries()) {
+  console.log(key, value);
+}
