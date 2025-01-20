@@ -85,3 +85,26 @@ arr.forEach((v, i) => {
 for (let [key, value] of sortedmap.entries()) {
   console.log(key, value);
 }
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 단어장 | O | 25.01.20
+ */
+const SortedMap = require("collections/sorted-map");
+
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const sortedmap = new SortedMap();
+
+for (let i = 1; i < inputs.length; i++) {
+  if (!sortedmap.has(inputs[i])) sortedmap.set(inputs[i], 1);
+  else sortedmap.set(inputs[i], sortedmap.get(inputs[i]) + 1);
+}
+
+for (let [key, value] of sortedmap.entries()) {
+  console.log(key, value);
+}
