@@ -43,3 +43,18 @@ for (let el of arr2) {
 }
 
 console.log(answer.join(" "));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 서로 다른 숫자 | O | 25.01.21
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const arr = inputs[1].split(" ").map(Number);
+const sets = new Set(arr);
+
+console.log(sets.size);
