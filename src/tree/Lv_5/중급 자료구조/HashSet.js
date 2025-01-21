@@ -61,6 +61,25 @@ console.log(sets.size);
 
 // ----------------------------------------------------------------------
 /**
+ * 🔍 정수 찾기 | O | 25.01.21
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const A = new Set(inputs[1].split(" ").map(Number));
+const M = Number(inputs[2]);
+const B = inputs[3].split(" ").map(Number);
+
+B.forEach((num) => {
+  if (A.has(num)) console.log(1);
+  else console.log(0);
+});
+
+// ----------------------------------------------------------------------
+/**
  * 🔍 대칭 차집합 | O | 25.01.21
  */
 const inputs = require("fs")
