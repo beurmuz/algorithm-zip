@@ -58,3 +58,24 @@ const arr = inputs[1].split(" ").map(Number);
 const sets = new Set(arr);
 
 console.log(sets.size);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 대칭 차집합 | O | 25.01.21
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [an, bn] = inputs[0].split(" ").map(Number);
+const A = inputs[1].trim().split(" ").map(Number);
+const B = inputs[2].trim().split(" ").map(Number);
+
+let answer = an + bn;
+const setA = new Set(A);
+
+B.forEach((num) => {
+  if (setA.has(num)) answer -= 2;
+});
+console.log(answer);
