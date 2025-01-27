@@ -405,3 +405,50 @@ for (let i = 1; i <= N; i++) {
   }
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 돌의 소속 | O | 25.01.28
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, Q] = inputs[0].split(" ").map(Number);
+const ranges = inputs.slice(N + 1);
+
+// 각 개수를 저장할 hashmap 생성
+const prefixSum = Array.from({ length: N + 1 }, () => new Map());
+
+// 0번째 Map 초기화
+prefixSum[0].set(1, 0);
+prefixSum[0].set(2, 0);
+prefixSum[0].set(3, 0);
+
+// 누적합 만들기
+for (let i = 1; i <= N; i++) {
+  if (Number(inputs[i]) === 1) {
+    prefixSum[i].set(1, prefixSum[i - 1].get(1) + 1);
+    prefixSum[i].set(2, prefixSum[i - 1].get(2));
+    prefixSum[i].set(3, prefixSum[i - 1].get(3));
+  } else if (Number(inputs[i]) === 2) {
+    prefixSum[i].set(1, prefixSum[i - 1].get(1));
+    prefixSum[i].set(2, prefixSum[i - 1].get(2) + 1);
+    prefixSum[i].set(3, prefixSum[i - 1].get(3));
+  } else if (Number(inputs[i]) === 3) {
+    prefixSum[i].set(1, prefixSum[i - 1].get(1));
+    prefixSum[i].set(2, prefixSum[i - 1].get(2));
+    prefixSum[i].set(3, prefixSum[i - 1].get(3) + 1);
+  }
+}
+
+// 범위에 맞춰서 출력하기
+ranges.forEach((line) => {
+  let [x, y] = line.split(" ").map(Number);
+  console.log(
+    prefixSum[y].get(1) - prefixSum[x - 1].get(1),
+    prefixSum[y].get(2) - prefixSum[x - 1].get(2),
+    prefixSum[y].get(3) - prefixSum[x - 1].get(3)
+  );
+});
