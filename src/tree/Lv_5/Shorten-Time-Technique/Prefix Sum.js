@@ -410,6 +410,7 @@ console.log(answer);
 /**
  * 🔍 돌의 소속 | O | 25.01.28
  */
+// ✅ 내가 푼 풀이 (hashMap을 이용한 풀이법)
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -450,5 +451,35 @@ ranges.forEach((line) => {
     prefixSum[y].get(1) - prefixSum[x - 1].get(1),
     prefixSum[y].get(2) - prefixSum[x - 1].get(2),
     prefixSum[y].get(3) - prefixSum[x - 1].get(3)
+  );
+});
+
+// ✅ 해설지 답안 (배열을 이용한 풀이법)
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, Q] = inputs[0].split(" ").map(Number);
+const ranges = inputs.slice(N + 1);
+
+let prefixSum = [[0, 0, 0, 0]];
+
+// 누적합을 생성한다.
+for (let i = 1; i <= N; i++) {
+  let groupNum = Number(inputs[i]);
+
+  prefixSum.push([...prefixSum[i - 1]]);
+  prefixSum[i][groupNum] += 1;
+}
+
+// 범위에 맞게 출력한다.
+ranges.forEach((line) => {
+  let [s, e] = line.split(" ").map(Number);
+
+  console.log(
+    prefixSum[e][1] - prefixSum[s - 1][1],
+    prefixSum[e][2] - prefixSum[s - 1][2],
+    prefixSum[e][3] - prefixSum[s - 1][3]
   );
 });
