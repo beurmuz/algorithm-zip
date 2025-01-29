@@ -285,3 +285,73 @@ for (let i = 0; i < N; i++) {
   }
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️겹쳐지지 않는 두 직사각형⭐️ | X | 25.01.30 🔍
+ *
+ * - 직사각형 rect1: (x1, y1)에서 (x2, y2)까지
+ * - 직사각형 rect2: (x3, y3)에서 (x4, y4)까지
+ */
+
+// ✅ 다른 풀이 코드 - 완전 탐색
+const input = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M] = input[0].split(" ").map(Number);
+const grid = input.slice(1).map((line) => line.split(" ").map(Number));
+
+// 특정 직사각형의 합을 계산하는 함수
+function getSum(x1, y1, x2, y2) {
+  let rectSum = 0;
+
+  for (let i = x1; i <= x2; i++) {
+    for (let j = y1; j <= y2; j++) {
+      rectSum += grid[i][j];
+    }
+  }
+  return rectSum;
+}
+
+// 두 직사각형이 겹치지 않는지 확인하는 함수
+// - rect1 끝이 rect2의 시작보다 왼쪽 or 위쪽에 있는 경우
+// - rect2가 rect1의 끝보다 오른쪽 or 아래에 있는 경우
+function overlap(x1, y1, x2, y2, x3, y3, x4, y4) {
+  return x2 < x3 || y2 < y3 || x4 < x1 || y4 < y1;
+}
+
+// 두 직사각형이 겹치지 않는지 확인하는 함수
+function isDisjoint(x1, y1, x2, y2, x3, y3, x4, y4) {
+  return x2 < x3 || x4 < x1 || y2 < y3 || y4 < y1;
+}
+
+let maxSum = -Infinity;
+
+// 모든 rect1 (x1, y1) ~ (x2, y2)
+for (let x1 = 0; x1 < n; x1++) {
+  for (let y1 = 0; y1 < m; y1++) {
+    for (let x2 = x1; x2 < n; x2++) {
+      for (let y2 = y1; y2 < m; y2++) {
+        const sum1 = getSum(x1, y1, x2, y2);
+
+        // 모든 rect2 (x3, y3) ~ (x4, y4)
+        for (let x3 = 0; x3 < n; x3++) {
+          for (let y3 = 0; y3 < m; y3++) {
+            for (let x4 = x3; x4 < n; x4++) {
+              for (let y4 = y3; y4 < m; y4++) {
+                if (isDisjoint(x1, y1, x2, y2, x3, y3, x4, y4)) {
+                  const sum2 = getSum(x3, y3, x4, y4);
+                  maxSum = Math.max(maxSum, sum1 + sum2);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+console.log(maxSum);
