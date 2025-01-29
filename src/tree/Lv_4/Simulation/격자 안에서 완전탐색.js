@@ -223,3 +223,61 @@ for (let i = 0; i < N; i++) {
 }
 
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️기울어진 직사각형⭐️ | X | 25.01.29 🔍
+ *
+ * - 직사각형의 최하단 칸(row, col), 너비, 높이를 이용해 풀면된다.
+ *
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const N = Number(inputs[0]);
+const grid = inputs.slice(1).map((line) => line.split(" ").map(Number));
+
+// 시작->1, 1->2, 2->3, 3->시작
+const dx = [-1, -1, 1, 1];
+const dy = [1, -1, -1, 1];
+
+function inrange(x, y) {
+  return 0 <= x && x < N && 0 <= y && y < N;
+}
+
+function getSum(x, y, k, l) {
+  // 1&3, 2&4의 길이가 같아야 직사각형이 만들어진다.
+  const sameLine = [k, l, k, l];
+  let partSum = 0; // 현 직사각형의 총 합을 저장할 변수
+
+  // 기울어진 직사각형의 경계를 쭉 따라간다.
+  for (let d = 0; d < 4; d++) {
+    for (let q = 0; q < sameLine[d]; q++) {
+      x += dx[d];
+      y += dy[d];
+
+      // 기울어진 직사각형이 경계를 벗어나는 경우
+      // 불가능하단 의미로 답이 갱신되지 않도록 0을 반환
+      if (!inrange(x, y)) return 0;
+      partSum += grid[x][y];
+    }
+  }
+  return partSum;
+}
+
+let answer = 0; // 최대합을 저장
+
+// (i, j)를 시작으로 1, 2, 3, 4 방향으로 길이 [k, l, k, l]만큼
+// 이동하면 그려지는 기울어진 직사각형을 만들어 탐색한다.
+for (let i = 0; i < N; i++) {
+  for (let j = 0; j < N; j++) {
+    for (let k = 1; k < N; k++) {
+      for (let l = 1; l < N; l++) {
+        answer = Math.max(answer, getSum(i, j, k, l));
+      }
+    }
+  }
+}
+console.log(answer);
