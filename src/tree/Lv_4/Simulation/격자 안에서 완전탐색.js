@@ -288,7 +288,7 @@ console.log(answer);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️겹쳐지지 않는 두 직사각형⭐️ | X | 25.01.30 🔍
+ * 🔍 ⭐️겹쳐지지 않는 두 직사각형⭐️ | X | 25.01.30-31 🔍
  *
  * - 직사각형 rect1: (x1, y1)에서 (x2, y2)까지
  * - 직사각형 rect2: (x3, y3)에서 (x4, y4)까지
@@ -355,3 +355,100 @@ for (let x1 = 0; x1 < n; x1++) {
 }
 
 console.log(maxSum);
+
+// ✅ 해설 풀이 - 완전 탐색
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M] = inputs[0].split(" ").map(Number);
+const grid = inputs.slice(1).map((line) => line.split(" ").map(Number));
+const board = Array.from({ length: N }, () => Array(M).fill(0));
+
+// board를 0으로 초기화하는 함수
+function clearBoard() {
+  for (let i = 0; i < N; i++) {
+    for (let j = 0; j < M; j++) {
+      board[i][j] = 0;
+    }
+  }
+}
+
+function draw(x1, y1, x2, y2) {
+  for (let i = x1; i <= x2; i++) {
+    for (let j = y1; j <= y2; j++) {
+      board[i][j] += 1;
+    }
+  }
+}
+
+function checkBoard() {
+  // 같은 칸을 2개의 직사각형이 모두 포함한다면 겹치게 된다.
+  for (let i = 0; i < N; i++) {
+    for (let j = 0; j < M; j++) {
+      if (board[i][j] >= 2) return true;
+    }
+  }
+  return false;
+}
+
+// (x1,y1), (x2,y2)와 (x3,y3), (x4,y4)로 이루어진 두 직사각형이 겹치는지 확인하는 함수
+function overlap(x1, y1, x2, y2, x3, y3, x4, y4) {
+  clearBoard();
+  draw(x1, y1, x2, y2);
+  draw(x3, y3, x4, y4);
+  return checkBoard();
+}
+
+function rectSum(x1, y1, x2, y2) {
+  return grid
+    .slice(x1, x2 + 1)
+    .reduce(
+      (sum, row) =>
+        sum +
+        row.slice(y1, y2 + 1).reduce((rowSum, value) => rowSum + value, 0),
+      0
+    );
+}
+
+// 첫번째 직사각형이 (x1, y1), (x2, y2)를 양쪽 꼭짓점으로 할 때,
+// 두번째 직사각형을 겹치지 않게 잘 잡아 최대 합을 반환하는 함수
+function findMaxReact(x1, y1, x2, y2) {
+  let maxSum = Number.MIN_SAFE_INTEGER;
+
+  for (let i = 0; i < N; i++) {
+    for (let j = 0; j < M; j++) {
+      for (let k = i; k < N; k++) {
+        for (let l = j; l < M; l++) {
+          if (!overlap(x1, y1, x2, y2, i, j, k, l)) {
+            maxSum = Math.max(
+              maxSum,
+              rectSum(x1, y1, x2, y2) + rectSum(i, j, k, l)
+            );
+          }
+        }
+      }
+    }
+  }
+  return maxSum;
+}
+
+// 두 직사각형을 잘 잡았을 때의 최대 합을 반환하는 함수
+function findMaxSum() {
+  let maxSum = Number.MIN_SAFE_INTEGER;
+
+  for (let i = 0; i < N; i++) {
+    for (let j = 0; j < M; j++) {
+      for (let k = i; k < N; k++) {
+        for (let l = j; l < M; l++) {
+          maxSum = Math.max(maxSum, findMaxReact(i, j, k, l));
+        }
+      }
+    }
+  }
+  return maxSum;
+}
+
+const answer = findMaxSum();
+console.log(answer);
