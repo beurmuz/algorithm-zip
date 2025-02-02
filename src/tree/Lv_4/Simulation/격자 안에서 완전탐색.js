@@ -453,3 +453,43 @@ function findMaxSum() {
 
 const ans = findMaxSum();
 console.log(ans);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 양수 직사각형의 최대 크기 | O | 25.02.03 🔍
+ *
+ * - 조건 처리 잘 해주고, 예외의 경우를 잘 따져야 한다.
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M] = inputs[0].split(" ").map(Number);
+const grid = inputs.slice(1).map((line) => line.split(" ").map(Number));
+
+function makeRect(x1, y1, x2, y2) {
+  let totalSum = 0;
+  for (let i = x1; i <= x2; i++) {
+    for (let j = y1; j <= y2; j++) {
+      if (grid[i][j] <= 0) return -1; // 오로지 양수만 가능하다.
+      totalSum += 1;
+    }
+  }
+  return totalSum;
+}
+
+let answer = -Infinity;
+
+// (x1, y1), (x2, y2)를 정하고 그 영역을 탐색하면 됨
+for (let x1 = 0; x1 < N; x1++) {
+  for (let y1 = 0; y1 < M; y1++) {
+    for (let x2 = x1; x2 < N; x2++) {
+      for (let y2 = y1; y2 < M; y2++) {
+        answer = Math.max(answer, makeRect(x1, y1, x2, y2));
+      }
+    }
+  }
+}
+if (answer < 0) console.log(-1);
+else console.log(answer);
