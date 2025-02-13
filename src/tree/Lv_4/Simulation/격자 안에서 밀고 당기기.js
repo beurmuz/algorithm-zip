@@ -180,113 +180,108 @@ buildings.forEach((line) => {
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️2차원 바람⭐️ | △ | 25.02.12 🔍
+ * 🔍 ⭐️2차원 바람⭐️ | △ | 25.02.12-13 🔍
  * - ✅ 시계 방향으로 테두리 회전하기
  */
-const input = require("fs").readFileSync(0).toString().trim().split("\n");
-const [n, m, q] = input[0].split(" ").map(Number);
-const a = [0].concat(
-  input.slice(1, 1 + n).map((line) => [0].concat(line.split(" ").map(Number)))
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M, Q] = inputs[0].split(" ").map(Number);
+const arr = inputs
+  .slice(1, 1 + N)
+  .map((line) => line.trim().split(" ").map(Number));
+const windInfos = inputs.slice(1 + N).map((line) =>
+  line
+    .trim()
+    .split(" ")
+    .map((v) => Number(v) - 1)
 );
-const c = input
-  .slice(1 + n, 1 + n + q)
-  .map((line) => line.split(" ").map(Number));
-const tempArr = Array.from(Array(n + 1), () => Array(m + 1).fill(0));
+const tmpArr = Array.from({ length: N }, () => Array(M).fill(0)); // 평균값 계산 시 사용할 배열
 
-// 직사각형의 경계에 있는 숫자들을 시계 방향으로 한 칸씩 회전해줍니다.
-function rotate(startRow, startCol, endRow, endCol) {
-  // Step1-1. 직사각형 가장 왼쪽 위 모서리 값을 temp에 저장합니다.
-  const temp = a[startRow][startCol];
+// 시계 방향으로 한 칸씩 회전하는 함수
+function rotate(sRow, sCol, eRow, eCol) {
+  // 1) 가장 왼쪽 위 모서리 값을 저장한다.
+  let tmp = arr[sRow][sCol];
 
-  // Step1-2. 직사각형 가장 왼쪽 열을 위로 한 칸씩 shift 합니다.
-  for (let row = startRow; row < endRow; row++) {
-    a[row][startCol] = a[row + 1][startCol];
+  // 2) 직사각형 가장 왼쪽 열을 위로 한 칸씩 shift 한다.
+  //    arr[0][0]에 arr[1][0]을 넣어서 한칸 씩 위로 올린다.
+  for (let x = sRow; x < eRow; x++) {
+    arr[x][sCol] = arr[x + 1][sCol];
   }
 
-  // Step1-3. 직사각형 가장 아래 행을 왼쪽으로 한 칸씩 shift 합니다.
-  for (let col = startCol; col < endCol; col++) {
-    a[endRow][col] = a[endRow][col + 1];
+  // 3) 직사각형의 가장 아래 행을 왼쪽으로 한 칸씩 shift 한다.
+  for (let y = sCol; y < eCol; y++) {
+    arr[eRow][y] = arr[eRow][y + 1];
   }
 
-  // Step1-4. 직사각형 가장 오른쪽 열을 아래로 한 칸씩 shift 합니다.
-  for (let row = endRow; row > startRow; row--) {
-    a[row][endCol] = a[row - 1][endCol];
+  // 4) 직사각형 가장 오른쪽 열을 아래로 한 칸씩 shift 한다.
+  for (let x = eRow; x > sRow; x--) {
+    arr[x][eCol] = arr[x - 1][eCol];
   }
 
-  // Step1-5. 직사각형 가장 위 행을 오른쪽으로 한 칸씩 shift 합니다.
-  for (let col = endCol; col > startCol; col--) {
-    a[startRow][col] = a[startRow][col - 1];
+  // 5) 직사각형 가장 위쪽 행을 오른쪽으로 한 칸씩 shift 한다.
+  for (let y = eCol; y > sCol; y--) {
+    arr[sRow][y] = arr[sRow][y - 1];
   }
 
-  // Step1-6. temp를 가장 왼쪽 위 모서리를 기준으로 바로 오른쪽 칸에 넣습니다.
-  a[startRow][startCol + 1] = temp;
+  // tmp를 가장 왼쪽 위 모서리 기준, 바로 오른쪽에 넣는다.
+  arr[sRow][sCol + 1] = tmp;
 }
 
-// 격자를 벗어나는지 판단합니다.
+// 범위 내에 있는지 검사하는 함수
 function inRange(x, y) {
-  return 1 <= x && x <= n && 1 <= y && y <= m;
+  return 0 <= x && x < N && 0 <= y && y < M;
 }
 
-// x행 y열 (x, y)과 인접한 숫자들과의 평균 값을 계산해줍니다.
-// 격자를 벗어나지 않는 숫자들만을 고려해줍니다.
+// (x, y)와 인접한 숫자들과의 평균 값을 계산하는 함수
 function average(x, y) {
-  // 자기 자신의 위치를 포함하여 평균을 내야 하므로
-  // dx, dy 방향을 5개로 설정하면 한 번에 처리가 가능합니다.
+  // 자기 자신도 포함해야 하므로 (0,0)도 추가한다.
   const dx = [0, 0, 1, 0, -1];
   const dy = [0, -1, 0, 1, 0];
 
-  const activeNumbers = [];
-  for (let i = 0; i < 5; i++) {
-    const newX = x + dx[i];
-    const newY = y + dy[i];
+  let activeNums = [];
+  for (let k = 0; k < 5; k++) {
+    const nx = x + dx[k];
+    const ny = y + dy[k];
 
-    if (inRange(newX, newY)) activeNumbers.push(a[newX][newY]);
+    if (inRange(nx, ny)) activeNums.push(arr[nx][ny]);
   }
 
-  const sum = activeNumbers.reduce((acc, curr) => acc + curr, 0);
-  const cnt = activeNumbers.length;
-  return Math.floor(sum / cnt);
+  const total = activeNums.reduce((acc, v) => acc + v, 0);
+  const counts = activeNums.length;
+  return Math.floor(total / counts);
 }
 
-// 직사각형 내 숫자들을 인접한 숫자들과의 평균값으로 바꿔줍니다.
-// 동시에 일어나야 하는 작업이므로, 이미 바뀐 숫자에 주위 숫자들이 영향을 받으면 안되기 때문에
-// tempArr 배열에 평균 값들을 전부 적어 준 다음, 그 값을 다시 복사해 옵니다.
-function setAverage(startRow, startCol, endRow, endCol) {
-  // Step2-1. tempArr에 평균 값을 적습니다.
-  for (let row = startRow; row <= endRow; row++) {
-    for (let col = startCol; col <= endCol; col++) {
-      tempArr[row][col] = average(row, col);
+// 직사각형 내를 인접한 값들의 평균값으로 바꿔주는 함수
+function makeAvg(sRow, sCol, eRow, eCol) {
+  // tmpArr에 평균값을 적는다.
+  for (let x = sRow; x <= eRow; x++) {
+    for (let y = sCol; y <= eCol; y++) {
+      tmpArr[x][y] = average(x, y);
     }
   }
 
-  // Step2-2. tempArr 값을 다시 가져옵니다.
-  for (let row = startRow; row <= endRow; row++) {
-    for (let col = startCol; col <= endCol; col++) {
-      a[row][col] = tempArr[row][col];
+  // arr에 tmpArr 값을 넣는다.
+  for (let x = sRow; x <= eRow; x++) {
+    for (let y = sCol; y <= eCol; y++) {
+      arr[x][y] = tmpArr[x][y];
     }
   }
 }
 
-// 조건에 맞춰 값을 바꿔봅니다.
+// 바람이 불 때마다 진행되는 로직
 function simulate(startRow, startCol, endRow, endCol) {
-  // Step1
-  // 직사각형 경계에 있는 숫자들을 시계 방향으로 한 칸씩 회전해줍니다.
+  // 시계 방향으로 한 칸씩 회전하기
   rotate(startRow, startCol, endRow, endCol);
 
-  // Step2
-  // 직사각형 내 각각의 숫자들을 인접한 숫자들과의 평균값으로 바꿔줍니다.
-  setAverage(startRow, startCol, endRow, endCol);
+  // 직사각형 내 각각의 숫자들을 평균값으로 바꿔주기
+  makeAvg(startRow, startCol, endRow, endCol);
 }
 
-// 조건에 맞춰 값을 바꿔봅니다.
-c.forEach(([r1, c1, r2, c2]) => simulate(r1, c1, r2, c2));
+// 시작) windInfos에 따라 바람 불기
+windInfos.forEach(([x1, y1, x2, y2]) => simulate(x1, y1, x2, y2));
 
-// 출력
-let result = "";
-for (let row = 1; row <= n; row++) {
-  for (let col = 1; col <= m; col++) {
-    result += `${a[row][col]} `;
-  }
-  result += "\n";
-}
-console.log(result);
+// 종료) 출력
+arr.forEach((line) => console.log(...line));
