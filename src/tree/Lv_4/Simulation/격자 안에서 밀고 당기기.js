@@ -285,3 +285,51 @@ windInfos.forEach(([x1, y1, x2, y2]) => simulate(x1, y1, x2, y2));
 
 // 종료) 출력
 arr.forEach((line) => console.log(...line));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 최단 Run length 인코딩 | O | 25.02.14 🔍
+ */
+let string = require("fs").readFileSync(0).toString().trim();
+
+// 오른쪽으로 shift 하는 함수
+function shiftNum(str) {
+  let newStr = "";
+  for (let i = 1; i < str.length; i++) {
+    newStr += str[i];
+  }
+  newStr += str[0];
+  return newStr;
+}
+
+// run-length encoding 함수
+function runLengthEncoding(str) {
+  let combi = "";
+  let count = 1;
+  let alpha = str[0];
+
+  for (let i = 1; i < str.length; i++) {
+    if (str[i] === alpha) {
+      count += 1;
+    } else {
+      combi += `${alpha}${count}`;
+      alpha = str[i];
+      count = 1;
+    }
+  }
+  combi += `${alpha}${count}`;
+  // return combi;
+  return combi.length;
+}
+
+function simulate() {
+  let nextStr = string;
+  for (let i = 1; i < string.length; i++) {
+    nextStr = shiftNum(nextStr);
+    answer = Math.min(answer, runLengthEncoding(nextStr));
+  }
+}
+
+let answer = runLengthEncoding(string);
+simulate();
+console.log(answer);
