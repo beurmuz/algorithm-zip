@@ -288,6 +288,68 @@ arr.forEach((line) => console.log(...line));
 
 // ----------------------------------------------------------------------
 /**
+ * 🔍 ⭐️기울어진 직사각형의 회전⭐️ | X | 25.02.14-16 🔍
+ */
+const inputs = require("fs").readFileSync(0).toString().trim().split("\n");
+const N = Number(inputs[0]);
+const grid = inputs
+  .slice(1, N + 1)
+  .map((line) => line.trim().split(" ").map(Number));
+const [r, c, m1, m2, m3, m4, dir] = inputs[inputs.length - 1]
+  .split(" ")
+  .map(Number);
+let tmp = Array.from({ length: N }, () => Array(N).fill(0));
+
+// 회전 시키기
+function rotate(x, y, line1, line2, dir) {
+  let dx, dy, moveNums;
+
+  if (dir === 0) {
+    // 반시계 방향으로 1칸씩 회전
+    dx = [-1, -1, 1, 1];
+    dy = [1, -1, -1, 1];
+    moveNums = [line1, line2, line1, line2];
+  } else {
+    // 시계 방향으로 1칸씩 회전
+    dx = [-1, -1, 1, 1];
+    dy = [-1, 1, 1, -1];
+    moveNums = [line2, line1, line2, line1];
+  }
+
+  // 1) tmp 배열에 grid 값 복사하기
+  for (let i = 0; i < N; i++) {
+    for (let j = 0; j < N; j++) {
+      tmp[i][j] = grid[i][j];
+    }
+  }
+
+  // 2) 기울어진 직사각형의 경계를 따라 숫자를 한 칸씩 밀었을 때의 결과를 tmp에 저장한다.
+  moveNums.forEach((moveNum, idx) => {
+    for (let i = 0; i < moveNum; i++) {
+      const nx = x + dx[idx];
+      const ny = y + dy[idx];
+
+      tmp[nx][ny] = grid[x][y];
+      x = nx;
+      y = ny;
+    }
+  });
+
+  // 3) tmp 값을 grid에 옮긴다.
+  for (let i = 0; i < N; i++) {
+    for (let j = 0; j < N; j++) {
+      grid[i][j] = tmp[i][j];
+    }
+  }
+}
+
+rotate(r - 1, c - 1, m1, m2, dir);
+
+// 회전 후 격자 상태 출력
+grid.forEach((line) => console.log(...line));
+
+// ----------------------------------------------------------------------
+/**
  * 🔍 최단 Run length 인코딩 | O | 25.02.14 🔍
  */
 let string = require("fs").readFileSync(0).toString().trim();
