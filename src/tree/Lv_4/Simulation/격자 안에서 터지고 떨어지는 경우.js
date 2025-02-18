@@ -37,7 +37,7 @@ if (blocks.length === 0) {
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 십자 모양 폭발 | O | 25.02.18 🔍
+ * 🔍 십자 모양 폭발 | O | 25.02.17 🔍
  */
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
@@ -84,3 +84,53 @@ for (let col = 0; col < N; col++) {
 
 // 출력
 answer.forEach((line) => console.log(...line));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️1차원 폭발 게임⭐️ | △ | 25.02.18 🔍
+ * - [1, 1]만 남았을 때 어떻게 처리할 것인가?
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M] = inputs[0].split(" ").map(Number);
+let bombs = inputs.slice(1).map(Number);
+
+// 폭발, 재배열이 반복되는 함수
+function explodeAll(bombs, M) {
+    while(true) {
+        let stack = []; // [숫자, 연속 개수] 형태로 저장
+        let explosion = false; // 폭발 여부
+
+        // bombs를 순회하면서 각 숫자들이 연속하는 개수를 카운트한다.
+        bombs.forEach((num) => {
+            if(stack.length > 0 && stack[stack.length-1][0] === num) {
+                // stack이 비어있지 않고, stack의 맨 마지막에 있는 값이 현재 numr과 같다면
+                stack[stack.length-1][1] += 1; // 연속 개수 증가
+            } else {
+                stack.push([num, 1]); // 새 숫자 추가
+            }
+        });
+
+        // stack을 순회하면서 연속된 숫자가 M개 이상이면 제거한다.
+        let newBombs = [];
+        for(let [num, count] of stack) {
+            if(count >= M) explosion = true;
+            // count 크기의 배열을 만들어 num으로 채워준 후, 이 값들을 newBombs에 push한다.
+            else newBombs.push(...Array.from({ length: count }, () => num));
+        }
+
+        if(!explosion) return newBombs; // 더이상 폭발이 없으면 종료한다.
+        bombs = newBombs; // 갱신 후 다시 검사한다.
+
+    }
+}
+
+// 연쇄 폭발 실행
+bombs = explodeAll(bombs, M);
+
+// 결과 출력
+console.log(bombs.length);
+if (bombs.length !== 0) bombs.forEach((v) => console.log(v));
