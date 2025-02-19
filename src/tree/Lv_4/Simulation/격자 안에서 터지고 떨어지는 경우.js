@@ -100,32 +100,31 @@ let bombs = inputs.slice(1).map(Number);
 
 // 폭발, 재배열이 반복되는 함수
 function explodeAll(bombs, M) {
-    while(true) {
-        let stack = []; // [숫자, 연속 개수] 형태로 저장
-        let explosion = false; // 폭발 여부
+  while (true) {
+    let stack = []; // [숫자, 연속 개수] 형태로 저장
+    let explosion = false; // 폭발 여부
 
-        // bombs를 순회하면서 각 숫자들이 연속하는 개수를 카운트한다.
-        bombs.forEach((num) => {
-            if(stack.length > 0 && stack[stack.length-1][0] === num) {
-                // stack이 비어있지 않고, stack의 맨 마지막에 있는 값이 현재 numr과 같다면
-                stack[stack.length-1][1] += 1; // 연속 개수 증가
-            } else {
-                stack.push([num, 1]); // 새 숫자 추가
-            }
-        });
+    // bombs를 순회하면서 각 숫자들이 연속하는 개수를 카운트한다.
+    bombs.forEach((num) => {
+      if (stack.length > 0 && stack[stack.length - 1][0] === num) {
+        // stack이 비어있지 않고, stack의 맨 마지막에 있는 값이 현재 numr과 같다면
+        stack[stack.length - 1][1] += 1; // 연속 개수 증가
+      } else {
+        stack.push([num, 1]); // 새 숫자 추가
+      }
+    });
 
-        // stack을 순회하면서 연속된 숫자가 M개 이상이면 제거한다.
-        let newBombs = [];
-        for(let [num, count] of stack) {
-            if(count >= M) explosion = true;
-            // count 크기의 배열을 만들어 num으로 채워준 후, 이 값들을 newBombs에 push한다.
-            else newBombs.push(...Array.from({ length: count }, () => num));
-        }
-
-        if(!explosion) return newBombs; // 더이상 폭발이 없으면 종료한다.
-        bombs = newBombs; // 갱신 후 다시 검사한다.
-
+    // stack을 순회하면서 연속된 숫자가 M개 이상이면 제거한다.
+    let newBombs = [];
+    for (let [num, count] of stack) {
+      if (count >= M) explosion = true;
+      // count 크기의 배열을 만들어 num으로 채워준 후, 이 값들을 newBombs에 push한다.
+      else newBombs.push(...Array.from({ length: count }, () => num));
     }
+
+    if (!explosion) return newBombs; // 더이상 폭발이 없으면 종료한다.
+    bombs = newBombs; // 갱신 후 다시 검사한다.
+  }
 }
 
 // 연쇄 폭발 실행
@@ -134,3 +133,83 @@ bombs = explodeAll(bombs, M);
 // 결과 출력
 console.log(bombs.length);
 if (bombs.length !== 0) bombs.forEach((v) => console.log(v));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️단 한번의 2048 시도⭐️ | O | 25.02.19 🔍
+ * - 맞았지만 다시 한번 더 풀어보기!
+ * - 배열을 합치고 미는 과정을 한 방향으로 고정한 뒤, 배열의 회전을 이용해 해결했다.
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+let grid = inputs.slice(0, 4).map((line) => line.split(" ").map(Number));
+let dir = inputs[4];
+
+// 2개씩 겹치는 수를 합치고 왼쪽으로 미는 함수
+function addTwoSameValueAndPush() {
+  let newGrid = Array.from({ length: 4 }, () => Array(4).fill(0));
+
+  for (let i = 0; i < 4; i++) {
+    // 연속되는 수와 그 개수를 저장하는 값
+    let stack = [];
+
+    // 2개씩 겹치는 수를 찾는다.
+    for (let j = 0; j < 4; j++) {
+      if (grid[i][j] === 0) continue;
+      if (stack.length > 0 && stack[stack.length - 1][0] === grid[i][j]) {
+        if (stack[stack.length - 1][1] === 1) stack[stack.length - 1][1] += 1;
+        else stack.push([grid[i][j], 1]);
+      } else stack.push([grid[i][j], 1]);
+    }
+
+    // newGrid의 i번째 행을 갱신한다.
+    let newGridCol = 0;
+    stack.forEach(([num, count]) => {
+      if (count === 2) newGrid[i][newGridCol] = num * 2;
+      else newGrid[i][newGridCol] = num;
+
+      newGridCol += 1;
+    });
+  }
+  grid = newGrid;
+}
+
+// 배열을 시계 방향으로 회전하는 함수
+function rotateArr() {
+  let newGrid = Array.from({ length: 4 }, () => Array(4).fill(0));
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) {
+      newGrid[j][3 - i] = grid[i][j];
+    }
+  }
+  grid = newGrid;
+}
+
+// 알파벳에 따라 달라진다.
+if (dir === "L") {
+  addTwoSameValueAndPush();
+} else if (dir === "R") {
+  rotateArr();
+  rotateArr();
+  addTwoSameValueAndPush();
+  rotateArr();
+  rotateArr();
+} else if (dir === "U") {
+  rotateArr();
+  rotateArr();
+  rotateArr();
+  addTwoSameValueAndPush();
+  rotateArr();
+} else if (dir === "D") {
+  rotateArr();
+  addTwoSameValueAndPush();
+  rotateArr();
+  rotateArr();
+  rotateArr();
+}
+
+// 출력
+grid.forEach((line) => console.log(...line));
