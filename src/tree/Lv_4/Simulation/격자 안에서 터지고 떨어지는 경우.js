@@ -213,3 +213,80 @@ if (dir === "L") {
 
 // 출력
 grid.forEach((line) => console.log(...line));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 십자 모양의 지속적 폭발 | O | 25.02.20 🔍
+ * - 특정 열을 선택하면, 해당 열에 숫자가 적혀있는 위치 중 가장 맨 윗칸을 중심으로 십자 모양으로 터짐
+ * - 터진 이후에는 중력에 의해 숫자들이 아래로 떨어짐.
+ */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M] = inputs[0].split(" ").map(Number);
+let grid = inputs
+  .slice(1, N + 1)
+  .map((line) => line.trim().split(" ").map(Number));
+const bombsCol = inputs.slice(N + 1).map((v) => Number(v) - 1);
+
+// 특정 열의 가장 맨 윗칸 (폭발이 일어나야하는 지점)을 찾는 함수
+function findBombSpot(col) {
+  let row = 0;
+
+  for (let i = 0; i < N; i++) {
+    if (grid[i][col] !== 0) {
+      row = i;
+      break;
+    }
+  }
+  return row;
+}
+
+// 폭발 후 중력이 작용(재배열)하는 함수
+function bombAndRearrange(bombColIdx) {
+  let bombRowIdx = findBombSpot(bombColIdx);
+
+  // 만약 폭발 지점이 0이면 건너뛴다.
+  if (grid[bombRowIdx][bombColIdx] === 0) return;
+
+  // 폭발 범위 -> 해당 칸에 적혀있는 숫자로 정해짐
+  let bombRange = grid[bombRowIdx][bombColIdx];
+  let dx = [0, 1, 0, -1];
+  let dy = [1, 0, -1, 0];
+
+  for (let k = 0; k < 4; k++) {
+    let x = bombRowIdx;
+    let y = bombColIdx;
+
+    grid[x][y] = 0;
+
+    for (let i = 1; i < bombRange; i++) {
+      x += dx[k];
+      y += dy[k];
+      if (0 <= x && x < N && 0 <= y && y < N) grid[x][y] = 0;
+    }
+  }
+
+  let newGrid = Array.from({ length: N }, () => Array(N).fill(0));
+  // 중력 작용 (재배열)
+  for (let j = 0; j < N; j++) {
+    // 컬럼별로 중력을 적용한다. 행이 계속 바뀌는 것.
+    let newGridRow = N - 1;
+
+    for (let i = N - 1; i >= 0; i--) {
+      if (grid[i][j] > 0) {
+        newGrid[newGridRow][j] = grid[i][j];
+        newGridRow--;
+      }
+    }
+  }
+  grid = newGrid;
+}
+
+// 폭발 및 재배열
+bombsCol.forEach((col) => bombAndRearrange(col));
+
+// 최종 출력
+grid.forEach((line) => console.log(...line));
