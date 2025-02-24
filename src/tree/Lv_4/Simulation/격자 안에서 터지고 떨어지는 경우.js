@@ -107,7 +107,7 @@ function explodeAll(bombs, M) {
     // bombs를 순회하면서 각 숫자들이 연속하는 개수를 카운트한다.
     bombs.forEach((num) => {
       if (stack.length > 0 && stack[stack.length - 1][0] === num) {
-        // stack이 비어있지 않고, stack의 맨 마지막에 있는 값이 현재 numr과 같다면
+        // stack이 비어있지 않고, stack의 맨 마지막에 있는 값이 현재 num과 같다면
         stack[stack.length - 1][1] += 1; // 연속 개수 증가
       } else {
         stack.push([num, 1]); // 새 숫자 추가
@@ -290,3 +290,8 @@ bombsCol.forEach((col) => bombAndRearrange(col));
 
 // 최종 출력
 grid.forEach((line) => console.log(...line));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️2차원 폭발 게임⭐️ | △ | 25.02.24 🔍
+ */
