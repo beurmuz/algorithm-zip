@@ -87,8 +87,7 @@ answer.forEach((line) => console.log(...line));
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️1차원 폭발 게임⭐️ | △ | 25.02.18 🔍
- * - [1, 1]만 남았을 때 어떻게 처리할 것인가?
+ * 🔍 ⭐️1차원 폭발 게임⭐️ | △ | 25.02.18, 02.26 🔍
  */
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
@@ -98,6 +97,7 @@ const inputs = require("fs")
 const [N, M] = inputs[0].split(" ").map(Number);
 let bombs = inputs.slice(1).map(Number);
 
+// ✅ 내가 푼 풀이
 // 폭발, 재배열이 반복되는 함수
 function explodeAll(bombs, M) {
   while (true) {
@@ -133,6 +133,58 @@ bombs = explodeAll(bombs, M);
 // 결과 출력
 console.log(bombs.length);
 if (bombs.length !== 0) bombs.forEach((v) => console.log(v));
+
+// ✅ 답안지 풀이
+const fs = require("fs");
+const input = fs.readFileSync(0).toString().trim().split("\n");
+
+// 입력 처리
+const [n, m] = input[0].split(" ").map(Number);
+let numbers = input.slice(1, n + 1).map(Number);
+
+// 주어진 시작점에 대하여 부분 수열의 끝 위치를 반환합니다.
+function getEndIdxOfExplosion(startIdx, currNum) {
+  for (let endIdx = startIdx + 1; endIdx < numbers.length; endIdx++) {
+    if (numbers[endIdx] !== currNum) {
+      return endIdx - 1;
+    }
+  }
+  return numbers.length - 1;
+}
+
+while (true) {
+  let didExplode = false;
+
+  for (let currIdx = 0; currIdx < numbers.length; currIdx++) {
+    let number = numbers[currIdx];
+    // 각 위치마다 그 뒤로 폭탄이 m개 이상 있는지 확인합니다.
+
+    // 이미 터지기로 예정되어있는 폭탄은 패스합니다.
+    if (number === 0) continue;
+    // currIdx로부터 연속하여 같은 숫자를 갖는 폭탄 중 가장 마지막 위치를 찾아 반환합니다.
+    let endIdx = getEndIdxOfExplosion(currIdx, number);
+
+    if (endIdx - currIdx + 1 >= m) {
+      // 연속한 숫자의 개수가 m개 이상인 경우 폭탄이 터졌음을 기록해줍니다.
+      // 터져야 할 폭탄들에 대해 터졌다는 의미로 0을 채워줍니다.
+      for (let i = currIdx; i <= endIdx; i++) {
+        numbers[i] = 0;
+      }
+      didExplode = true;
+    }
+  }
+
+  // 폭탄이 터진 이후의 결과를 계산하여 반영해줍니다.
+  numbers = numbers.filter((number) => number > 0);
+
+  // 더 이상 폭탄이 터지지 않는다면 종료합니다.
+  if (!didExplode) break;
+}
+
+console.log(numbers.length);
+numbers.forEach((number) => {
+  console.log(number);
+});
 
 // ----------------------------------------------------------------------
 /**
@@ -293,8 +345,10 @@ grid.forEach((line) => console.log(...line));
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️2차원 폭발 게임⭐️ | △ | 25.02.24 🔍
+ * 🔍 ⭐️2차원 폭발 게임⭐️ | △ | 25.02.24, 26 🔍
+ * - 예제는 다 맞지만 테 14번에서 틀림
  */
+// 처음에 직접 푼 풀이 - 14번 테케에서 실패
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
