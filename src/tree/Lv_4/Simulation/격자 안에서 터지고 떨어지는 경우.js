@@ -295,3 +295,87 @@ grid.forEach((line) => console.log(...line));
 /**
  * 🔍 ⭐️2차원 폭발 게임⭐️ | △ | 25.02.24 🔍
  */
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M, K] = inputs[0].split(" ").map(Number);
+let grid = inputs.slice(1).map((line) => line.trim().split(" ").map(Number));
+
+// 하나의 열에서 M개 이상의 같은 숫자가 적혀있는 폭탄들을 터뜨리는 함수
+function bomb() {
+  let newGrid = Array.from({ length: N }, () => Array(N).fill(0));
+
+  for (let col = 0; col < N; col++) {
+    let stack = []; // [num, num의 개수]
+
+    // 같은 수가 몇번씩 반복되는지를 stack에 기록한다.
+    for (let row = 0; row < N; row++) {
+      if (stack.length > 0 && stack[stack.length - 1][0] === grid[row][col]) {
+        stack[stack.length - 1][1] += 1;
+      } else {
+        stack.push([grid[row][col], 1]);
+      }
+    }
+
+    // newGrid의 col을 새로 업데이트한다. (같은 수가 M개 이상이면 그 수들은 0으로 바꿔준다.)
+    let nowRow = 0;
+    stack.forEach(([num, count]) => {
+      for (let cnt = 0; cnt < count; cnt++) {
+        if (count >= M) newGrid[nowRow][col] = 0;
+        else newGrid[nowRow][col] = num;
+        nowRow++;
+      }
+    });
+  }
+
+  // 중력 작용 후 grid에 반영
+  grid = fall(newGrid);
+}
+
+// 중력을 적용하는 함수
+function fall(arr) {
+  let newArr = Array.from({ length: N }, () => Array(N).fill(0));
+
+  for (let col = 0; col < N; col++) {
+    let nowRow = N - 1;
+    for (let row = N - 1; row >= 0; row--) {
+      if (arr[row][col] > 0) {
+        newArr[nowRow][col] = arr[row][col];
+        nowRow--;
+      }
+    }
+  }
+  return newArr;
+}
+
+// 시계방향으로 90도 회전하는 함수
+function rotate() {
+  let newGrid = Array.from({ length: N }, () => Array(N).fill(0));
+
+  for (let row = 0; row < N; row++) {
+    for (let col = 0; col < N; col++) {
+      newGrid[col][N - 1 - row] = grid[row][col];
+    }
+  }
+  grid = fall(newGrid);
+}
+
+// 총 K번 돈다.
+for (let k = 0; k < K; k++) {
+  bomb();
+  rotate();
+}
+bomb();
+
+// 최종적으로 남은 폭탄의 개수를 센다.
+let answer = 0;
+
+for (let i = 0; i < N; i++) {
+  for (let j = 0; j < N; j++) {
+    if (grid[i][j] > 0) answer += 1;
+  }
+}
+
+console.log(answer);
