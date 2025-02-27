@@ -88,7 +88,7 @@ answer.forEach((line) => console.log(...line));
 // ----------------------------------------------------------------------
 /**
  * 🔍 ⭐️1차원 폭발 게임⭐️ | △ | 25.02.18, 02.26-27 🔍
- * - 나는 stack을 이용해서 풀었으나, 실제 해설은 단순 for문만을 이용해 풀었다.
+ * - 나는 stack을 이용해서 푸는 것에 성공했으나, 실제 해설은 idx와 for문만을 이용해 풀었다.
  */
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
@@ -340,10 +340,9 @@ grid.forEach((line) => console.log(...line));
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️2차원 폭발 게임⭐️ | △ | 25.02.24, 26 🔍
+ * 🔍 ⭐️2차원 폭발 게임⭐️ | △ | 25.02.24, 02.27 🔍
  * - 예제는 다 맞지만 테 14번에서 틀림
  */
-// 처음에 직접 푼 풀이 - 14번 테케에서 실패
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -352,6 +351,7 @@ const inputs = require("fs")
 const [N, M, K] = inputs[0].split(" ").map(Number);
 let grid = inputs.slice(1).map((line) => line.trim().split(" ").map(Number));
 
+// ✅ 처음에 직접 푼 풀이 - 예제는 다 통과했으나, 14번 테케에서 실패
 // 하나의 열에서 M개 이상의 같은 숫자가 적혀있는 폭탄들을 터뜨리는 함수
 function bomb() {
   let newGrid = Array.from({ length: N }, () => Array(N).fill(0));
@@ -427,4 +427,98 @@ for (let i = 0; i < N; i++) {
   }
 }
 
+console.log(answer);
+
+// ✅ 해설지 풀이
+const BLANK = -1;
+
+const inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const [N, M, K] = inputs[0].split(" ").map(Number);
+let grid = inputs.slice(1).map((li) => li.trim().split(" ").map(Number));
+let line = Array(N).fill(0);
+
+function getEndIdx(startIdx, nowNum) {
+  for (let endIdx = startIdx + 1; endIdx < line.length; endIdx++) {
+    if (line[endIdx] !== nowNum) return endIdx - 1;
+  }
+  return line.length - 1;
+}
+
+// 폭발하는 함수
+function explode() {
+  while (true) {
+    let exploded = false;
+    let startIdx = 0;
+
+    while (startIdx < line.length) {
+      let endIdx = getEndIdx(startIdx, line[startIdx]);
+
+      if (endIdx - startIdx + 1 >= M) {
+        line.splice(startIdx, endIdx - startIdx + 1);
+        exploded = true;
+      } else {
+        startIdx = endIdx + 1;
+      }
+    }
+    if (!exploded) break;
+  }
+}
+
+// 특정 열을 1차원 배열에 복사하는 함수
+function copyCol(col) {
+  line = grid.map((row) => row[col]).filter((v) => v !== BLANK);
+}
+
+// 폭탄이 터진 결과를 격자의 해당하는 열에 복사하는 함수
+function copyResult(col) {
+  for (let row = N - 1; row >= 0; row--) {
+    grid[row][col] = line.length ? line.pop() : BLANK;
+  }
+}
+
+// 폭탄이 터지는 과정을 시뮬레이션한다.
+function simulate() {
+  for (let col = 0; col < N; col++) {
+    copyCol(col);
+    explode();
+    copyResult(col);
+  }
+}
+
+// 시계 방향으로 90도 회전하는 함수
+function rotate() {
+  let newGrid = Array.from({ length: N }, () => Array(N).fill(BLANK));
+
+  // 빈칸(-1이 아닌 경우 아래부터 채워준다.
+  for (let row = N - 1; row >= 0; row--) {
+    let nowRowIdx = N - 1;
+    for (let col = N - 1; col >= 0; col--) {
+      if (grid[row][col] !== BLANK) {
+        newGrid[nowRowIdx][N - row - 1] = grid[row][col]; // 회전 후 위치에 저장
+        nowRowIdx--;
+      }
+    }
+  }
+  grid = newGrid;
+}
+
+// 총 K번 폭탄이 터진다.
+simulate();
+for (let k = 0; k < K; k++) {
+  rotate();
+  simulate();
+}
+
+// 남아있는 폭탄의 개수를 센다.
+let answer = 0;
+
+for (let i = 0; i < N; i++) {
+  for (let j = 0; j < N; j++) {
+    if (grid[i][j] !== BLANK) answer++;
+  }
+}
 console.log(answer);
