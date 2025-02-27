@@ -87,7 +87,8 @@ answer.forEach((line) => console.log(...line));
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️1차원 폭발 게임⭐️ | △ | 25.02.18, 02.26 🔍
+ * 🔍 ⭐️1차원 폭발 게임⭐️ | △ | 25.02.18, 02.26-27 🔍
+ * - 나는 stack을 이용해서 풀었으나, 실제 해설은 단순 for문만을 이용해 풀었다.
  */
 const inputs = require("fs")
   .readFileSync("/dev/stdin")
@@ -134,57 +135,51 @@ bombs = explodeAll(bombs, M);
 console.log(bombs.length);
 if (bombs.length !== 0) bombs.forEach((v) => console.log(v));
 
-// ✅ 답안지 풀이
-const fs = require("fs");
-const input = fs.readFileSync(0).toString().trim().split("\n");
-
-// 입력 처리
-const [n, m] = input[0].split(" ").map(Number);
-let numbers = input.slice(1, n + 1).map(Number);
-
-// 주어진 시작점에 대하여 부분 수열의 끝 위치를 반환합니다.
-function getEndIdxOfExplosion(startIdx, currNum) {
-  for (let endIdx = startIdx + 1; endIdx < numbers.length; endIdx++) {
-    if (numbers[endIdx] !== currNum) {
-      return endIdx - 1;
-    }
+// ✅ 답안지 풀이 ---------------------------------------------------------
+// 주어진 시작점부터 같은 수를 가진 마지막 인덱스를 찾는 함수
+function getEndIdxSameNum(startIdx, num) {
+  for (let endIdx = startIdx + 1; endIdx < bombs.length; endIdx++) {
+    if (bombs[endIdx] !== num) return endIdx - 1;
   }
-  return numbers.length - 1;
+  return bombs.length - 1;
 }
 
-while (true) {
-  let didExplode = false;
+// 폭탄이 터지고 떨어지는 함수
+function bombAndFall() {
+  while (true) {
+    let exploded = false;
 
-  for (let currIdx = 0; currIdx < numbers.length; currIdx++) {
-    let number = numbers[currIdx];
-    // 각 위치마다 그 뒤로 폭탄이 m개 이상 있는지 확인합니다.
+    for (let startIdx = 0; startIdx < bombs.length; startIdx++) {
+      let num = bombs[startIdx];
 
-    // 이미 터지기로 예정되어있는 폭탄은 패스합니다.
-    if (number === 0) continue;
-    // currIdx로부터 연속하여 같은 숫자를 갖는 폭탄 중 가장 마지막 위치를 찾아 반환합니다.
-    let endIdx = getEndIdxOfExplosion(currIdx, number);
+      // 각 위치마다 그 뒤로 폭탄이 M개 이상 있는지 확인한다.
+      // 이미 터지기로 예정된 폭탄(0)은 패스한다.
+      if (num === 0) continue;
 
-    if (endIdx - currIdx + 1 >= m) {
-      // 연속한 숫자의 개수가 m개 이상인 경우 폭탄이 터졌음을 기록해줍니다.
-      // 터져야 할 폭탄들에 대해 터졌다는 의미로 0을 채워줍니다.
-      for (let i = currIdx; i <= endIdx; i++) {
-        numbers[i] = 0;
+      // startIdx로부터 연속하여 같은 숫자(num)을 갖는 폭탄 중 가장 마지막 위치를 찾는다.
+      let endIdx = getEndIdxSameNum(startIdx, num);
+
+      if (endIdx - startIdx + 1 >= M) {
+        // 연속한 숫자의 개수가 M개 이상인 경우, 폭탄이 터졌음을 0으로 표시한다.
+        for (let i = startIdx; i <= endIdx; i++) {
+          bombs[i] = 0;
+        }
+        exploded = true;
       }
-      didExplode = true;
     }
+
+    // 폭탄이 터진 이후의 결과를 계산하여 반영한다.
+    bombs = bombs.filter((num) => num > 0);
+
+    // 더이상 폭탄이 터지지 않으면 종료
+    if (!exploded) break;
   }
-
-  // 폭탄이 터진 이후의 결과를 계산하여 반영해줍니다.
-  numbers = numbers.filter((number) => number > 0);
-
-  // 더 이상 폭탄이 터지지 않는다면 종료합니다.
-  if (!didExplode) break;
 }
 
-console.log(numbers.length);
-numbers.forEach((number) => {
-  console.log(number);
-});
+// 결과 출력
+bombAndFall();
+console.log(bombs.length);
+if (bombs.length !== 0) bombs.forEach((v) => console.log(v));
 
 // ----------------------------------------------------------------------
 /**
