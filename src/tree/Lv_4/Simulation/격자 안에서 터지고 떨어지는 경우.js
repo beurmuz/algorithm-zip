@@ -340,7 +340,7 @@ grid.forEach((line) => console.log(...line));
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️2차원 폭발 게임⭐️ | △ | 25.02.24, 02.27 🔍
+ * 🔍 ⭐️2차원 폭발 게임⭐️ | △ | 25.02.24, 02.27-28 🔍
  * - 예제는 다 맞지만 테 14번에서 틀림
  */
 const inputs = require("fs")
@@ -441,15 +441,18 @@ const [N, M, K] = inputs[0].split(" ").map(Number);
 let grid = inputs.slice(1).map((li) => li.trim().split(" ").map(Number));
 let line = Array(N).fill(0);
 
+// startIdx부터 연속된 같은 숫자의 끝 (endIdx)를 찾는 함수
 function getEndIdx(startIdx, nowNum) {
   for (let endIdx = startIdx + 1; endIdx < line.length; endIdx++) {
     if (line[endIdx] !== nowNum) return endIdx - 1;
   }
+  // startIdx부터 시작한 숫자가 끝까지 유지되면 line.length-1 반환
   return line.length - 1;
 }
 
-// 폭발하는 함수
+// 1차원 배열 line에서 M개 이상 연속된 숫자를 폭발하는 함수
 function explode() {
+  // 더이상 폭발할 게 없을 때까지 반복한다.
   while (true) {
     let exploded = false;
     let startIdx = 0;
@@ -458,34 +461,42 @@ function explode() {
       let endIdx = getEndIdx(startIdx, line[startIdx]);
 
       if (endIdx - startIdx + 1 >= M) {
+        // 연속된 숫자들을 splice로 삭제한다.
         line.splice(startIdx, endIdx - startIdx + 1);
         exploded = true;
       } else {
         startIdx = endIdx + 1;
       }
     }
+    // 폭발하지 않았으므로 (= 더이상 폭발할 게 없음) 반복문을 종료한다.
     if (!exploded) break;
   }
 }
 
-// 특정 열을 1차원 배열에 복사하는 함수
+// 특정 열을 1차원 배열로 변환(복사)하는 함수
 function copyCol(col) {
+  // grid의 특정 열(col)을 1차원 배열 line으로 변환한다.
+  // -1을 제외하고 가져온다.
   line = grid.map((row) => row[col]).filter((v) => v !== BLANK);
 }
 
-// 폭탄이 터진 결과를 격자의 해당하는 열에 복사하는 함수
+// 폭탄이 터진 후, 중력을 적용해 격자의 해당하는 열에 복사하는 함수
 function copyResult(col) {
   for (let row = N - 1; row >= 0; row--) {
+    // 남아있는 숫자들을 맨 아래부터 채운다.
+    // line.pop()으로 위의 숫자가 아래로 떨어지는 효과를 구현한다.
+    // 다 채운 후 남으면 -1로 채운다.
     grid[row][col] = line.length ? line.pop() : BLANK;
   }
 }
 
 // 폭탄이 터지는 과정을 시뮬레이션한다.
 function simulate() {
+  // col별로 진행한다.
   for (let col = 0; col < N; col++) {
-    copyCol(col);
-    explode();
-    copyResult(col);
+    copyCol(col); // 특정 열을 가져와서
+    explode(); // 폭발하고
+    copyResult(col); // 중력을 적용
   }
 }
 
@@ -499,7 +510,7 @@ function rotate() {
     for (let col = N - 1; col >= 0; col--) {
       if (grid[row][col] !== BLANK) {
         newGrid[nowRowIdx][N - row - 1] = grid[row][col]; // 회전 후 위치에 저장
-        nowRowIdx--;
+        nowRowIdx--; // 회전 후 숫자가 떨어지도록 중력 적용
       }
     }
   }
