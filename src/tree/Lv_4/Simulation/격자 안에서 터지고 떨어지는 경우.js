@@ -533,3 +533,89 @@ for (let i = 0; i < N; i++) {
   }
 }
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️최적의 십자 모양 폭발⭐️ | O | 25.03.04 🔍
+ * - 맞았지만 다시 한번 더 풀기!
+ *
+ * - 처음에 tmpGrid = grid를 해줘서 틀렸었다. (✅ 얕은 복사)
+ * - tmpGrid = grid.map((row) => [...row]);로 깊은 복사를 해주어 해결!
+ */
+const fs = require("fs");
+const input = fs.readFileSync(0).toString().trim().split("\n");
+
+const n = Number(input[0]);
+let grid = input
+  .slice(1, n + 1)
+  .map((line) => line.trim().split(" ").map(Number));
+
+// 특정 숫자 범위만큼 십자모양으로 폭탄이 터지는 함수
+function bombHori(x, y) {
+  let dx = [0, 1, 0, -1];
+  let dy = [1, 0, -1, 0];
+  let ranges = tmpGrid[x][y];
+  tmpGrid[x][y] = 0;
+
+  for (let k = 0; k < 4; k++) {
+    let nx = x;
+    let ny = y;
+
+    for (let range = 1; range < ranges; range++) {
+      nx += dx[k];
+      ny += dy[k];
+
+      if (0 <= nx && nx < n && 0 <= ny && ny < n) tmpGrid[nx][ny] = 0;
+    }
+  }
+}
+
+// 모든 원소들을 아래로 미는 함수
+function pushUnder() {
+  let newGrid = Array.from({ length: n }, () => Array(n).fill(0));
+
+  for (let col = 0; col < n; col++) {
+    let nowRow = n - 1;
+    for (let row = n - 1; row >= 0; row--) {
+      if (tmpGrid[row][col] > 0) {
+        newGrid[nowRow][col] = tmpGrid[row][col];
+        nowRow--;
+      }
+    }
+  }
+  tmpGrid = newGrid;
+}
+
+// 인접한 쌍 수를 찾는 함수
+function findSameNums() {
+  let count = 0;
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (tmpGrid[i][j] > 0) {
+        // 아래
+        if (j < n - 1 && tmpGrid[i][j] === tmpGrid[i][j + 1]) count += 1;
+        // 옆
+        if (i < n - 1 && tmpGrid[i][j] === tmpGrid[i + 1][j]) count += 1;
+      }
+    }
+  }
+  return count;
+}
+
+function simulate(x, y) {
+  bombHori(x, y);
+  pushUnder();
+  let nowCount = findSameNums();
+  answer = Math.max(answer, nowCount);
+}
+
+let answer = 0;
+let tmpGrid; // ✅ 선언만 하고
+for (let x = 0; x < n; x++) {
+  for (let y = 0; y < n; y++) {
+    tmpGrid = grid.map((row) => [...row]); // ✅ 깊은 복사 적용
+    simulate(x, y);
+  }
+}
+
+console.log(answer);
