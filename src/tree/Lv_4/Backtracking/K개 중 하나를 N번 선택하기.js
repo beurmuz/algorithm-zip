@@ -79,8 +79,8 @@ console.log(answer);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 ⭐️강력한 폭발⭐️ | O | 25.03.07 🔍
- * - 조금 오래 걸리긴 했지만 정답! (오래 걸렸으니 한번 더 풀어보기)
+ * 🔍 ⭐️강력한 폭발⭐️ | O | 25.03.06 🔍
+ * - 시간이 좀 걸리긴 했지만 정답! (오래 걸렸으니 한번 더 풀어보기)
  */
 const fs = require("fs");
 const input = fs.readFileSync(0).toString().trim().split("\n");
@@ -191,6 +191,70 @@ function recursive(idx) {
     combi.pop();
   }
   return;
+}
+
+recursive(0);
+console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️겹치지 않게 선분 고르기⭐️ | X | 25.03.07 🔍
+ * - 재귀함수를 어떻게 돌아야 할지 생각해내지 못해 못풀었다.
+ * - ✅ 꿀팁은 해당 선분을 '포함할지 말지'를 정하는 것에 있다.
+ */
+const fs = require("fs");
+const input = fs.readFileSync(0).toString().trim().split("\n");
+const n = Number(input[0]);
+const segments = input
+  .slice(1, 1 + n)
+  .map((line) => line.split(" ").map(Number));
+
+let answer = 0;
+let selected = [];
+
+// 선분들이 겹치는지 확인하는 함수
+function overlap(a, b) {
+  let [ax1, ax2] = a;
+  let [bx1, bx2] = b;
+
+  // bx1 또는 bx2가, ax1과 ax2 사이에 있거나
+  // ax1 또는 ax2가, bx1과 bx2 사이에 있거나
+  return (
+    (ax1 <= bx1 && bx1 <= ax2) ||
+    (ax1 <= bx2 && bx2 <= ax2) ||
+    (bx1 <= ax1 && ax1 <= bx2) ||
+    (bx1 <= ax2 && ax2 <= bx2)
+  );
+}
+
+// 해당 조합이 가능한지 확인하는 함수
+function possible() {
+  // 단 한쌍이라도 겹쳐서는 안된다.
+  for (let line1 = 0; line1 < selected.length; line1++) {
+    for (let line2 = line1 + 1; line2 < selected.length; line2++) {
+      if (overlap(selected[line1], selected[line2])) return false;
+    }
+  }
+  return true;
+}
+
+function recursive(count) {
+  // 종료 조건
+  if (count === n) {
+    // console.log(selected);
+    if (possible()) answer = Math.max(answer, selected.length);
+    return;
+  }
+
+  // 재귀 호출
+  // 1. ✅ 현재 선분을 포함하고 넘어가거나
+  selected.push(segments[count]);
+  // selected.push(count);
+  recursive(count + 1);
+  selected.pop();
+
+  // 2. ✅ 현재 선분을 포함하지 않고 넘어가거나
+  recursive(count + 1);
 }
 
 recursive(0);
