@@ -259,3 +259,70 @@ function recursive(count) {
 
 recursive(0);
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️사다리 타기⭐️ | △ | 25.03.11 🔍
+ * - 'if (idx >= newLines.length) return; // 모든 가로줄 탐색 완료' 이 부분을 recursive 함수 맨 앞에서 진행해서 답을 찾는데 오래걸렸다. 맞는지 검사를 하고 종료해야 함
+ * - 다시한번 더 풀어보기
+ */
+const fs = require("fs");
+const input = fs.readFileSync(0).toString().trim().split("\n");
+
+const [n, m] = input[0].split(" ").map(Number);
+const lines = input.slice(1, 1 + m).map((line) => line.split(" ").map(Number));
+lines.sort((a, b) => a[1] - b[1]);
+
+// newLines는 [s, e, grade]로 이루어져있다.
+const newLines = lines.map(([s, g]) => {
+  return [s, s + 1];
+});
+
+// 필요한 변수 선언
+let answer = m;
+let pickLines = []; // 선택된 가로줄들을 저장
+let originPos = Array.from({ length: n + 1 }, () => 0); // 기존 최종 정답
+let nowPos = Array.from({ length: n + 1 }, () => 0); // 현재 최종 정답
+
+// 교점을 만날때마다 90도씩 회전하여 각 번호의 최종 위치를 구하는 함수
+function whereLocation(poses, arr) {
+  if (!poses) return;
+
+  for (let person = 1; person <= n; person++) {
+    // pNow: person의 현재 위치
+    let pNow = person;
+
+    poses.forEach(([s, e]) => {
+      if (pNow === s) pNow = e;
+      else if (pNow === e) pNow = s;
+    });
+    arr[person] = pNow;
+  }
+}
+// 처음 상황에서의 결과를 미리 구해놓는다.
+whereLocation(newLines, originPos);
+
+// 사용할 가로줄을 선택하는 함수
+function recursive(idx) {
+  if (pickLines.length >= answer) return;
+  whereLocation(pickLines, nowPos);
+
+  // 종료 조건
+  if (originPos.join() === nowPos.join()) {
+    answer = Math.min(answer, pickLines.length);
+    return;
+  }
+
+  if (idx >= newLines.length) return; // 모든 가로줄 탐색 완료
+
+  // 재귀 호출
+  pickLines.push(newLines[idx]);
+  recursive(idx + 1);
+
+  pickLines.pop();
+  recursive(idx + 1);
+  return;
+}
+recursive(0);
+
+console.log(answer === Number.MAX_SAFE_INTEGER ? 0 : answer);
