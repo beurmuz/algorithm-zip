@@ -74,3 +74,55 @@ function dfs(x, y) {
 dfs(0, 0);
 
 console.log(visited[n - 1][m - 1]);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 마을 구분하기 | O | 25.03.14 🔍
+ */
+const fs = require("fs");
+const input = fs.readFileSync(0).toString().trim().split("\n");
+
+const n = Number(input[0]);
+const grid = input.slice(1, n + 1).map((line) => line.split(" ").map(Number));
+const visited = Array.from({ length: n }, () => Array(n).fill(0));
+
+let peopleList = [];
+
+function dfs(x, y) {
+  const dx = [-1, 1, 0, 0];
+  const dy = [0, 0, -1, 1];
+
+  for (let k = 0; k < 4; k++) {
+    let nx = x + dx[k];
+    let ny = y + dy[k];
+
+    if (
+      0 <= nx &&
+      nx < n &&
+      0 <= ny &&
+      ny < n &&
+      !visited[nx][ny] &&
+      grid[nx][ny] === 1
+    ) {
+      visited[nx][ny] = 1;
+      count += 1;
+      dfs(nx, ny);
+    }
+  }
+  return;
+}
+
+let count = 0;
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    if (grid[i][j] === 1 && !visited[i][j]) {
+      count = 1;
+      visited[i][j] = 1;
+      dfs(i, j);
+      peopleList.push(count);
+    }
+  }
+}
+
+console.log(peopleList.length);
+peopleList.sort((a, b) => a - b).forEach((v) => console.log(v));
