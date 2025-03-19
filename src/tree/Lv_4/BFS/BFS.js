@@ -140,21 +140,21 @@ function bfs(x, y) {
   let queue = [[x, y]];
   visited[x][y] = 1;
 
-  // 최댓값과 최대값의 위치를 기록한다. 
+  // 최댓값과 최대값의 위치를 기록한다.
   let maxVal = -1;
   let maxPos = [-1, -1];
 
   while (queue.length) {
     // 현재 위치를 뽑아준 후
-    const [cx, cy] = queue.slicehift();
+    const [cx, cy] = queue.shift();
 
     // 현재 위치와 인접한 4방향을 탐색한다.
     for (const [dx, dy] of directions) {
-        const nx = cx + dx;
-        const ny = cy + dy;
-    }
+      let nx = cx + dx;
+      let ny = cy + dy;
 
-      if (inRange(nx, ny) && !visited[nx][ny] && grid[nx][ny] < grid[x][y]) { // 시작점에 있는 값보다 작은 값일때만 OK
+      if (inRange(nx, ny) && !visited[nx][ny] && grid[nx][ny] < grid[x][y]) {
+        // 시작점에 있는 값보다 작은 값일때만 OK
         visited[nx][ny] = 1;
         queue.push([nx, ny]);
 
@@ -180,9 +180,9 @@ let currentPos = [r, c];
 for (let move = 0; move < k; move++) {
   const nextPos = bfs(currentPos[0], currentPos[1]);
 
-  // 
+  // nextPos가 없다면 바로 종료한다.
   if (!nextPos) {
-    console.log(currentPos[0] + 1, currentPos[1] + 1); // 1부터 시작으로 출력
+    console.log(currentPos[0] + 1, currentPos[1] + 1);
     process.exit();
   }
 
