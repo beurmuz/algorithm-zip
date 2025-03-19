@@ -103,3 +103,91 @@ for (let i = 0; i < n; i++) {
 }
 
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 ⭐️K번 최댓값으로 이동하기⭐️ | X | 25.03.19 🔍
+ * - 이해하지 못했다!
+ */
+const fs = require("fs");
+const input = fs.readFileSync(0).toString().trim().split("\n");
+
+const [n, k] = input[0].split(" ").map(Number);
+const grid = input.slice(1, 1 + n).map((line) => line.split(" ").map(Number));
+let [r, c] = input[1 + n].split(" ").map(Number);
+// 배열 인덱스는 0부터 시작하므로 r-1, c-1해주기
+r--;
+c--;
+
+const visited = Array.from({ length: n }, () => Array(n).fill(0));
+// 상하좌우
+const directions = [
+  [-1, 0],
+  [1, 0],
+  [0, -1],
+  [0, 1],
+];
+
+function inRange(x, y) {
+  return 0 <= x && x < n && 0 <= y && y < n;
+}
+
+function bfs(x, y) {
+  // visited 배열 초기화
+  for (let i = 0; i < n; i++) visited[i].fill(0);
+
+  // queue에 시작점을 추가한 후, 방문 표시
+  let queue = [[x, y]];
+  visited[x][y] = 1;
+
+  // 최댓값과 최대값의 위치를 기록한다. 
+  let maxVal = -1;
+  let maxPos = [-1, -1];
+
+  while (queue.length) {
+    // 현재 위치를 뽑아준 후
+    const [cx, cy] = queue.slicehift();
+
+    // 현재 위치와 인접한 4방향을 탐색한다.
+    for (const [dx, dy] of directions) {
+        const nx = cx + dx;
+        const ny = cy + dy;
+    }
+
+      if (inRange(nx, ny) && !visited[nx][ny] && grid[nx][ny] < grid[x][y]) { // 시작점에 있는 값보다 작은 값일때만 OK
+        visited[nx][ny] = 1;
+        queue.push([nx, ny]);
+
+        // 최대값 찾기
+        // - grid[nx][ny]가 최댓값보다 크거나, 최댓값과 같고 행이 더 작거나 열이 더 작은 경우, 최댓값에 대한 정보를 갱신한다.
+        if (
+          grid[nx][ny] > maxVal ||
+          (grid[nx][ny] === maxVal &&
+            (nx < maxPos[0] || (nx === maxPos[0] && ny < maxPos[1])))
+        ) {
+          maxVal = grid[nx][ny];
+          maxPos = [nx, ny];
+        }
+      }
+    }
+  }
+  return maxVal === -1 ? null : maxPos;
+}
+
+// 현재 위치
+let currentPos = [r, c];
+
+for (let move = 0; move < k; move++) {
+  const nextPos = bfs(currentPos[0], currentPos[1]);
+
+  // 
+  if (!nextPos) {
+    console.log(currentPos[0] + 1, currentPos[1] + 1); // 1부터 시작으로 출력
+    process.exit();
+  }
+
+  currentPos = nextPos;
+}
+
+// k번 이동을 모두 수행한 후에도 출력
+console.log(currentPos[0] + 1, currentPos[1] + 1);
