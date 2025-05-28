@@ -169,3 +169,18 @@ str2.split("").forEach((v) => {
 });
 
 console.log(Number(num1.join("")) + Number(num2.join("")));
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 합을 옆으로 밀어 출력 | O | 25.05.28
+ * - (elem >= '0' && elem <= '9')
+ */
+let [N, ...inputs] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n")
+  .map(Number);
+let result = String(inputs.reduce((acc, v) => acc + v, 0));
+let answer = result.slice(1) + result[0];
+console.log(answer);
