@@ -146,3 +146,26 @@ directions.split("").forEach((dir) => {
 });
 
 console.log(str);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 알파벳 지우기 | O | 25.05.28
+ * - (elem >= '0' && elem <= '9')
+ */
+let [str1, str2] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+let num1 = [];
+let num2 = [];
+
+str1.split("").forEach((v) => {
+  if (Number(v) >= 0) num1.push(v);
+});
+
+str2.split("").forEach((v) => {
+  if (Number(v) >= 0) num2.push(v);
+});
+
+console.log(Number(num1.join("")) + Number(num2.join("")));
