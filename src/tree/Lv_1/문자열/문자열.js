@@ -99,3 +99,28 @@ let answer = str
   .join("");
 
 console.log(answer);
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 문자열 한 칸씩 밀어내며 뒤집기 | O | 25.05.28
+ */
+let inputs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+let [str, Q] = inputs[0].split(" ");
+Q = Number(Q);
+
+for (let i = 1; i < inputs.length; i++) {
+  let newStr = [];
+  if (Number(inputs[i]) === 1) {
+    newStr = [...str.slice(1), str[0]].join("");
+  } else if (Number(inputs[i]) === 2) {
+    newStr = [str[str.length - 1], str.slice(0, str.length - 1)].join("");
+  } else if (Number(inputs[i]) === 3) {
+    newStr = str.split("").reverse().join("");
+  }
+  console.log(newStr);
+  str = newStr;
+}
