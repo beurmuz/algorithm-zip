@@ -79,3 +79,23 @@ questions.forEach((line) => {
     console.log(changeChar(x, y));
   }
 });
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 두 번째를 첫 번째로 | O | 25.05.28
+ */
+let str = require("fs").readFileSync("/dev/stdin").toString().trim();
+let secondV = str[1];
+let firstV = str[0];
+
+let answer = str
+  .split("")
+  .map((c) => {
+    if (c === secondV) {
+      return firstV;
+    }
+    return c;
+  })
+  .join("");
+
+console.log(answer);
