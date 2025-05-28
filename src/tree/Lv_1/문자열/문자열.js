@@ -124,3 +124,25 @@ for (let i = 1; i < inputs.length; i++) {
   console.log(newStr);
   str = newStr;
 }
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 규칙에 따라 밀기 | O | 25.05.28
+ */
+let [str, directions] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+
+directions.split("").forEach((dir) => {
+  let newStr = "";
+  if (dir === "L") {
+    newStr = str.slice(1) + str[0];
+  } else if (dir === "R") {
+    newStr = str[str.length - 1] + str.slice(0, str.length - 1);
+  }
+  str = newStr;
+});
+
+console.log(str);
