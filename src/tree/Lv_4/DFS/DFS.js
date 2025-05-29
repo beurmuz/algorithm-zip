@@ -38,7 +38,7 @@ console.log(visited.reduce((acc, v) => acc + v, 0) - 1);
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 두 방향 탈출 가능 여부 판별하기 | O | 25.03.14 🔍
+ * 🔍 두 방향 탈출 가능 여부 판별하기 | O | 25.03.14, 25.05.29 🔍
  */
 const fs = require("fs");
 const input = fs.readFileSync(0).toString().trim().split("\n");
@@ -126,6 +126,59 @@ for (let i = 0; i < n; i++) {
 
 console.log(peopleList.length);
 peopleList.sort((a, b) => a - b).forEach((v) => console.log(v));
+
+// 다시 또 풀었엉 25.05.29
+const fs = require("fs");
+const input = fs.readFileSync(0).toString().trim().split("\n");
+
+const n = Number(input[0]);
+const grid = input.slice(1, n + 1).map((line) => line.split(" ").map(Number));
+
+// Please Write your code here.
+const visited = Array.from({ length: n }, () => Array(n).fill(0));
+
+let peopleList = [];
+
+function inRange(x, y) {
+  return 0 <= x && x < n && 0 <= y && y < n;
+}
+
+function canGo(x, y) {
+  if (!inRange(x, y)) return false;
+  if (grid[x][y] === 0 || visited[x][y]) return false;
+  return true;
+}
+
+function dfs(x, y) {
+  const dx = [-1, 1, 0, 0];
+  const dy = [0, 0, -1, 1];
+
+  for (let k = 0; k < 4; k++) {
+    let nx = x + dx[k];
+    let ny = y + dy[k];
+
+    if (canGo(nx, ny)) {
+      visited[nx][ny] = 1;
+      people += 1;
+      dfs(nx, ny);
+    }
+  }
+}
+
+let people = 0;
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    if (grid[i][j] === 1 && !visited[i][j]) {
+      people = 1;
+      visited[i][j] = 1;
+      dfs(i, j);
+      peopleList.push(people);
+    }
+  }
+}
+
+console.log(peopleList.length);
+console.log(peopleList.sort((a, b) => a - b).join("\n"));
 
 // ----------------------------------------------------------------------
 /**
