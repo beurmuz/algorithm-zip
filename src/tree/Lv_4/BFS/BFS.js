@@ -48,7 +48,7 @@ console.log(visited[n - 1][m - 1] ? 1 : 0); // 도착지점에 방문했는지�
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 갈 수 있는 곳들 | O | 25.03.18 🔍
+ * 🔍 갈 수 있는 곳들 | O | 25.03.18, 25.05.29 🔍
  */
 const fs = require("fs");
 const input = fs.readFileSync(0).toString().trim().split("\n");
@@ -104,10 +104,65 @@ for (let i = 0; i < n; i++) {
 
 console.log(answer);
 
+// 다시 풀어봤다 25.05.29
+const fs = require("fs");
+const input = fs.readFileSync(0).toString().trim().split("\n");
+
+const [n, k] = input[0].split(" ").map(Number);
+const grid = input.slice(1, n + 1).map((line) => line.split(" ").map(Number));
+const startPoints = input
+  .slice(n + 1)
+  .map((line) => line.split(" ").map(Number));
+
+// Please Write your code here.
+const visited = Array.from({ length: n }, () => Array(n).fill(0));
+const dx = [1, -1, 0, 0];
+const dy = [0, 0, -1, 1];
+
+let queue = [];
+function bfs() {
+  while (queue.length > 0) {
+    let [x, y] = queue.shift();
+
+    for (let k = 0; k < 4; k++) {
+      let nx = x + dx[k];
+      let ny = y + dy[k];
+
+      if (
+        0 <= nx &&
+        nx < n &&
+        0 <= ny &&
+        ny < n &&
+        !visited[nx][ny] &&
+        grid[nx][ny] === 0
+      ) {
+        visited[nx][ny] = 1;
+        queue.push([nx, ny]);
+      }
+    }
+  }
+}
+
+startPoints.forEach(([x, y]) => {
+  visited[x - 1][y - 1] = 1;
+  queue.push([x - 1, y - 1]);
+});
+bfs();
+
+// 방문한 곳 count
+let answer = 0;
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    if (visited[i][j]) answer++;
+  }
+}
+
+conosle.log(answer);
+
 // ----------------------------------------------------------------------
 /**
  * 🔍 ⭐️K번 최댓값으로 이동하기⭐️ | X | 25.03.19 🔍
- * - 이해하지 못했다! 
+ * - 이해하지 못했다!
  */
 const fs = require("fs");
 const input = fs.readFileSync(0).toString().trim().split("\n");
