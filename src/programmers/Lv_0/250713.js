@@ -228,3 +228,79 @@ function solution(s) {
   }
   return answer;
 }
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 조건 문자열 | O | 27.07.13 🔍
+ */
+function solution(ineq, eq, n, m) {
+  let answer = 1;
+  let op = ineq + eq;
+
+  switch (op) {
+    case "<=":
+      if (n <= m) answer = 1;
+      else answer = 0;
+      break;
+
+    case "<!":
+      if (n < m) answer = 1;
+      else answer = 0;
+      break;
+
+    case ">=":
+      if (n >= m) answer = 1;
+      else answer = 0;
+      break;
+
+    case ">!":
+      if (n > m) answer = 1;
+      else answer = 0;
+      break;
+  }
+  return answer;
+}
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 영어가 싫어요 | O | 27.07.13 🔍
+ */
+function solution(numbers) {
+  let english = [
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+  ];
+
+  let englishMap = new Map();
+  english.forEach((num, i) => englishMap.set(num, i));
+
+  english.forEach((num) => {
+    while (numbers.indexOf(num) !== -1) {
+      // numbers에 있는 모든 num을 변환
+      let start = numbers.indexOf(num);
+      let end = start + num.length;
+
+      numbers =
+        numbers.slice(0, start) + englishMap.get(num) + numbers.slice(end);
+    }
+  });
+  return numbers * 1;
+}
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 문자열 겹쳐쓰기 | △ | 27.07.13 🔍
+ */
+function solution(my_string, overwrite_string, s) {
+  const front = my_string.slice(0, s);
+  const back = my_string.slice(s + overwrite_string.length); // overwrite_string 이후의 남은 문자열들
+  return front + overwrite_string + back;
+}
