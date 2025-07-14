@@ -231,3 +231,42 @@ function solution(lines) {
   });
   return answer;
 }
+
+// ----------------------------------------------------------------------
+/**
+ * 🔍 평행 | △ | 27.07.14 🔍
+ * - 기울기를 구하는 2가지 방법
+ *   1. (y2-y1) / (x2-x1) === (y4-y3) / (x4-x3)
+ *   2. (y4-y3) * (x2-x1) === (y2-y1) * (x4-x3)  (사실 2번은 1번을 변형한 것 뿐.)
+ */
+function solution(dots) {
+  const pairs = [
+    [0, 1, 2, 3],
+    [0, 2, 1, 3],
+    [0, 3, 1, 2],
+  ];
+
+  const getSlopeCompare = ([x1, y1], [x2, y2], [x3, y3], [x4, y4]) => {
+    return (y2 - y1) * (x4 - x3) === (y4 - y3) * (x2 - x1);
+  };
+
+  for (let [a, b, c, d] of pairs) {
+    if (getSlopeCompare(dots[a], dots[b], dots[c], dots[d])) return 1;
+  }
+  return 0;
+}
+
+// 또 다른 풀이
+function solution(dots) {
+  if (calculateSlope(dots[0], dots[1]) === calculateSlope(dots[2], dots[3]))
+    return 1;
+  if (calculateSlope(dots[0], dots[2]) === calculateSlope(dots[1], dots[3]))
+    return 1;
+  if (calculateSlope(dots[0], dots[3]) === calculateSlope(dots[1], dots[2]))
+    return 1;
+  return 0;
+}
+
+function calculateSlope(arr1, arr2) {
+  return (arr2[1] - arr1[1]) / (arr2[0] - arr1[0]);
+}
