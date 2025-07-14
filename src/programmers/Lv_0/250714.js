@@ -133,43 +133,6 @@ function solution(quiz) {
 
 // ----------------------------------------------------------------------
 /**
- * 🔍 OX 퀴즈 | O | 27.07.14 🔍
- */
-function solution(board) {
-  let answer = 0;
-
-  let n = board.length;
-  let dx = [-1, -1, 0, 1, 1, 1, 0, -1];
-  let dy = [0, 1, 1, 1, 0, -1, -1, -1];
-
-  let visited = board.slice();
-
-  function checked(x, y) {
-    for (let k = 0; k < 8; k++) {
-      let nx = x + dx[k];
-      let ny = y + dy[k];
-
-      if (0 <= nx && nx < n && 0 <= ny && ny < n) visited[nx][ny] = 1;
-    }
-  }
-
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n; j++) {
-      if (board[i][j] === 1) checked(i, j);
-    }
-  }
-
-  visited.forEach((line) => {
-    line.forEach((v) => {
-      if (v === 0) answer++;
-    });
-  });
-
-  return answer;
-}
-
-// ----------------------------------------------------------------------
-/**
  * 🔍 안전지대 | O, 약간의 △ | 27.07.14 🔍
  */
 function solution(board) {
