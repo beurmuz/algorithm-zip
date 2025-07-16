@@ -41,3 +41,34 @@ const solution = (x, y, n) => {
 
   return answer;
 };
+
+// 🔎 25.07.16 복습
+function solution(x, y, n) {
+  let answer = -1;
+
+  const bfs = () => {
+    const visited = Array.from({ length: y + 1 }, () => 0);
+    let queue = [[x, 0]]; // [x(현재값), count]
+    let queueIdx = 0;
+
+    while (queueIdx !== queue.length) {
+      let [now, count] = queue[queueIdx];
+
+      if (now === y) {
+        answer = count;
+        return;
+      }
+
+      for (let next of [now + n, now * 2, now * 3]) {
+        if (visited[next] === 0 && next <= y) {
+          queue.push([next, count + 1]);
+          visited[next] = 1;
+        }
+      }
+      queueIdx++;
+    }
+  };
+  bfs();
+
+  return answer;
+}
