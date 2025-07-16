@@ -82,3 +82,4 @@
 | 78  | [붕대 감기](./band.js)                            | 24.01.15 |  △   |
 | 79  | [가장 많이 받은 선물](./takeGiftsNums.js)         | 24.01.15 |  O   |
 | 80  | [유연근무제](./flexibleWorking.js)                | 25.07.15 |  O   |
+| 81  | [택배 상자 꺼내기](./popTheDeliveryBox.js)        | 25.07.15 |  △   |
