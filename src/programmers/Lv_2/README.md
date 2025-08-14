@@ -105,4 +105,4 @@
 | 101 | [테이블 해시 함수](./tableHash.js)               | 24.03.08 |     X     |           [24.03.12](./tableHash.js)           |
 | 102 | [PCCP 기출문제- 석유 시추](./oilDrilling.js)     | 25.07.16 |     △     |
 | 103 | [미로 탈출](./escapeMiro.js)                     | 25.08.12 |     △     |
-| 104 | [더 맵게](./moreSpicy.js)                        | 25.08.13 |     △     |
+| 104 | [더 맵게](./moreSpicy.js)                        | 25.08.13 |     △     |       [25.08.14](./replay/moreSpicy.js)        |

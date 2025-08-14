@@ -49,6 +49,7 @@ class MinHeap {
     return this.heap;
   }
 
+  // 삽입 시 위로 끌어올리기 (말단 -> 위로 이동)
   bubbleUp() {
     let child = this.size() - 1;
     let parent = this.getParentIdx(child);
@@ -61,6 +62,7 @@ class MinHeap {
     }
   }
 
+  // 삭제 시 아래로 내리기 (루트 -> 아래로 이동)
   bubbleDown() {
     let parent = 0; // root
     let leftChild = this.getLeftChildIdx(parent);
